@@ -1,0 +1,53 @@
+<html>
+    <style>
+        #canvas {
+            border: solid black 5px;
+            width: 800px;
+            height: 600px
+        }
+    </style>
+    <canvas id="canvas" width="1920", height="1080"></canvas>
+    <button onclick="acelerate(1)">Acelerar (+1m/s^2)</button>
+</html>
+<script>
+    const c = document.getElementById("canvas")
+    const pen = c.getContext("2d")
+    const img = new Image()
+    let v = 0
+    let a = 0
+    let airdensity = 1.5
+    let csArea = 2.2
+    let drag = 0.25
+    let objMass = 2000
+    img.src = "assets/car.png"
+    img.addEventListener("load", () => {
+        pen.drawImage(img, 200, 800)
+    })
+    pen.font = "60px Arial"
+    function createCircle(x, y, r, color, mode) {
+        pen.fillStyle = color
+        pen.beginPath()
+        pen.arc(x, y, r, 0, 2*Math.PI)
+        if (mode == 'fill' || mode == null) {
+            pen.fill()
+        }
+        else if (mode == 'outline') {
+            pen.stroke()
+        }
+    }
+    function acelerate(inc) {
+        a += inc
+    }
+    function anim() {
+        pen.fillStyle = "white"
+        pen.fillRect(300, 300, 900, 300)
+        pen.fillStyle = "black"
+        pen.fillText(v + "m/s", 400, 400)
+        v += (a-((airdensity*csArea*drag/2)*v))
+        a -= ((airdensity*csArea*drag/2)*v)
+        v = Math.round(v)
+        a = Math.round(a)
+        requestAnimationFrame(anim)
+    }
+    anim()
+</script>

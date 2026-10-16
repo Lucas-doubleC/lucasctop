@@ -1,0 +1,590 @@
+<head>
+    <meta charset="UTF-8">
+    <title>Tabela Periódica</title>
+    <link rel="icon" type="image/x-icon" href="assets/icon6.png">
+    <style>
+        .header {
+            width: 100%;
+            height: 100px;
+            margin: 0;
+            border: 0;
+            padding: 0;
+            border-spacing: 0;
+            border: solid black 2px;
+            border-style: dashed;
+            background: #ffffff;
+            background: linear-gradient(90deg,rgba(255, 255, 255, 1) 0%, rgb(128, 128, 128) 50%, rgba(255, 255, 255, 1) 100%);
+        }
+
+        .header h1 {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            position: absolute;
+            left: 15px;
+            top: 20px;
+        }
+
+        .header p {
+            top: -10px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        .temp {
+            width: 100%;
+            height: 10%;
+            position: relative;
+            background-image: url(assets/underconstr.png);
+            display: flex;
+            justify-content: center;
+        }
+
+        .temp p {
+            color: white;
+            font-size: 24px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 5px;
+            overflow-x: hidden;
+            background: #ffffff;
+background: linear-gradient(90deg,rgba(255, 255, 255, 1) 0%, rgb(128, 128, 128) 50%, rgba(255, 255, 255, 1) 100%);
+        }
+
+        body h2 {
+            color: red;
+            position: relative;
+            left: 18px;
+        }
+
+        body button {
+            background: #ffffff;
+            background: linear-gradient(0deg,rgba(255, 255, 255, 1) 0%, rgba(168, 255, 158, 1) 100%);
+            color: '#000000';
+            border-radius: 10px;
+            position: relative;
+            left: 18px;
+        }
+
+        body p {
+            position: relative;
+            left: 18px;
+        }
+
+        body img {
+            border-radius: 10px;
+            position: relative;
+            left: 50px;
+            transition-duration: 300ms;
+        }
+
+        body img:hover {
+            transition-duration: 300ms;
+            scale: 1.2;
+        }
+        
+        body h3 {
+            position: relative;
+            left: 18px;
+        }
+
+        .chemcontainer {
+            height: 150px;
+            width: 150px;
+            border-color: black 5px;
+            border-style: solid;
+            border-radius: 10%;
+            position: relative;
+            left: 18px;
+        }
+
+        .atom {
+            height: 30px;
+            width: 30px;
+            border-color: black 5px;
+            border-style: solid;
+            border-radius: 100%;
+            position: relative;
+            left: 18px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .squareIndicator {
+            height:75px;
+            width: 180px;
+            position: relative;
+            left: 25px;
+            border: solid black 1px;
+            border-radius: 10px;
+            display: inline-block;
+            justify-content: left;
+            align-items: center; 
+            vertical-align: middle;
+            box-shadow: 2px 2px black;
+        }
+
+        .distrEletronica0 {
+            height: 50px;
+            width: 320px;
+            display: flex;
+            justify-content: center;
+            align-items: right;
+            flex-direction: column;
+        }
+
+        .distrEletronica1 {
+            height: 350px;
+            width: 120px;
+            position: relative;
+            top: 25px;
+            border: solid black 1px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .distrEletronica2 {
+            height: 350px;
+            width: 200px;
+            position: relative;
+            top: 25px;
+            border: solid black 1px;
+            display: flex;
+            justify-content: top;
+            align-items: right;
+            flex-direction: column;
+        }
+
+        .distrEletronica2 p {
+            font-family: 'Cambria Math', serif;
+        }
+
+        .distrEletronicaParent {
+            height: 350px;
+            width: 100%;
+            position: relative;
+            top: 25px;
+            border-color: black 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;  
+        }
+
+        .buttonContainer {
+            height: 50px;
+            width: 100%;
+            display: flex;
+        }
+        
+        .biggerContainer {
+            width: 400px;
+            height: 150px;
+            display: inline-flex;
+        }
+
+        #patomico {
+            color: rgb(0, 0, 0);
+            display: flex;
+            position: relative;
+            top: -212px;
+            left: 100px;
+        }
+
+        #natomico {
+            font-size: 15px;
+            display: flex;
+            position: relative;
+            top: -180px;
+            left: 10px;
+        }
+
+        #name {
+            font-size: 15px;
+            display: flex;
+            position: relative;
+            top: -125px;
+            left: 40px;
+        }
+
+        #simbolo {
+            font-size: 75px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            top: -15px;
+        }
+
+        #eneg {
+            font-size: 15px;
+            display: flex;
+            position: relative;
+            top: -260px;
+            left: 10px;
+        }
+
+        #patomico2 {
+            color: rgb(0, 0, 0);
+            display: flex;
+            position: relative;
+            top: -212px;
+            left: 100px;
+        }
+
+        #natomico2 {
+            font-size: 15px;
+            display: flex;
+            position: relative;
+            top: -180px;
+            left: 10px;
+        }
+
+        #name2 {
+            font-size: 15px;
+            display: flex;
+            position: relative;
+            top: -125px;
+            left: 40px;
+        }
+
+        #simbolo2 {
+            font-size: 75px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            top: -15px;
+        }
+        
+        #eneg2 {
+            font-size: 15px;
+            display: flex;
+            position: relative;
+            top: -260px;
+            left: 10px;
+        }
+
+        #creditos {
+            top: -8px;
+            left: 10px;
+            font-style: italic;
+            font-family: 'Times New Roman', Times, serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <p id="creditos">Lucas Campos, 2026</p>
+        <h1>Os elementos da tabela periódica</h1>
+    </div>
+    <p>Outros Conteúdos: <a href="fisicanucl.html">Física Nuclear</a> <a href="fisica.html">Física</a></p>
+    <div class="biggerContainer">
+    <div class="chemcontainer" id="periodic">
+        <h1 id="simbolo">-</h1>
+        <p id="natomico">-</p>
+        <p id="patomico">-</p>
+        <p id="name">-</p>
+        <p id="eneg">-</p>
+    </div>
+    <div class="chemcontainer" style="background-color: white; position: relative; left: 100px;" id="periodic">
+        <h1 id="simbolo2">X</h1>
+        <p id="natomico2">Z</p>
+        <p id="patomico2">A</p>
+        <p id="name2">(nome)</p>
+        <p id="eneg2">eletroneg.</p>
+    </div>
+    </div>
+    <p id="desc">-</p>
+    <div class="buttonContainer">
+    <button onclick="nextElement(-1)">Anterior</button>
+    <button onclick="nextElement(1)">Próximo</button>
+    <button onclick="compareElement()">Ver elemento...</button>
+    <button onclick="taketoWikipedia()">Ver na Wikipedia...</button>
+    </div>
+    <h1>Legendas (cores de fundo)</h1>
+    <div class="squareIndicator" style="background-color: white;">
+        <p>Hidrogênio</p>
+    </div>
+    <div class="squareIndicator" style="background-color: #2987FF;">
+        <p>Gases nobres</p>
+    </div>
+    <div class="squareIndicator" style="background-color: #FFFF66;">
+        <p>Ametais</p>
+    </div>
+    <div class="squareIndicator" style="background-color: #00BA97;">
+        <p>Metais de transição</p>
+    </div>
+    <div class="squareIndicator" style="background-color: #A959FF;">
+        <p>Metais alcalinos</p>
+    </div>
+    <div class="squareIndicator" style="background-color: #D64700; width: 220px">
+        <p>Metais alcalinos-terrosos</p>
+    </div>
+    <div class="squareIndicator" style="background-color: #6643BF;">
+        <p style="color: white">Metais pós-transição</p>
+    </div>
+    <div class="squareIndicator" style="background-color: #F7B786; width: 220px">
+        <p>Metaloides/Semi-metais</p>
+    </div>
+    <div class="squareIndicator" style="background-color: #02B8B2;">
+        <p>Actinídeos</p>
+    </div>
+    <div class="squareIndicator" style="background-color: #83D42C">
+        <p>Lantanídeos</p>
+    </div>
+    <div class="squareIndicator" style="background-color: #6B6B6B">
+        <p style="color: white">Artificial</p>
+    </div>
+    <h1>Distribuição eletrônica / Imagem</h1>
+    <div class="distrEletronicaParent">
+    <div class="distrEletronica1" style="background-color: white;">
+        <p>1</p>
+        <p>2</p>
+        <p>3</p>
+        <p>4</p>
+        <p>5</p>
+        <p>6</p>
+        <p>7</p>
+    </div>
+    <div class="distrEletronica2" style="background-color: rgb(105, 187, 255);">
+        <p id="c1">1s2</p>
+        <p id="c2">2s2 2p6</p>
+        <p id="c3">3s2 3p6 3d10</p>
+        <p id="c4">4s2 4p6 4d10 4f14</p>
+        <p id="c5">5s2 5p6 5d10 5f14</p>
+        <p id="c6">6s2 6p6 6d10</p>
+        <p id="c7">7s2 7p6</p>
+    </div>
+    <img id="elimg" src="">
+    </div>
+</body>
+<script>
+    document.getElementById("periodic").style.backgroundColor = "white";
+    var element = -1
+    var current = -1
+    var it = 0
+    // fetch elements from json
+    async function fetchelement(n) {
+        const r = await fetch("elementinfo.json");
+        const el = await r.json();
+        current = el.elements[n]
+        console.log(current.name)
+        document.getElementById("natomico").textContent = current.z
+        document.getElementById("name").textContent = current.name
+        document.getElementById("simbolo").textContent = current.symbol
+        document.getElementById("desc").textContent = current.utility
+        document.getElementById("patomico").textContent = current.mass
+        if (current.eneg) {
+            document.getElementById("eneg").textContent = current.eneg
+        }
+        else {
+            document.getElementById("eneg").textContent = "-"
+        }
+        if (current.type == "hydrogen") {
+            document.getElementById("periodic").style.backgroundColor = "white"
+        }
+        else if (current.type == "noble_gas") {
+            document.getElementById("periodic").style.backgroundColor = "#2987FF"
+        }
+        else if (current.type == "ametal") {
+            document.getElementById("periodic").style.backgroundColor = "#FFD900"
+        }
+        else if (current.type == "al_metal") {
+            document.getElementById("periodic").style.backgroundColor = "#A959FF"
+        }
+        else if (current.type == "alt_metal") {
+            document.getElementById("periodic").style.backgroundColor = "#D64700"
+        }
+        else if (current.type == "post_metal") {
+            document.getElementById("periodic").style.backgroundColor = "#6643BF"
+        }
+        else if (current.type == "t_metal") {
+            document.getElementById("periodic").style.backgroundColor = "#30AB7E"
+        }
+        else if (current.type == "metalloid") {
+            document.getElementById("periodic").style.backgroundColor = "#F7B786"
+        }
+        else if (current.type == "act") {
+            document.getElementById("periodic").style.backgroundColor = "#02B8B2"
+        }
+        else if (current.type == "lant") {
+            document.getElementById("periodic").style.backgroundColor = "#83D42C"
+        }
+        else if (current.type == "artificial") {
+            document.getElementById("periodic").style.backgroundColor = "#6B6B6B"
+        }
+        calculateEletronicDistro(n+1)
+        // try to get image from wikipedia
+        try {
+        let link1 = ("https://pt.wikipedia.org/api/rest_v1/page/summary/" + current.name).replace("Índio", "Índio_(elemento químico)").replace("Tântalo", "Tantalo").replace("Rádio", "Rádio_(elemento químico)")
+        const img = (await (await fetch(link1)).json()).thumbnail.source
+        document.getElementById("elimg").src = img
+        }
+        catch (e) {
+        if (current.h) {
+            let link2 = ("https://pt.wikipedia.org/api/rest_v1/page/summary/" + current.h)
+            const img = (await (await fetch(link2)).json()).thumbnail.source
+            document.getElementById("elimg").src = img
+        }
+        else {
+            document.getElementById("elimg").src = "assets/noimage.png"
+        }
+    }
+    }
+    function nextElement(n) {
+        if (n == 1) {
+            if (element < 117) {
+                element = element + n
+            }
+        }
+        else if (n == -1) {
+            if (element > 0) {
+                element = element + n
+            }
+        }
+        fetchelement(element)
+    }
+
+    async function showElementsofType(type) {
+        const r = await fetch("elementinfo.json");
+        const el = await r.json();
+
+        el.forEach(element => {
+            if (element.type == type) {
+                console.log(element.name)
+            }
+        });
+    }
+
+    function taketoWikipedia() {
+        window.open(("https://pt.wikipedia.org/wiki/" + current.name).replace("Índio", "Índio_(elemento químico)").replace("Tântalo", "Tantalo"))
+    }
+
+    async function compareElement() {
+        it = -1
+        let elem = window.prompt("Coloque o símbolo ou número atômico do elemento desejado (Ex. H → Hidrogênio / 1 → Hidrogênio)")
+        let islooping = true
+        const r = await fetch("elementinfo.json");
+        const el = await r.json();
+        while (islooping) {
+            it++
+            if (el.elements[it].symbol == elem) {
+                fetchelement(it)
+                islooping = false
+                element = it
+                current = it
+            }
+            else if (el.elements[it].z == elem) {
+                fetchelement(it)
+                islooping = false
+                element = it
+                current = it
+            }
+        }
+    }
+
+    function calculateEletronicDistro(np) {
+        remain = np
+        c1 = [0]
+        c2 = [0, 0]
+        c3 = [0, 0, 0]
+        c4 = [0, 0, 0, 0]
+        c5 = [0, 0, 0, 0]
+        c6 = [0, 0, 0]
+        c7 = [0, 0]
+        while (remain != 0) {
+            if (c1[0] < 2) {
+                c1[0]++
+                remain--
+            }
+            else if (c2[0] < 2) {
+                c2[0]++
+                remain--
+            }
+            else if (c2[1] < 6) {
+                c2[1]++
+                remain--
+            }
+            else if (c3[0] < 2) {
+                c3[0]++
+                remain--
+            }
+            else if (c3[1] < 6) {
+                c3[1]++
+                remain--
+            }
+            else if (c4[0] < 2) {
+                c4[0]++
+                remain--
+            }
+            else if (c3[2] < 10) {
+                c3[2]++
+                remain--
+            }
+            else if (c4[1] < 6) {
+                c4[1]++
+                remain--
+            }
+            else if (c5[0] < 2) {
+                c5[0]++
+                remain--
+            }
+            else if (c4[2] < 10) {
+                c4[2]++
+                remain--
+            }
+            else if (c5[1] < 6) {
+                c5[1]++
+                remain--
+            }
+            else if (c6[0] < 2) {
+                c6[0]++
+                remain--
+            }
+            else if (c4[3] < 14) {
+                c4[3]++
+                remain--
+            }
+            else if (c5[2] < 10) {
+                c5[2]++
+                remain--
+            }
+            else if (c6[1] < 6) {
+                c6[1]++
+                remain--
+            }
+            else if (c7[0] < 2) {
+                c7[0]++
+                remain--
+            } 
+            else if (c5[3] < 14) {
+                c5[3]++
+                remain--
+            }
+            else if (c6[2] < 10) {
+                c6[2]++
+                remain--
+            }
+            else if (c7[1] < 6) {
+                c7[1]++
+                remain--
+            }
+        }
+        document.getElementById("c1").textContent = "1s" + c1[0]
+        document.getElementById("c2").textContent = ("2s" + c2[0] + " " + "2p" + c2[1]).replace("2s0", "").replace("2p0", "")
+        document.getElementById("c3").textContent = ("3s" + c3[0] + " " + "3p" + c3[1] + " " + "3d" + c3[2]).replace("3s0", "").replace("3p0", "").replace("3d0", "")
+        document.getElementById("c4").textContent = ("4s" + c4[0] + " " + "4p" + c4[1] + " " + "4d" + c4[2] + " " + "4f" + c4[3]).replace("4s0", "").replace("4p0", "").replace("4d0", "").replace("4f0", "")
+        document.getElementById("c5").textContent = ("5s" + c5[0] + " " + "5p" + c5[1] + " " + "5d" + c5[2] + " " + "5f" + c5[3]).replace("5s0", "").replace("5p0", "").replace("5d0", "").replace("5f0", "")
+        document.getElementById("c6").textContent = ("6s" + c6[0] + " " + "6p" + c6[1] + " " + "6d" + c6[2]).replace("6s0", "").replace("6p0", "").replace("6d0", "")
+        document.getElementById("c7").textContent = ("7s" + c7[0] + " " + "7p" + c7[1]).replace("7s0", "").replace("7p0", "")
+    }
+    var rdn = Math.floor(Math.random() * 2) + 1
+    if (rdn == 1) {
+        document.getElementById("creditos").textContent = "Lucas Costa, 2026"
+    }
+    else if (rdn == 1) {
+        document.getElementById("creditos").textContent = "Lucas Campos, 2026"
+    }
+</script>

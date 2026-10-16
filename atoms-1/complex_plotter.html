@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .banner {
+            width: 100%;
+            height: 100px;
+            background: #78ff78;
+            background: linear-gradient(180deg,rgba(120, 255, 120, 1) 0%, rgba(200, 156, 255, 1) 100%);
+            margin: 0px;
+            border: 0px;
+            padding: 0;
+            border-bottom: solid rgb(145, 56, 255) 5px;
+        }
+
+        .descBox {
+            width: 98%;
+            height: 850px;
+            display: block;
+            background-color: white;
+            border: 0px solid black;
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            font-size: 14pt;
+            overflow-wrap: break-all;
+        }
+        .descBox p {
+            margin: 10px;
+        }
+
+        .container {
+            width: 100%;
+            height: 820px;
+            display: inline-flex;
+            vertical-align: bottom;
+        }
+
+        .container p {
+            font-size: 14pt;
+        }
+
+        .container li {
+            font-size: 14pt;
+        }
+
+        body {
+            padding: 0;
+            border: 0;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        body #title {
+            margin: 0;
+            font-size: 36pt;
+        }
+
+        canvas {
+            width: 1200px;
+            height: 800px;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="banner">
+<p id="title">Coloração de domínio (Gráfico complexo)</p>
+<p style="font-style: italic; font-size: 14pt; margin: 12px;">Lucas da Costa Campos, 2026</p>
+</div>
+<div class="container">
+<canvas id="c" width="1200" height="800" style="border: 2px solid black; position: relative; margin: 15px;"></canvas>
+<ul>
+    <p>Coloque a função complexa aqui:</p>
+    <textarea id="formula" rows="5" columns="80" placeholder="insira f(z) aqui...">z</textarea>
+    <button onclick="changeFunc()">Aplicar</button>
+    <p>Funções aplicáveis em z:</p>
+    <li>z.add(new Complex(a, b)) adiciona a+bi a z;</li>
+    <li>z.sub(new Complex(a, b)) subtrai a+bi de z;</li>
+    <li>z.mul(new Complex(a, b)) multiplica a+bi a z;</li>
+    <li>z.div(new Complex(a, b)) divide z por a+bi;</li>
+    <li>z.pow(new Complex(a, b)) eleva z a a+bi;</li>
+    <li>z.sqrt() pega a raiz quadrada de z;</li>
+    <li>i é a unidade imaginária (equivalente a new Complex(0, 1)), você pode manipulá-lo da mesma forma que manipula z.</li>
+    <li>Para fazer várias operações em z ao mesmo tempo:</li>
+    <li>z.add(n).add(p). (etc.)</li>
+    <p id="zv">$$z = $$</p>
+    <p id="fzv">$$f(z) = $$</p>
+    <p id="argrad">$$arg f(z) = $$</p>
+    <li><a href="https://github.com/rawify/Complex.js">Saiba mais</a></li>
+    <button onclick="res(1)" style="color: red; background-color: white; font-size: 14pt;">Resolução +</button>
+    <button onclick="res(-1)" style="color: blue; background-color: white; font-size: 14pt;">Resolução -</button>
+    <p></p>
+    <button onclick="zoom(1)" style="color: red; background-color: white; font-size: 14pt;">Zoom +</button>
+    <button onclick="zoom(-1)" style="color: blue; background-color: white; font-size: 14pt;">Zoom -</button>
+    <input type="checkbox" id="grid" checked="true">
+    <label for="grid">Mostrar grade?</label>
+</ul>
+</div>
+<button id="showDesc" onclick="showDescBox()" style="width: 100%; height: 60px; font-size: 30pt; background-color: white; font-family: 'Times New Roman', Times, serif; display: flex; justify-content: center;">Ocultar descrição ↑</button>
+<div id="dB" class="descBox">
+    <ul>
+        <p>Este é um gráfico de números complexos usando cores.</p>
+        <p>Ele funciona da seguinte forma:</p>
+        <li>Ele se utiliza de ângulos para formar suas cores;</li>
+        <li>Os ângulos se referem ao ângulo que um certo ponto faz em relação ao eixo x do gráfico.</li>
+        <li>Dependendo do ângulo, o ponto terá uma cor específica.</li>
+        <li>0°: 🟥</li>
+        <li>120°: 🟨</li>
+        <li>240°: 🟦</li>
+        <li>360°: 🟥</li>
+        <li>E seus respectivos intermediários (verde, ...)</li>
+    </ul>
+</div>
+<script src="libs/complex.js"></script>
+<script>
+    // variáveis
+    var sqSize = 10
+    var valueRange = 1;
+    var cjs = document.getElementById("c")
+    var ctx = cjs.getContext("2d");
+    var i = new Complex(0, 1)
+
+    function getMouseCoords(c, ev) {
+        let rectangle = c.getBoundingClientRect();
+        let x = event.clientX - rectangle.left;
+        let y = event.clientY - rectangle.top;
+        return [x, y];
+    }
+    var mouseCoords;
+    cjs.addEventListener("mousemove", function (e) {
+        mouseCoords = getMouseCoords(cjs, e);
+        mX = Math.round(mouseCoords[0])
+        mY = Math.round(mouseCoords[1])
+        nSq = (cjs.width*sqSize)+(cjs.height*sqSize)
+        zValue = new Complex((mX-cjs.width/2)/((valueRange/2)*(cjs.width/sqSize)), -(mY-cjs.height/2)/((valueRange/2)*(cjs.height/sqSize)))
+        //console.log(mX, mY)
+        calc = Function('z', 'return ' + f.replaceAll("(sq[0]-cjs.width/2)/((valueRange/2)*(cjs.width/sqSize))", 'z.re').replaceAll("-(sq[1]-cjs.height/2)/((valueRange/2)*(cjs.height/sqSize))", 'z.im'))
+        fzValue = calc(zValue)
+        document.getElementById("zv").textContent = "$$z = " + Math.round(zValue.re * 1000) / 1000 + "+" + Math.round(zValue.im * 1000) / 1000 + "i" + "$$"
+        document.getElementById("fzv").textContent = "$$f(z) = " + Math.round(fzValue.re * 1000) / 1000 + "+" + Math.round(fzValue.im * 1000) / 1000 + "i" + "$$"
+        document.getElementById("argrad").textContent = "$$\\text{arg } f(z) = " + Math.round(fzValue.arg() * 1000) / 1000 + "rad$$"
+        MathJax.typesetPromise()
+    })
+
+    // apagar tudo no canvas
+    function clearCanvas() {
+        ctx.fillStyle = "#FFFFFF";
+        ctx.fillRect(0, 0, cjs.width, cjs.height)
+    }
+
+    function res(x) {
+        if (x == 1 && sqSize > 5) {
+            sqSize = sqSize/2
+        }
+        else if (x == -1 && sqSize < 20) {
+            sqSize = sqSize*2
+        }
+        createSquares();
+        f = (document.getElementById('formula').value).replaceAll('z', 'new Complex((sq[0]-cjs.width/2)/((valueRange/2)*(cjs.width/sqSize)), -(sq[1]-cjs.height/2)/((valueRange/2)*(cjs.height/sqSize)))')
+        isNewGraph = true;
+    }
+
+    function zoom(x) {
+        if (x == -1) {
+            valueRange = valueRange/2
+        }
+        else if (x == 1) {
+            valueRange = valueRange*2
+        }
+        createSquares();
+        f = (document.getElementById('formula').value).replaceAll('z', 'new Complex((sq[0]-cjs.width/2)/((valueRange/2)*(cjs.width/sqSize)), -(sq[1]-cjs.height/2)/((valueRange/2)*(cjs.height/sqSize)))')
+        isNewGraph = true;
+    }
+
+    function drawGrid() {
+        ctx.strokeStyle = "#AFAFAF"
+        ctx.globalAlpha = 0.4
+        for (k = 0; k <= cjs.height/sqSize; k++) {
+            ctx.globalAlpha = 0.4
+            ctx.strokeStyle = "#AFAFAF"
+            ctx.beginPath();
+            if (k*sqSize == cjs.height/2) {
+                ctx.strokeStyle = "#000000"
+                ctx.globalAlpha = 1
+            }
+            ctx.moveTo(0, k*sqSize);
+            ctx.lineTo(cjs.width, k*sqSize)
+            ctx.stroke();
+        }
+        for (j = 0; j <= cjs.width/sqSize; j++) {
+            ctx.globalAlpha = 0.4
+            ctx.strokeStyle = "#AFAFAF"
+            ctx.beginPath();
+            ctx.moveTo(j*sqSize, 0);
+            ctx.lineTo(j*sqSize, cjs.height);
+            ctx.stroke();
+        }
+        ctx.strokeStyle = "#000000"
+        ctx.globalAlpha = 1
+        ctx.beginPath();
+        ctx.moveTo((cjs.width/2)+((cjs.width/2) % sqSize), 0);
+        ctx.lineTo((cjs.width/2)+((cjs.width/2) % sqSize), cjs.height);
+        ctx.stroke();
+        //ctx.fillStyle = "#000000"
+        //ctx.font = "48px serif";
+        //ctx.fillText(10/valueRange, cjs.width-75, cjs.height/2+50)
+        //ctx.fillText(-10/valueRange, 25, cjs.height/2+50)
+        //ctx.fillText(10/valueRange + "i", cjs.width/2, 50)
+        //ctx.fillText(-10/valueRange + "i", cjs.width/2, cjs.height-25)
+    }
+    
+    function createSquares() {
+        squares = []
+        for (j = 0; j < cjs.height/sqSize; j++) {
+            for (k = 0; k < cjs.width/sqSize; k++) {
+                squares.push([k*sqSize, j*sqSize])
+            }
+        }
+    }
+
+    createSquares();
+
+    // mostrar a caixa de descrição do fractal
+    function showDescBox() {
+        dbox = document.getElementById("dB")
+        sdb = document.getElementById("showDesc")
+        if (dbox.style.display == 'block') {
+            dbox.style.display = 'none'
+            sdb.textContent = "Mostrar descrição ↓"
+        }
+        else {
+            dbox.style.display = 'block'
+            sdb.textContent = "Ocultar descrição ↑"
+        }
+    }
+
+    function dec2hex(n) {
+        converting = true
+        q = -1
+        r = -1
+        actualn = structuredClone(n)
+        result = ""
+        while (converting) {
+            r = actualn % 16
+            q = Math.floor(actualn / 16)
+            actualn = q
+            if (r < 10) {
+                result = result + String(r)
+            }
+            else if (r == 10) {
+                result = result + "A"
+            }
+            else if (r == 11) {
+                result = result + "B"
+            }
+            else if (r == 12) {
+                result = result + "C"
+            }
+            else if (r == 13) {
+                result = result + "D"
+            }
+            else if (r == 14) {
+                result = result + "E"
+            }
+            else if (r == 15) {
+                result = result + "F"
+            }
+            if (q == 0) {
+                converting = false;
+                break;
+            }
+        }
+        r2 = result.split("")
+        if (r2.length < 1) {
+            r2.push("0")
+            r2.push("0")
+        }
+        if (r2.length < 2) {
+            r2.push("0")
+        }
+        r2 = r2.reverse().join("")
+        return r2;
+    }
+
+    /* function riemann(z, i) {
+        result = new Complex(0, 0)
+        for (j = 0; j <= i; j++) {
+            result.add(new Complex(Math.cos(Math.log(j)), Math.sin(Math.log(j))).pow(-1))
+            console.log("hello")
+        }
+    } */
+
+    function angle2hue(a) {
+        // 0 -> rgb(255, 0, 0)
+        // 60 -> rgb(255, 255, 0)
+        // 120 -> rgb(0, 255, 0)
+        // 180 -> rgb(0, 255, 255)
+        // 240 -> rgb(0, 0, 255)
+        // 300 -> rgb(255, 0, 255)
+        // repeat
+        // ...
+        pc2p = 0
+        a = Math.round(a)
+        if (a >= 0 && a <= 60) {
+            pc2p = a/60
+            return [255, Math.round(255*pc2p), 0]
+        }
+        else if (a > 60 && a <= 120) {
+            pc2p = 1-((((a-60)*100)/60)/100)
+            return [Math.round(255*(pc2p)), 255, 0]
+        }
+        else if (a > 120 && a <= 180) {
+            pc2p = ((a-120)/60)
+            return [0, 255, Math.round(255*pc2p)]
+        }
+        else if (a > 180 && a <= 240) {
+            pc2p = (255/60)*(a-180)
+            return [0, Math.round(255-pc2p), 255]
+        }
+        else if (a > 240 && a <= 300) {
+            pc2p = ((a-240)/60)
+            return [Math.round(255*pc2p), 0, 255]
+        }
+        else if (a > 300 && a <= 360) {
+            pc2p = (255/60)*(a-300)
+            return [255, 0, Math.round(255-pc2p)]
+        }
+    }
+
+    function getReal(x) {
+        return new Complex(x.re, 0)
+    }
+
+    function changeFunc() {
+        // default: f = ("document.getElementById('formula').value).replaceAll('z', 'new Complex((sq[0]-cjs.width/2)/100, -(sq[1]-cjs.height/2)/100)")
+        f = (document.getElementById('formula').value).replaceAll('z', 'new Complex((sq[0]-cjs.width/2)/((valueRange/2)*(cjs.width/sqSize)), -(sq[1]-cjs.height/2)/((valueRange/2)*(cjs.height/sqSize)))')
+        isNewGraph = true;
+    }
+
+    isNewGraph = true;
+    f = (document.getElementById('formula').value).replaceAll('z', 'new Complex((sq[0]-cjs.width/2)/((valueRange/2)*(cjs.width/sqSize)), -(sq[1]-cjs.height/2)/((valueRange/2)*(cjs.height/sqSize)))')
+
+    function plot() {
+        sqValue = 0
+        rv = 0
+        bv = 0
+        gv = 0
+        squares.forEach(sq => {
+            let fz = Function("sq", "return " + f)
+            try {
+            sqValue = fz(sq)
+            angle = sqValue.arg()
+            values = angle2hue(((((angle*(180/Math.PI)))+360)) % 360)
+            rv = values[0]
+            gv = values[1]
+            bv = values[2]
+            if (values[0] === undefined) {
+                rv = 0
+                gv = 0
+                bv = 0
+            }
+            if (isFinite(sqValue.re) && isFinite(sqValue.im)) {
+                ctx.fillStyle = "#" + dec2hex(rv) + dec2hex(gv) + dec2hex(bv)
+                ctx.fillRect(sq[0], sq[1], sqSize, sqSize)
+            }
+            else {
+                ctx.fillStyle = "#DFDFDF"
+                ctx.fillRect(sq[0], sq[1], sqSize, sqSize)
+            }
+        }
+            catch {
+                ctx.fillStyle = "#000000"
+                ctx.fillRect(sq[0], sq[1], sqSize, sqSize)
+            }
+        });
+        isNewGraph = false
+    }
+
+    skipped = false
+    
+    function skipPlot() {
+        if (!skipped) {
+            ctx.fillStyle = "red"
+            ctx.fillRect(0, 0, cjs.width, cjs.height)
+        }
+        skipped = true
+    }
+
+    // mostrar o output no canvas
+    function makeGraph() {
+        if (isNewGraph) {
+            try {
+                clearCanvas();
+                plot();
+                if (document.getElementById("grid").checked) {
+                    drawGrid();
+                }
+                skipped = false
+            }
+            catch {
+                f = (document.getElementById('formula').value).replaceAll('z', 'new Complex((sq[0]-cjs.width/2)/((valueRange/2)*(cjs.width/sqSize)), -(sq[1]-cjs.height/2)/((valueRange/2)*(cjs.height/sqSize)))')
+                isNewGraph = true;
+            }
+        }
+        requestAnimationFrame(makeGraph);
+    }
+    requestAnimationFrame(makeGraph);
+
+</script>

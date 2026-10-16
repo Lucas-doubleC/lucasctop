@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .banner {
+            width: 100%;
+            height: 100px;
+            background: #3b6fff;
+            background: linear-gradient(180deg,rgba(59, 111, 255, 1) 0%, rgba(0, 170, 255, 1) 100%);
+            margin: 0px;
+            border: 0px;
+            padding: 0;
+            border-bottom: solid cyan 5px;
+        }
+
+        .descBox {
+            width: 98%;
+            height: 850px;
+            display: block;
+            background-color: white;
+            border: 0px solid black;
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            font-size: 14pt;
+            overflow-wrap: break-all;
+        }
+        .descBox p {
+            margin: 10px;
+        }
+
+        .container {
+            width: 100%;
+            height: 710px;
+            display: inline-flex;
+            vertical-align: bottom;
+        }
+
+        body {
+            padding: 0;
+            border: 0;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        body #title {
+            margin: 0;
+            font-size: 36pt;
+        }
+
+        canvas {
+            width: 675px;
+            height: 675px;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="banner">
+<p id="title">Triângulo de Sierpiński</p>
+<p style="font-style: italic; font-size: 14pt; margin: 12px;">Lucas da Costa Campos, 2026</p>
+</div>
+<div class="container">
+<canvas id="c" width="1350" height="1350" style="border: 2px solid black; position: relative; margin: 15px;"></canvas>
+<ul>
+    <li id="area">$$\large \text{Área } = 1$$</li>
+    <li id="perimeter">$$\large \text{Perímetro } = 3$$</li>
+    <li id="triCounter">$$\large S(0) = 1 \Delta$$</li>
+    <li id="nValue">$$n = 0$$</li>
+    <p style="font-size: 18pt; font-style: italic; margin: 15px;">Ajuste o slider abaixo para alterar o valor de n:</p>
+    <input type="range" min="0" max="8" value="0" style="width: 300px; margin: 13px;" id="SSlider">
+</ul>
+</div>
+<button id="showDesc" onclick="showDescBox()" style="width: 100%; height: 60px; font-size: 30pt; background-color: white; font-family: 'Times New Roman', Times, serif; display: flex; justify-content: center;">Ocultar descrição ↑</button>
+<div id="dB" class="descBox">
+    <p>O triângulo de Sierpiński é um fractal que tem uma forma geral de um triângulo equilátero, o qual é subdividido recursivamente em triângulos menores. Esse fractal é considerado um exemplo básico de uma forma autossimilar (ou seja, um objeto que é similar a uma parte de si mesmo).</p>
+    <p style="font-size: 18pt; font-style: italic">Propriedades:</p>
+    <ul>
+        <li style="font-size: 18pt; font-style: italic">Sua dimensão (de Hausdorff) é fracionária:</li>
+        <ul>
+            <li>
+                Para todo objeto com dimensões inteiras, dobrar o tamanho da figura (em comprimento (1D), área (2D) ou volume (3D)) produz 2ᵈ cópias congruentes desse objeto. Por exemplo, um quadrado precisa de quatro cópias de si mesmo para dobrar sua área, ou um cubo, que precisa de 8 para dobrar o seu volume, e, portanto, se resolvermos por d teremos: 2ᵈ = 8, encontrando d = 3, então o cubo é tridimensional.
+            </li>
+            <li>
+                Entretanto, para o triângulo de Sierpiński, quando ele é dobrado de tamanho, ele precisa de 3 cópias (incluindo o triângulo inicial), dando-nos 2ᵈ = 3, resolvendo por d, temos: $$\frac{\log_{2} 3}{\log_{2} 2} \approx \boxed{1,585}$$
+            </li>
+        </ul>
+        <li style="font-size: 18pt; font-style: italic">O triângulo de Sierpiński (S(n), aonde n → ∞) tem área 0 e perímetro infinito.</li>
+        <ul>
+        <li>
+            Se supormos que S(0) tem área 1, S(1) terá área 3/4, pois tiramos um triângulo de área 1/4 do centro, ficando com três triângulos menores, cada um com 1/4 de área. S(2) terá área 9/16, pois tiraremos mais três triângulos com 1/4 da área de cada um dos triângulos menores que sobraram em S(1), ou seja, de cada um deles será tirado 1/16 de área. Resumindo: $$\large \frac{1}{4} \cdot \frac{1}{4} = \frac{1}{16} \rightarrow \frac{1}{16} \cdot 3 = \frac{3}{16} \rightarrow \frac{3}{4} - \frac{3}{16} = \frac{9}{16} = \boxed{(\frac{3}{4})^2}$$
+        </li>
+        <li>Generalizando: $$\text{Área }S(n) = (3/4)^n$$</li>
+        <li>Com essa fórmula, podemos calcular a área do fractal: $$\large \boxed{\lim_{n\to\infty} (3/4)^n = 0}$$</li>
+        <li>Adicionalmente, se considerarmos que cada lado do triângulo S(0) meça 1 (perímetro 3), então S(1), que terá 3 triângulos menores, com cada lado medindo agora 1/2, assim tendo 3/2 de perímetro para cada um, somando todos, obteremos 9/2.</li>
+        <li>Generalizando: $$\large \text{Perímetro } S(n) = 3 \cdot (3/2)^n$$</li>
+        <li>Aplicando a fórmula em um limite: $$\large \boxed{\lim_{n\to\infty} (3 \cdot (3/2)^n) = \infty}$$</li>
+    </ul>
+    </ul>
+</div>
+<script>
+    // variáveis
+    var cjs = document.getElementById("c")
+    var ctx = cjs.getContext("2d");
+    var s = 0; // valor de x em S(x)
+    var triangleWidth = 20; // universal
+    var triangleHeight = 20; // universal
+
+    // desenhar triangulo
+    function drawTriangle(x, y) {
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.lineTo(x+triangleWidth, y);
+        ctx.lineTo(x+triangleWidth/2, y-triangleHeight);
+        ctx.lineTo(x, y)
+        ctx.stroke();
+    }
+
+    // desenhar triforce (S(1))
+    function drawTriforce(x, y) {
+        drawTriangle(x, y);
+        drawTriangle(x+triangleWidth, y);
+        drawTriangle(x+triangleWidth/2, y-triangleHeight);
+    }
+
+    // desenhar triforce S(3)
+    function drawTriforceOrder3(x, y) {
+        nBaseTriforces = (2**2-1)+1
+        triforceCount = 0;
+        upperTriangles = 0;
+        middleTriforce1X = 0;
+        middleTriforce2X = 0;
+        reps = 1;
+        towersDone = 0;
+        triforceCount = 0;
+        middleTriforce1X = 0;
+        middleTriforce2X = 0;
+        for (let i = 1; i <= nBaseTriforces; i++) {
+            triforceCount++
+            drawTriforce(x+(triangleWidth*(i-1)*2), y);
+            if (triforceCount % 2 == 0) {
+                drawTriforce(x+(triangleWidth*(i-1)*2)-triangleWidth, y-(triangleHeight*2))
+            }
+            if (triforceCount == 2) {
+                middleTriforce1X = x+(triangleWidth*(i-1)*2)
+            }
+            if (triforceCount == 3) {
+                middleTriforce2X = x+(triangleWidth*(i-1)*2)
+            }
+            if (middleTriforce1X != 0 && middleTriforce2X != 0) {
+                drawTriforce(middleTriforce1X, y-triangleHeight*4);
+                drawTriforce(middleTriforce2X, y-triangleHeight*4);
+                drawTriforce((middleTriforce2X)-triangleWidth, y-triangleHeight*6);
+                middleTriforce1X = 0
+                middleTriforce2X = 0
+                }
+            }
+        }
+    
+    // desenhar triforce S(4)
+    function drawTriforceOrder4(x, y) {
+        drawTriforceOrder3(x, y);
+        drawTriforceOrder3(x+triangleWidth*8, y);
+        drawTriforceOrder3(x+triangleWidth*4, y-triangleHeight*8);
+    }
+
+    function drawTriforceOrder5(x, y) {
+        drawTriforceOrder4(x, y);
+        drawTriforceOrder4(x+triangleWidth*16, y);
+        drawTriforceOrder4(x+triangleWidth*8, y-triangleHeight*16);
+    }
+
+    function drawTriforceOrder6(x, y) {
+        drawTriforceOrder5(x, y);
+        drawTriforceOrder5(x+triangleWidth*32, y);
+        drawTriforceOrder5(x+triangleWidth*16, y-triangleHeight*32);
+    }
+
+    function drawTriforceOrder7(x, y) {
+        drawTriforceOrder6(x, y);
+        drawTriforceOrder6(x+triangleWidth*64, y);
+        drawTriforceOrder6(x+triangleWidth*32, y-triangleHeight*64);
+    }
+
+    // apagar tudo no canvas
+    function clearCanvas() {
+        ctx.fillStyle = "#FFFFFF";
+        ctx.fillRect(0, 0, cjs.width, cjs.height)
+    }
+
+    // mostrar a caixa de descrição do fractal
+    function showDescBox() {
+        dbox = document.getElementById("dB")
+        sdb = document.getElementById("showDesc")
+        if (dbox.style.display == 'block') {
+            dbox.style.display = 'none'
+            sdb.textContent = "Mostrar descrição ↓"
+        }
+        else {
+            dbox.style.display = 'block'
+            sdb.textContent = "Ocultar descrição ↑"
+        }
+    }
+
+    // variáveis
+    var sliderChange = false
+    var sliderValue = document.getElementById("SSlider").value
+    var prevSliderValue = -1
+
+    // mostrar o output no canvas
+    function outputTriangle(order) {
+        sliderValue = document.getElementById("SSlider").value
+        if (sliderValue != prevSliderValue) {
+            sliderChange = true;
+            s = sliderValue;
+        }
+        if (sliderChange) {
+            clearCanvas();
+            sliderChange = false;
+            if (s == 0) {
+                triangleWidth = 1280;
+                triangleHeight = triangleWidth;
+                drawTriangle(cjs.width/2-triangleWidth/2, cjs.height/2+triangleHeight/2);
+            }
+            else if (s == 1) {
+                triangleWidth = 640;
+                triangleHeight = triangleWidth;
+                drawTriforce(cjs.width/2-triangleWidth, cjs.height/2+triangleHeight);
+            }
+            else if (s == 2) {
+                triangleWidth = 320;
+                triangleHeight = triangleWidth;
+                drawTriforce(cjs.width/2-triangleWidth*2, cjs.height/2+triangleHeight*2);
+                drawTriforce(cjs.width/2, cjs.height/2+triangleHeight*2);
+                drawTriforce(cjs.width/2-triangleWidth, cjs.height/2);
+            }
+            else if (s == 3) {
+                triangleWidth = 160;
+                triangleHeight = triangleWidth;
+                drawTriforceOrder3(cjs.width/2-triangleWidth*4, cjs.height/2+triangleHeight*4);
+            }
+            else if (s == 4) {
+                triangleWidth = 80;
+                triangleHeight = triangleWidth;
+                Triforce3Base = (2**s)/8 // s = 4
+                entireFractalHeight = (Triforce3Base*8)*triangleHeight
+                triforce3Needed = 3*(3**(s-4)) // s = 4
+                layer = 1;
+                originX = cjs.width/2-triangleWidth*8
+                console.log(triforce3Needed);
+                for (i = 1; i <= triforce3Needed; i++) {
+                    if (i % 3 == 0 && i != 0) {
+                        drawTriforceOrder3((originX*(i-1)-originX*(i-2)+triangleWidth*4), cjs.height/2+triangleHeight*8-(layer*triangleHeight*8))
+                        layer++;
+                    }
+                    else {
+                        drawTriforceOrder3(originX+(triangleWidth*8*(i-1)), cjs.height/2+triangleHeight*8)
+                    }
+                    }
+                }
+            else if (s == 5) {
+                triangleWidth = 40;
+                triangleHeight = triangleWidth;
+                drawTriforceOrder4(cjs.width/2-triangleWidth*16, cjs.height/2+triangleHeight*16);
+                drawTriforceOrder4(cjs.width/2, cjs.height/2+triangleHeight*16);
+                drawTriforceOrder4(cjs.width/2-triangleWidth*8, cjs.height/2);
+            }
+            else if (s == 6) {
+                triangleWidth = 20;
+                triangleHeight = triangleWidth;
+                drawTriforceOrder5(cjs.width/2-triangleWidth*32, cjs.height/2+triangleHeight*32);
+                drawTriforceOrder5(cjs.width/2, cjs.height/2+triangleHeight*32);
+                drawTriforceOrder5(cjs.width/2-triangleWidth*16, cjs.height/2);
+            }
+            else if (s == 7) {
+                triangleWidth = 10;
+                triangleHeight = triangleWidth;
+                drawTriforceOrder6(cjs.width/2-triangleWidth*64, cjs.height/2+triangleHeight*64);
+                drawTriforceOrder6(cjs.width/2, cjs.height/2+triangleHeight*64);
+                drawTriforceOrder6(cjs.width/2-triangleWidth*32, cjs.height/2);
+            }
+            else if (s == 8) {
+                triangleWidth = 5;
+                triangleHeight = triangleWidth;
+                drawTriforceOrder7(cjs.width/2-triangleWidth*(2**(s-1)), cjs.height/2+triangleHeight*(2**(s-1)));
+                drawTriforceOrder7(cjs.width/2, cjs.height/2+triangleHeight*(2**(s-1)));
+                drawTriforceOrder7(cjs.width/2-triangleWidth*(2**(s-2)), cjs.height/2);
+            }
+            document.getElementById("area").textContent = "$$\\large \\text{Área } = (3/4)^" + document.getElementById("SSlider").value + " = " + (3/4)**s + "$$"
+            document.getElementById("perimeter").textContent = "$$\\large \\text{Perímetro } = 3 \\cdot (3/2)^" + document.getElementById("SSlider").value + " = " + 3*(3/2)**s + "$$"
+            document.getElementById("nValue").textContent = "$$\\large n = " + document.getElementById("SSlider").value + "$$"
+            document.getElementById("triCounter").textContent = "$$\\large S(" + s + ") = " + 3**s + "\\Delta$$"
+            MathJax.typesetPromise(); // consertar latex
+        }
+        prevSliderValue = document.getElementById("SSlider").value
+        requestAnimationFrame(outputTriangle);
+    }
+    requestAnimationFrame(outputTriangle, s);
+
+</script>

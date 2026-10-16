@@ -1,0 +1,173 @@
+<head>
+    <script>
+        window.MathJax = {
+          tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
+        };
+        </script>
+        <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+
+
+    <title>Elétrica</title>
+    <link rel="icon" type="image/x-icon" href="assets/icon5.png">
+
+    <style>
+
+        .rectangle {
+
+            width: 100%;
+
+            height: 100px;
+
+            background-color: #21D6D2;
+
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+            margin: 0px;
+
+            background: rgb(255, 252, 89)
+
+        }
+
+
+
+        .rectangle h1 {
+
+            position: absolute;
+
+            left: 15px;
+
+            top: 20px;
+
+        }
+
+
+
+        .rectangle p {
+
+            position: absolute;
+
+            top: -10px;
+
+        }
+
+
+
+        head {
+
+            padding: 0px;
+
+            margin: 0px;
+
+            box-sizing: border-box;
+
+        }
+
+
+
+        body {
+
+            margin: 5px;
+
+            margin-bottom: 2px;
+
+            margin-top: 2px;
+
+            background: linear-gradient(90deg, rgba(190,71,71,1) 0%, rgba(255,255,255,1) 50%, rgba(68,166,186,1) 100%);
+
+            overflow-x: hidden;
+
+        }
+
+        body p {
+            position: relative;
+            left: 18px;
+        }
+
+        body img {
+            border-radius: 20px;
+            position: relative;
+            left: 18px;
+        }
+
+        body button {
+            border-radius: 20px;
+            position: relative;
+            left: 18px;
+        }
+
+        body h2 {
+            position: relative;
+            left: 18px;
+        }
+
+        body h3 {
+            position: relative;
+            left: 18px;
+        }
+
+    </style>
+
+    <div class="rectangle">
+
+        <p id='creditos'>Lucas Costa, 2025</p>
+
+        <h1>Eletrica</h1>
+
+    </div>
+
+</head>
+<body>
+    <h2>A energia eletrica</h2>
+    <p>A energia eletrica fluindo em um cabo é eletrons, considerada partícula elemental pois não é composta por nada que conhecemos</p>
+    <p>atualmente, não é como um próton, que é composto por 2 quarks up e 1 quark down. Também é caracterizado por ser 1836 vezes menor</p>
+    <p>que um próton.</p>
+    <p>Características</p>
+    <ul>
+           <li><p>Símbolo: e-</p></li>
+            <li><p>Carga elemental: -1e</p></li>
+            <li><p>Características quânticas - Não é um ponto com posição definida, e sim uma nuvem de possibilidades de lugares.</p></li>
+            <img src="eletrons_energia/nuvem_eletron.jpg">
+            <p>fig.1 nuvem de eletrons</p>
+    </ul>
+    <h2>Volts, Amperes, Watts</h2>
+    <p>Volts (V), é a 'força' que move os elétrons pelo cabo, ou seja, mais ou menos a velocidade dos mesmos.</p>
+    <p>Amperes (A), é a quantidade de elétrons que passa pelo cabo, 1A = 1Coulomb/s passando por um ponto no cabo, mais ou menos 6,242*10<sup>18</sup> elétrons por segundo.</p>
+    <p>Watts (W), é a quantidade de energia transformada em trabalho por segundo.</p>
+    <img src="vaw/esquemaVAW.png">
+    <p>fig.2 esquema volts x amperes x watts</p>
+    <h2>Resistência e Lei de Ohm</h2>
+    <p>Resistência (Ω), é a proporção de quanto o material deixa passar a energia.</p>
+    <p>A lei de Ohm diz o seguinte:</p>
+    <p>$$V = IR, I = \frac{V}{R}, R = \frac{V}{I}$$</p>
+    <p>Tensão é igual à corrente vezes resistência, e vice versa.</p>
+    <img src="lei_ohm/esquema_ohm.png">
+    <p>fig.3 Exemplo da Lei de Ohm</p>
+    <p>Para resolver, basta aplicar a fórmula:</p>
+    <p>$$R = \frac{V}{I}$$</p>
+    <p>Sendo assim:</p>
+    <p>$$R = \frac{5}{0,1}=50Ω$$</p>
+    <p>A resistência é igual à 50Ω.</p>
+    <h3>Condutores, Isolantes e Semi-condutores</h3>
+    <p>Condutores são classificados com base na resistência*, assim como os Isolantes.</p>
+    <p>* Para medições de resistência de material é usado Ωm, significando 'ohm por metro'.</p>
+    <p>Um exemplo de condutor é a Prata, com resistência 1,8 * 10<sup>-8</sup>Ω*m</p>
+    <p>Agora, um exemplo de isolante seria a borracha, com resistência 10<sup>16</sup>Ω*m</p>
+    <p>Enfim, os semi-condutores são como condutores, mas apenas conduzem de um lado para o outro.</p>
+    <p>Um exemplo seria diodos, como o LED (Light Emitting Diode), que apenas permite o fluxo do anodo (negativo) para o catodo (positivo)</p>
+    <p>Fique ciente que, apesar da borracha ser isolante, por exemplo, essa ainda pode permitir fluxo de energia suficiente para eletrocutar algum objeto</p>
+    <p>o único porém é que a fonte da energia teria de ser de altíssima tensão (de modo coloquial, voltagem) para conseguir atravessar a borracha.</p>
+    <p>Mais informações:</p>
+    <iframe src="eletronica.html" width="1000px" height="400px"></iframe>
+    <h2>Geradores de Energia</h2>
+    <h3>Energia Nuclear - Usinas Nucleares</h3>
+    <p>Esse tipo de energia se dá pelo processo de decaimento de isótopos, como o Urânio-238.</p>
+    <p>$$238U = 234Th + 4He$$</p>
+    <p>Isso esquenta a água acima do isótopo, e então gera energia por meio do calor, entretanto pode causar poluição térmica, assim que jogam-na nos rios.</p>
+    <h3>Hidrelétricas, Usinas Eólicas, Paineis Solares</h3>
+    <p>São energias limpas e fazem uso da energia cinética (exceto os paineis solares).</p>
+    <h4>Hidrelétricas</h4>
+    <p>Funcionam com a energia cinética movendo uma turbina interna da hidrelétrica, assim, um motor a transforma em energia.</p>
+    <img src="geradores_energia/hidreletrica.png">
+    <p>fig.4 Funcionamento simplificado de uma hidrelétrica</p>
+</body>

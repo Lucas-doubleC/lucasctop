@@ -1,0 +1,1214 @@
+<html>
+    <style>
+        #canvas {
+            border: solid black 1px;
+        }
+        
+        .banner {
+            width: 100%;
+            height: 100px;
+            background: #ffaa3b;
+            background: linear-gradient(180deg,rgb(255, 147, 59) 0%, rgb(255, 208, 0) 100%);
+            margin: 0px;
+            border: 0px;
+            padding: 0;
+            border-bottom: solid rgb(255, 145, 0) 5px;
+        }
+
+        body {
+            padding: 0;
+            border: 0;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        body #title {
+            margin: 0;
+            font-size: 36pt;
+        }
+
+        .descBox {
+            width: 98%;
+            height: 850px;
+            display: block;
+            background-color: white;
+            border: 0px solid black;
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            font-size: 14pt;
+            overflow-wrap: break-all;
+        }
+        
+        .descBox p {
+            margin: 10px;
+        }
+
+        .containerCTXCOMP {
+            width: 100%;
+            margin: 15px;
+            height: 720px;
+            display: flex;
+            align-items: middle;
+            gap: 15px;
+        }
+
+        .searchContainerCOMP {
+            flex: 1;
+            height: 720px;
+        }
+
+        .subcontainerCOMP {
+            flex: 1;
+            height: 120px;
+        }
+        
+        .subcontainerCOMP p {
+            font-size: 24pt;
+            margin: 2px;
+        }
+
+        .subcontainerCOMP button {
+            background-color: white;
+            font-size: 13pt;
+        }
+    </style>
+</html>
+<body>
+    <div class="banner">
+    <p id="title">Construtor de circuitos lógicos</p>
+    <p style="font-style: italic; font-size: 14pt; margin: 12px;">Lucas da Costa Campos, 2026</p>
+    </div>
+    <div class="containerCTXCOMP">
+        <canvas id="canvas" width="1280", height="720" style="position: relative;"></canvas>
+        <div class="searchContainerCOMP">
+            <div class="subcontainerCOMP">
+                <p>Fontes</p>
+                <button onclick="selComponent(1)">Valor VERDADEIRO (T)</button>
+                <button onclick="selComponent(0)">Valor FALSO (F)</button>
+            </div>
+            <div class="subcontainerCOMP">
+                <p>Portões Lógicos</p>
+                <button onclick="selComponent(2)">Porta OR</button>
+                <button onclick="selComponent(3)">Porta AND</button>
+                <button onclick="selComponent(4)">Porta XOR</button>
+                <button onclick="selComponent(5)">Porta NOT</button>
+            </div>
+            <div class="subcontainerCOMP">
+                <p>Registradores</p>
+                <button onclick="selComponent(7)">Registrador de 4 bits</button>
+            </div>
+            <div class="subcontainerCOMP">
+                <p>Indicadores</p>
+                <button onclick="selComponent(6)">Indicador de output booleano</button>
+                <button onclick="selComponent(8)">Conversor de binário para decimal</button>
+            </div>
+            <div class="subcontainerCOMP">
+                <p>Operadores matemáticos</p>
+                <button onclick="selComponent(10)">Adição</button>
+                <button onclick="selComponent(11)">Subtração</button>
+                <button onclick="selComponent(12)">Multiplicação</button>
+                <button onclick="selComponent(13)">Divisão inteira</button>
+                <button onclick="selComponent(9)">Comparação</button>
+            </div>
+            <div class="subcontainerCOMP">
+                <p>Extensão de inputs / Decompositores de inputs 4-bit</p>
+                <button onclick="selComponent(14)">Extensor de input (x4)</button>
+                <button onclick="selComponent(15)">Decompositor de input (4-bit para booleanos)</button>
+            </div>
+        </div>
+    </div>
+    <button id="showDesc" onclick="showDescBox()" style="width: 100%; height: 60px; font-size: 30pt; background-color: white; font-family: 'Times New Roman', Times, serif; display: flex; justify-content: center;">Ocultar descrição ↑</button>
+    <div id="dB" class="descBox">
+    <p style="font-size: 18pt; font-style: italic">Controles: </p>
+    <ul>
+        <li>
+            Para navegar na lista de componentes, pressione E para ir para a frente e Q para ir para trás.
+        </li>
+        <li>
+            Para criar o componente selecionado, pressione C.
+        </li>
+        <li>Para conectar um componente ao outro, clique no nó de um dos componentes (bolinha preta) e, após isso, clique no nó desejado do outro componente*</li>
+        <li style="color: rgb(179, 1, 1)">*Atenção: Cheque se os nós dos componentes são input e output ou vice-versa, caso não, não conseguirá conectar os dois.</li>
+    </ul>
+    <p style="font-size: 18pt; font-style: italic">Sobre os componentes: </p>
+    <ul>
+        <li style="font-size: 16pt; font-style: italic">Fontes: </li>
+        <ul>
+            <li>São fontes puras que retornam um valor booleano (Falso ou Verdadeiro, denotados como F (false) e T (true), respectivamente)</li>
+            <li>Têm apenas um nó de conexão, que é apenas um output.</li>
+        </ul>
+        <li style="font-size: 16pt; font-style: italic">Portões lógicos: </li>
+        <ul>
+            <li>São componentes que têm três nós de conexão: 2 inputs (Booleanos) e 1 output (Booleano)*</li>
+            <li>Retornam um valor dependendo dos inputs e do tipo de portão (AND, OR, XOR)</li>    
+            <li style="color: rgb(179, 1, 1)">*Exceção: O portão NOT tem apenas um input e um output.</li>
+            <li>Saiba mais <a href="https://en.wikipedia.org/wiki/Logic_gate">aqui</a></li>
+        </ul>
+        <li style="font-size: 16pt; font-style: italic">Registrador de 4 bits: </li>
+        <ul>
+            <li>São componentes que têm cinco nós de conexão: 4 inputs (Booleanos) e 1 output (4 bits, não é compatível com inputs booleanos)*</li>
+            <li>Retornam um valor de 4 bits, que pode ser usado no conversor para decimal ou o comparador.</li>
+        </ul>
+        <li style="font-size: 16pt; font-style: italic">Indicador de output: </li>
+        <ul>
+            <li>São componentes que têm um nó de conexão: 1 input (Booleano)</li>
+            <li>Mostram se o input é Falso ou Verdadeiro (F ou T)</li>
+        </ul>
+        <li style="font-size: 16pt; font-style: italic">Conversor para decimal: </li>
+        <ul>
+            <li>São componentes que têm um nó de conexão: 1 input (4 bits)</li>
+            <li>Mostram o valor de 4 bits em base 10 (decimal)</li>
+        </ul>
+        <li style="font-size: 16pt; font-style: italic">Comparador: </li>
+        <ul>
+            <li>São componentes que têm quatro nós de conexão: 2 inputs (4 bits; mostrados como n1 e n2) e 2 outputs (Booleanos)</li>
+            <li>n1 > n2: Retornará 1 e 0 (separados nos 2 outputs)</li>
+            <li>n1 < n2: Retornará 0 e 1 (separados nos 2 outputs)</li>
+            <li>n1 = n2: Retornará 1 e 1 (separados nos 2 outputs)</li>
+        </ul>
+    </ul>
+</div>
+</body>
+<script>
+    const c = document.getElementById("canvas")
+    const ctx = c.getContext("2d")
+    ctx.font = "20pt Arial"
+    let selectedObj;
+    let selpntindex;
+    let selectedObj2;
+    let selpntindex2;
+    let components = []
+    let connections = []
+    function drawCircle(x, y, r, color, mode) {
+        ctx.fillStyle = color
+        ctx.beginPath()
+        ctx.arc(x, y, r, 0, 2*Math.PI)
+        if (mode == 'fill' || mode == null) {
+            ctx.fill()
+        }
+        else if (mode == 'outline') {
+            ctx.stroke()
+        }
+    }
+
+    function bin2dec(n) {
+        let res = 0;
+        let index = n.length-1;
+        n.forEach(digit => {
+            // console.log(digit)
+            res = res + digit*(2**index);
+            index--;
+        })
+        return res
+    }
+
+    function dec2bin(n) {
+        // console.log(n)
+        let x = n;
+        let y = [];
+        while (x >= 1) {
+            // console.log(x)
+            y.push(((x % 2).toString()))
+            x = Math.floor(x / 2)
+            // if (x == 1) {
+                //break;
+            //}
+        }
+        if (y.length == 0) {
+            y = ["0"]
+        }
+        return y.reverse()
+    }
+
+    function bitshift(d, n) {
+        // d = -1 --> left
+        // d = 1 --> right
+        let i = 0;
+        if (d == 1) {
+            n.forEach(sn => {
+
+            })
+        }
+    }
+
+    function selComponent(i) {
+        typeIndex = i
+        switch (i) {
+            case 0:
+                typeObjSelected = new Source(curCoords[0], curCoords[1], false);
+                break;
+            case 1:
+                typeObjSelected = new Source(curCoords[0], curCoords[1], true);
+                break;
+            case 2:
+                typeObjSelected = new Gate(curCoords[0], curCoords[1], "OR");
+                break;
+            case 3:
+                typeObjSelected = new Gate(curCoords[0], curCoords[1], "AND");
+                break;
+            case 4:
+                typeObjSelected = new Gate(curCoords[0], curCoords[1], "XOR");
+                break;
+            case 5:
+                typeObjSelected = new Gate(curCoords[0], curCoords[1], "NOT");
+                break;
+            case 6:
+                typeObjSelected = new OutputIndicator(curCoords[0], curCoords[1]);
+                break;
+            case 7:
+                typeObjSelected = new Bit4Register(curCoords[0], curCoords[1]);
+                break;
+            case 8:
+                typeObjSelected = new decimalConverter(curCoords[0], curCoords[1]);
+                break;
+            case 9:
+                typeObjSelected = new Comparator(curCoords[0], curCoords[1]);
+                break;
+            case 10:
+                typeObjSelected = new mathOperator(curCoords[0], curCoords[1], "+");
+                break;
+            case 11:
+                typeObjSelected = new mathOperator(curCoords[0], curCoords[1], "-");
+                break;
+            case 12:
+                typeObjSelected = new mathOperator(curCoords[0], curCoords[1], "*");
+                break;
+            case 13:
+                typeObjSelected = new mathOperator(curCoords[0], curCoords[1], "//");
+                break;
+            case 14:
+                typeObjSelected = new outputExpander(curCoords[0], curCoords[1]);
+                break;
+            case 15:
+                typeObjSelected = new outputSplitter(curCoords[0], curCoords[1]);
+                break;
+        }
+    }
+
+    // console.log(dec2bin(10))
+
+    class Source {
+        constructor(x, y, boolean) {
+            this.id = components.length;
+            this.x = x
+            this.y = y
+            this.isConnectedIN = []
+            this.isConnectedOUT = [false]
+            this.boolean = boolean
+            this.connectionPointsIN = []
+            this.connectionPointsOUT = [[this.x+40, this.y+22]]
+            this.connections = 1
+            this.colorPointsOUT = ["#000000"]
+            this.output = [this.boolean]
+            this.connectedWithIN = []
+            this.connectedWithOUT = [null]
+        }
+
+        drawSGraphics() {
+            ctx.fillStyle = "#000000"
+            if (this.boolean) {
+                ctx.fillStyle = "#009900"
+                ctx.fillRect(this.x, this.y, 40, 40);
+                ctx.fillStyle = "#000000"
+                ctx.fillText("T", this.x+12, this.y+30);
+            }
+            else {
+                ctx.fillStyle = "#CB0000"
+                ctx.fillRect(this.x, this.y, 40, 40);
+                ctx.fillStyle = "#000000"
+                ctx.fillText("F", this.x+12, this.y+30);
+            }
+            // connection points
+            drawCircle(this.x+40, this.y+22, 8, this.colorPointsOUT[0])
+        }
+    }
+
+    class Gate {
+        constructor(x, y, type) {
+            this.id = components.length;
+            // console.log(components.length)
+            this.x = x
+            this.y = y
+            this.isConnectedIN = [false, false]
+            this.isConnectedOUT = [false]
+            this.connectedWithIN = [null, null]
+            this.connectedWithOUT = [null]
+            this.type = type
+            this.connectionPointsIN = [[this.x, this.y+22-12], [this.x, this.y+22+14]]
+            this.connectionPointsOUT = [[this.x+75, this.y+25]]
+            this.connections = 3
+            this.colorPointsIN = ["#000000", "#000000"]
+            this.colorPointsOUT = ["#000000"]
+            this.inputs = [false, false]
+            this.output = [false]
+            if (this.type == "NOT") {
+                this.isConnectedIN = [false]
+                this.connectedWithIN = [null]
+                this.connectedWithOUT = [null]
+                this.connections = 2
+                this.inputs = [false]
+                this.output = [false]
+                this.colorPointsIN = ["#000000"]
+                this.colorPointsOUT = ["#000000"]
+                this.connectionPointsIN = [[this.x, this.y+25]]
+                this.connectionPointsOUT = [[this.x+75, this.y+25]]
+            }
+        }
+
+        drawGGraphics() {
+            ctx.fillStyle = "#FFFFFF"
+            ctx.strokeStyle = "#000000"
+            ctx.strokeRect(this.x, this.y, 75, 50)
+            ctx.fillRect(this.x, this.y, 75, 50)
+            ctx.fillStyle = "#000000"
+            ctx.fillText(this.type, this.x+10, this.y+35);
+            if (this.type == "NOT") { 
+                drawCircle(this.x, this.y+25, 8, this.colorPointsIN[0])
+                drawCircle(this.x+75, this.y+25, 8, this.colorPointsOUT[0])
+            }
+            else {
+                // connection points
+                drawCircle(this.x, this.y+22-12, 8, this.colorPointsIN[0])
+                drawCircle(this.x, this.y+22+14, 8, this.colorPointsIN[1])
+
+                // output point
+                drawCircle(this.x+75, this.y+25, 8, this.colorPointsOUT[0])
+            }
+        }
+
+        simGLogic() {
+            let cmpIndex;
+            let nodeIndex;
+            let stop;
+            cmpIndex = -1;
+            nodeIndex = -1;
+            stop = false;
+            this.connectedWithIN.forEach(cm => {
+                cmpIndex++;
+                if (cm != null) {
+                    cm.connectedWithOUT.forEach(connection => {
+                        if (!stop) {
+                            nodeIndex++
+                        }
+                        if (connection != null) {
+                            if (connection.id == this.id) {
+                                stop = true;
+                            }
+                        }
+                    })
+                    // console.log(cm, cm.output)
+                    if (cm.output[nodeIndex] == false) {
+                        // console.log(this.inputs[cmpIndex], cmpIndex)
+                        this.inputs[cmpIndex] = false
+                    }
+                    else if (cm.output[nodeIndex] == true) {
+                        this.inputs[cmpIndex] = true
+                        // console.log(this.inputs[cmpIndex], cmpIndex)
+                    }
+                }
+            })
+            switch (this.type) {
+                case "OR":
+                    if (this.inputs[0] || this.inputs[1]) {
+                        this.output = [true]
+                    }
+                    else {
+                        this.output = [false]
+                    }
+                    break;
+                case "AND":
+                    if (this.inputs[0] && this.inputs[1]) {
+                        this.output = [true]
+                    }
+                    else {
+                        this.output = [false]
+                    }
+                break;
+                case "XOR":
+                    if (!(this.inputs[0] && this.inputs[1]) && (this.inputs[0] || this.inputs[1])) {
+                        this.output = [true]
+                    }
+                    else {
+                        this.output = [false]
+                    }
+                break;
+                case "NOT":
+                    this.output = [!this.inputs[0]]
+                break;
+            }
+        }
+    }
+
+    class Bit4Register {
+        constructor(x, y) {
+            this.id = components.length;
+            this.x = x
+            this.y = y
+            this.isConnectedIN = [false, false, false, false]
+            this.isConnectedOUT = [false]
+            this.connectedWithIN = [null, null, null, null]
+            this.connectedWithOUT = [null]
+            this.connectionPointsIN = [[this.x, this.y+12], [this.x, this.y+12+20], [this.x, this.y+12+40], [this.x, this.y+12+60]]
+            this.connectionPointsOUT = [[this.x+125, this.y+40]]
+            this.connections = 5
+            this.colorPointsIN = ["#000000", "#000000", "#000000", "#000000"]
+            this.colorPointsOUT = ["#000000"]
+            this.inputs = [false, false, false, false]
+            this.output = [false, false, false, false]
+            /* if (this.type == "NOT") {
+                this.isConnected = [false, false]
+                this.connectedWith = [null, null]
+                this.connections = 2
+                this.inputs = [false]
+                this.colorPoints = ["#000000", "#000000"]
+                this.connectionPoints = [[this.x, this.y+22] [this.x+75, this.y+22]]
+            } */
+        }
+
+        draw4bGraphics() {
+            ctx.fillStyle = "#FFFFFF"
+            ctx.strokeStyle = "#000000"
+            ctx.strokeRect(this.x, this.y, 125, 80)
+            ctx.fillRect(this.x, this.y, 125, 80)
+            ctx.fillStyle = "#000000"
+            ctx.fillText([Number(this.inputs[0]), Number(this.inputs[1]), Number(this.inputs[2]), Number(this.inputs[3])].join("") + "₂", this.x+20, this.y+50);
+            // connection points
+            drawCircle(this.x, this.y+12, 8, this.colorPointsIN[0])
+            drawCircle(this.x, this.y+12+20, 8, this.colorPointsIN[1])
+            drawCircle(this.x, this.y+12+40, 8, this.colorPointsIN[2])
+            drawCircle(this.x, this.y+12+60, 8, this.colorPointsIN[3])
+
+            // output point
+            drawCircle(this.x+125, this.y+40, 8, this.colorPointsOUT[0])
+        }
+
+        sim4bLogic() {
+            let cmpIndex;
+            cmpIndex = -1;
+            let stop = false;
+            let nodeIndex = -1;
+            /* this.connectedWithIN.forEach(cm => {
+                cmpIndex++;
+                // console.log(cmpIndex)
+                if (cm != null) {
+                    this.inputs[cmpIndex] = cm.output[0]
+                    this.output[cmpIndex] = cm.output[0]
+                    // console.log(cm.output[0])
+                    // console.log(this.inputs[cmpIndex], cmpIndex)
+                }
+            }) */
+            this.connectedWithIN.forEach(cm => {
+            cmpIndex++;
+            //let sCount = 0;
+            if (cm != null) {
+                cm.connectedWithOUT.forEach(connection => {
+                    // console.log(cm.connectedWithOUT)
+                    if (!stop) {
+                        nodeIndex++
+                    }
+                    if (connection != null) {
+                        if (connection.id == this.id) {
+                            stop = true;
+                            //sCount++;
+                        }
+                    }
+                })
+                this.inputs[cmpIndex] = cm.output[nodeIndex]
+                this.output[cmpIndex] = cm.output[nodeIndex]
+                console.log(cmpIndex, nodeIndex)
+                }
+            stop = false;
+            nodeIndex = -1;
+            })
+        }
+    }
+
+    class OutputIndicator {
+        constructor(x, y) {
+            this.id = components.length;
+            this.x = x
+            this.y = y
+            this.isConnectedIN = [false];
+            this.isConnectedOUT = [];
+            // this.boolean = boolean
+            this.connectionPointsIN = [[this.x+40, this.y+22]]
+            this.connectionPointsOUT = []
+            this.connections = 1
+            this.colorPointsIN = ["#000000"]
+            this.input = [null]
+            this.output = []
+            this.connectedWithIN = [null]
+            this.connectedWithOUT = []
+        }
+
+        drawOIGraphics() {
+            ctx.fillStyle = "#000000"
+            if (this.input[0]) {
+                ctx.fillStyle = "#BBBBBB"
+                ctx.fillRect(this.x, this.y, 40, 40)
+                ctx.fillStyle = "#DDDD00"
+                ctx.fillRect(this.x+5, this.y+5, 30, 30);
+                ctx.fillStyle = "#000000"
+                ctx.fillText("T", this.x+12, this.y+30);
+            }
+            else {
+                ctx.fillStyle = "#BBBBBB"
+                ctx.fillRect(this.x, this.y, 40, 40)
+                ctx.fillStyle = "#000000"
+                ctx.fillRect(this.x+5, this.y+5, 30, 30);
+                ctx.fillStyle = "#DDDD00"
+                ctx.fillText("F", this.x+12, this.y+30);
+            }
+            // connection points
+            drawCircle(this.x+40, this.y+22, 8, this.colorPointsIN[0])
+        }
+        
+        detectInput() {
+            let stop = false;
+            let nodeIndex = -1;
+            if (this.connectedWithIN[0] != null) {
+                this.connectedWithIN[0].connectedWithOUT.forEach(connection => {
+                    if (!stop) {
+                        nodeIndex++
+                    }
+                    if (connection != null) {
+                        if (connection.id == this.id) {
+                            stop = true;
+                        }
+                    }
+                    })
+                    // console.log(cm, cm.output)
+                    this.input[0] = this.connectedWithIN[0].output[nodeIndex]
+                }
+        }
+    }
+
+    class decimalConverter {
+        constructor(x, y) {
+            this.id = components.length;
+            this.x = x
+            this.y = y
+            this.isConnectedIN = [false]
+            this.isConnectedOUT = []
+            this.connectedWithIN = [null]
+            this.connectedWithOUT = []
+            this.connectionPointsIN = [[this.x, this.y+40]]
+            this.connectionPointsOUT = []
+            this.connections = 1
+            this.colorPointsIN = ["#000000"]
+            this.colorPointsOUT = []
+            this.inputs = [false, false, false, false]
+            this.output = []
+            /* if (this.type == "NOT") {
+                this.isConnected = [false, false]
+                this.connectedWith = [null, null]
+                this.connections = 2
+                this.inputs = [false]
+                this.colorPoints = ["#000000", "#000000"]
+                this.connectionPoints = [[this.x, this.y+22] [this.x+75, this.y+22]]
+            } */
+        }
+
+        drawDecGraphics() {
+            ctx.fillStyle = "#FFFFFF"
+            ctx.strokeStyle = "#000000"
+            ctx.strokeRect(this.x, this.y, 125, 80)
+            ctx.fillRect(this.x, this.y, 125, 80)
+            ctx.fillStyle = "#000000"
+            ctx.fillText(bin2dec(this.inputs).toString() + "₁₀", this.x+20, this.y+50);
+            // connection points
+            drawCircle(this.x, this.y+40, 8, this.colorPointsIN[0])
+        }
+
+        simDecLogic() {
+            let stop = false;
+            let nodeIndex = -1;
+            if (this.connectedWithIN[0] != null) {
+                this.connectedWithIN[0].connectedWithOUT.forEach(connection => {
+                    if (!stop) {
+                        nodeIndex++
+                    }
+                    if (connection != null) {
+                        if (connection.id == this.id) {
+                            stop = true;
+                        }
+                    }
+                    })
+                    // console.log(cm, cm.output)
+                    this.input = this.connectedWithIN[0].output[nodeIndex]
+                }
+        }
+    }
+    
+    class Comparator {
+        constructor(x, y) {
+            this.id = components.length;
+            this.x = x
+            this.y = y
+            this.isConnectedIN = [false, false]
+            this.isConnectedOUT = [null, null]
+            this.connectedWithIN = [null, null]
+            this.connectedWithOUT = [null, null]
+            this.connectionPointsIN = [[this.x, this.y+20], [this.x, this.y+60]]
+            this.connectionPointsOUT = [[this.x+125, this.y+20], [this.x+125, this.y+60]]
+            this.connections = 1
+            this.colorPointsIN = ["#000000", "#000000"]
+            this.colorPointsOUT = ["#000000", "#000000"]
+            this.inputs1 = [false, false, false, false]
+            this.inputs2 = [false, false, false, false]
+            this.output = [0, 0]
+            /* if (this.type == "NOT") {
+                this.isConnected = [false, false]
+                this.connectedWith = [null, null]
+                this.connections = 2
+                this.inputs = [false]
+                this.colorPoints = ["#000000", "#000000"]
+                this.connectionPoints = [[this.x, this.y+22] [this.x+75, this.y+22]]
+            } */
+        }
+
+        drawCompGraphics() {
+            ctx.fillStyle = "#FFFFFF"
+            ctx.strokeStyle = "#000000"
+            ctx.strokeRect(this.x, this.y, 125, 80)
+            ctx.fillRect(this.x, this.y, 125, 80)
+            ctx.fillStyle = "#000000"
+            ctx.font = "10pt Arial"
+            ctx.fillText("n1", this.x+14, this.y+25);
+            ctx.fillText("n2", this.x+14, this.y+65);
+            ctx.font = "20pt Arial"
+            ctx.fillText(this.output.join(""), this.x+50, this.y+50);
+            // connection points
+            drawCircle(this.x, this.y+20, 8, this.colorPointsIN[0])
+            drawCircle(this.x, this.y+60, 8, this.colorPointsIN[1])
+
+            // outputs
+            drawCircle(this.x+125, this.y+20, 8, this.colorPointsOUT[0])
+            drawCircle(this.x+125, this.y+60, 8, this.colorPointsOUT[1])
+        }
+
+        simCompLogic() { 
+            let cmpIndex;
+            cmpIndex = -1;
+            this.connectedWithIN.forEach(cm => {
+                cmpIndex++
+                // console.log(cmpIndex)
+                if (cm != null) {
+                    // console.log(cm, cm.output)
+                    if (cmpIndex == 0) {
+                        this.inputs1 = cm.output;
+                    }
+                    else if (cmpIndex == 1) {
+                        this.inputs2 = cm.output;
+                    }
+                }
+            })
+            let n1 = bin2dec([Number(this.inputs1[0]), Number(this.inputs1[1]), Number(this.inputs1[2]), Number(this.inputs1[3])])
+            let n2 = bin2dec([Number(this.inputs2[0]), Number(this.inputs2[1]), Number(this.inputs2[2]), Number(this.inputs2[3])])
+            if (n1 == n2) {
+                this.output = [1, 1]
+            }
+            else if (n1 > n2) {
+                this.output = [1, 0]
+            }
+            else if (n1 < n2) {
+                this.output = [0, 1]
+            }
+        }
+    }
+
+    class mathOperator {
+        constructor(x, y, op) {
+            this.id = components.length;
+            this.x = x
+            this.y = y
+            this.isConnectedIN = [false]
+            this.isConnectedOUT = []
+            this.connectedWithIN = [null]
+            this.connectedWithOUT = []
+            this.connectionPointsIN = [[this.x, this.y+20], [this.x, this.y+60]]
+            this.connectionPointsOUT = [[this.x+125, this.y+40]]
+            this.connections = 1
+            this.colorPointsIN = ["#000000", "#000000"]
+            this.colorPointsOUT = ["#000000"]
+            this.inputs1 = [0, 0, 0, 0]
+            this.inputs2 = [0, 0, 0, 0]
+            this.output = []
+            this.op = op
+            /* if (this.type == "NOT") {
+                this.isConnected = [false, false]
+                this.connectedWith = [null, null]
+                this.connections = 2
+                this.inputs = [false]
+                this.colorPoints = ["#000000", "#000000"]
+                this.connectionPoints = [[this.x, this.y+22] [this.x+75, this.y+22]]
+            } */
+        }
+
+        drawMOPGraphics() {
+            ctx.fillStyle = "#FFFFFF"
+            ctx.strokeStyle = "#000000"
+            ctx.strokeRect(this.x, this.y, 125, 80)
+            ctx.fillRect(this.x, this.y, 125, 80)
+            ctx.fillStyle = "#000000"
+            ctx.font = "10pt Arial"
+            ctx.fillText("n1", this.x+14, this.y+25);
+            ctx.fillText("n2", this.x+14, this.y+65);
+            ctx.font = "20pt Arial"
+            ctx.fillText(this.op, this.x+50, this.y+50);
+            // connection points
+            drawCircle(this.x, this.y+20, 8, this.colorPointsIN[0])
+            drawCircle(this.x, this.y+60, 8, this.colorPointsIN[1])
+
+            // outputs
+            drawCircle(this.x+125, this.y+40, 8, this.colorPointsOUT[0])
+        }
+
+        simMOPLogic() { 
+            let cmpIndex;
+            cmpIndex = -1;
+            this.connectedWithIN.forEach(cm => {
+                cmpIndex++
+                // console.log(cmpIndex)
+                if (cm != null) {
+                    // console.log(cm, cm.output)
+                    if (cmpIndex == 0) {
+                        this.inputs1 = cm.output;
+                    }
+                    else if (cmpIndex == 1) {
+                        this.inputs2 = cm.output;
+                    }
+                }
+            })
+            let n1 = bin2dec([Number(this.inputs1[0]), Number(this.inputs1[1]), Number(this.inputs1[2]), Number(this.inputs1[3])])
+            let n2 = bin2dec([Number(this.inputs2[0]), Number(this.inputs2[1]), Number(this.inputs2[2]), Number(this.inputs2[3])])
+            // console.log(n1, n2)
+            if (this.op == "+") {
+                this.output = dec2bin(n1 + n2)
+            }
+            else if (this.op == "-") {
+                this.output = dec2bin(n1 - n2)
+            }
+            if (this.op == "*") {
+                this.output = dec2bin(n1 * n2)
+            }
+            if (this.op == "//" && n2 != 0) {
+                this.output = dec2bin(Math.round(n1 / n2))
+            }
+        }
+    }
+
+    class outputExpander {
+        constructor(x, y) {
+            this.id = components.length;
+            this.x = x
+            this.y = y
+            this.isConnectedIN = [false]
+            this.isConnectedOUT = [false, false, false, false]
+            this.connectedWithIN = [null]
+            this.connectedWithOUT = [null, null, null, null]
+            this.connectionPointsIN = [[this.x, this.y+40]]
+            this.connectionPointsOUT = [[this.x+65, this.y+12], [this.x+65, this.y+12+20], [this.x+65, this.y+12+40], [this.x+65, this.y+12+60]]
+            this.connections = 5
+            this.colorPointsIN = ["#000000"]
+            this.colorPointsOUT = ["#000000", "#000000", "#000000", "#000000"]
+            this.inputs = [false, false, false, false]
+            this.output = [false, false, false, false]
+            /* if (this.type == "NOT") {
+                this.isConnected = [false, false]
+                this.connectedWith = [null, null]
+                this.connections = 2
+                this.inputs = [false]
+                this.colorPoints = ["#000000", "#000000"]
+                this.connectionPoints = [[this.x, this.y+22] [this.x+75, this.y+22]]
+            } */
+        }
+
+        drawOEGraphics() {
+            ctx.fillStyle = "#FFFFFF"
+            ctx.strokeStyle = "#000000"
+            ctx.strokeRect(this.x, this.y, 65, 80)
+            ctx.fillRect(this.x, this.y, 65, 80)
+            ctx.fillStyle = "#000000"
+            ctx.fillText("C", this.x+20, this.y+50);
+            // connection points
+            drawCircle(this.x, this.y+40, 8, this.colorPointsIN[0])
+
+            // output point
+            drawCircle(this.x+65, this.y+12, 8, this.colorPointsOUT[0])
+            drawCircle(this.x+65, this.y+12+20, 8, this.colorPointsOUT[1])
+            drawCircle(this.x+65, this.y+12+40, 8, this.colorPointsOUT[2])
+            drawCircle(this.x+65, this.y+12+60, 8, this.colorPointsOUT[3])
+        }
+
+        simOELogic() {
+            let cmpIndex;
+            cmpIndex = -1;
+            this.connectedWithIN.forEach(cm => {
+                cmpIndex++;
+                // console.log(cmpIndex)
+                if (cm != null) {
+                    this.inputs = cm.output
+                    this.output = cm.output
+                    // console.log(cm.output[0])
+                    // console.log(this.inputs[cmpIndex], cmpIndex)
+                }
+            })
+        }
+    }
+    
+    class outputSplitter {
+        constructor(x, y) {
+            this.id = components.length;
+            this.x = x
+            this.y = y
+            this.isConnectedIN = [false]
+            this.isConnectedOUT = [false, false, false, false]
+            this.connectedWithIN = [null]
+            this.connectedWithOUT = [null, null, null, null]
+            this.connectionPointsIN = [[this.x, this.y+40]]
+            this.connectionPointsOUT = [[this.x+65, this.y+12], [this.x+65, this.y+12+20], [this.x+65, this.y+12+40], [this.x+65, this.y+12+60]]
+            this.connections = 5
+            this.colorPointsIN = ["#000000"]
+            this.colorPointsOUT = ["#000000", "#000000", "#000000", "#000000"]
+            this.inputs = [false, false, false, false]
+            this.output = [false, false, false, false]
+            /* if (this.type == "NOT") {
+                this.isConnected = [false, false]
+                this.connectedWith = [null, null]
+                this.connections = 2
+                this.inputs = [false]
+                this.colorPoints = ["#000000", "#000000"]
+                this.connectionPoints = [[this.x, this.y+22] [this.x+75, this.y+22]]
+            } */
+        }
+
+        drawOSGraphics() {
+            ctx.fillStyle = "#FFFFFF"
+            ctx.strokeStyle = "#000000"
+            ctx.strokeRect(this.x, this.y, 65, 80)
+            ctx.fillRect(this.x, this.y, 65, 80)
+            ctx.fillStyle = "#000000"
+            ctx.fillText("S", this.x+20, this.y+50);
+            // connection points
+            drawCircle(this.x, this.y+40, 8, this.colorPointsIN[0])
+
+            // output point
+            drawCircle(this.x+65, this.y+12, 8, this.colorPointsOUT[0])
+            drawCircle(this.x+65, this.y+12+20, 8, this.colorPointsOUT[1])
+            drawCircle(this.x+65, this.y+12+40, 8, this.colorPointsOUT[2])
+            drawCircle(this.x+65, this.y+12+60, 8, this.colorPointsOUT[3])
+        }
+
+        simOSLogic() {
+            let cmpIndex;
+            cmpIndex = -1;
+            this.connectedWithIN.forEach(cm => {
+                cmpIndex++;
+                // console.log(cmpIndex)
+                if (cm != null) {
+                    this.inputs = cm.output
+                    this.output = cm.output
+                    // console.log(cm.output[0])
+                    // console.log(this.inputs[cmpIndex], cmpIndex)
+                }
+            })
+        }
+    }
+
+    function getMouseCoords(c, ev) {
+        let rectangle = c.getBoundingClientRect();
+        let x = event.clientX - rectangle.left;
+        let y = event.clientY - rectangle.top;
+        return [x, y];
+    }
+    var mouseCoords;
+    let pntType;
+    let typeObjSelected = new Source(-100, -100, false);
+    let typeIndex = 0;
+    let curCoords;
+
+    c.addEventListener("mousemove", function (e) {
+        mouseCoords = getMouseCoords(c, e);
+        typeObjSelected.x = mouseCoords[0]
+        typeObjSelected.y = mouseCoords[1]
+        curCoords = mouseCoords
+    })
+
+    document.addEventListener("keydown", function (e) {
+        /* if (e.code == "KeyE" && typeIndex < 14) {
+            typeIndex++
+        }
+        else if (e.code == "KeyQ" && typeIndex > 0) {
+            typeIndex--;
+        } */
+        if (e.code == "KeyC") {
+        switch (typeIndex) {
+            case 0:
+                components.push(new Source(curCoords[0], curCoords[1], false));
+                break;
+            case 1:
+                components.push(new Source(curCoords[0], curCoords[1], true));
+                break;
+            case 2:
+                components.push(new Gate(curCoords[0], curCoords[1], "OR"));
+                break;
+            case 3:
+                components.push(new Gate(curCoords[0], curCoords[1], "AND"));
+                break;
+            case 4:
+                components.push(new Gate(curCoords[0], curCoords[1], "XOR"));
+                break;
+            case 5:
+                components.push(new Gate(curCoords[0], curCoords[1], "NOT"));
+                break;
+            case 6:
+                components.push(new OutputIndicator(curCoords[0], curCoords[1]));
+                break;
+            case 7:
+                components.push(new Bit4Register(curCoords[0], curCoords[1]));
+                break;
+            case 8:
+                components.push(new decimalConverter(curCoords[0], curCoords[1]));
+                break;
+            case 9:
+                components.push(new Comparator(curCoords[0], curCoords[1]));
+                break;
+            case 10:
+                components.push(new mathOperator(curCoords[0], curCoords[1], "+"));
+                break;
+            case 11:
+                components.push(new mathOperator(curCoords[0], curCoords[1], "-"));
+                break;
+            case 12:
+                components.push(new mathOperator(curCoords[0], curCoords[1], "*"));
+                break;
+            case 13:
+                components.push(new mathOperator(curCoords[0], curCoords[1], "//"));
+                break;
+            case 14:
+                components.push(new outputExpander(curCoords[0], curCoords[1]));
+                break;
+            case 15:
+                components.push(new outputSplitter(curCoords[0], curCoords[1]));
+                break;
+        }
+        }
+    })
+    // get connections
+    c.addEventListener("mousedown", function (e) {
+        mouseCoords = getMouseCoords(c, e);
+        let x1 = Math.round(mouseCoords[0])
+        let y1 = Math.round(mouseCoords[1])
+        let x0;
+        let y0;
+        let pntIndex = -1;
+        let pntIndexIN = -1;
+        let pntIndexOUT = -1;
+        if (!selectedObj) {
+            components.forEach(cm => {
+                // define 1st point
+                pntIndexIN = -1
+                pntIndexOUT = -1
+                // // console.log(cm)
+                cm.connectionPointsIN.forEach(pnt => {
+                    pntIndexIN++;
+                    x0 = pnt[0]
+                    y0 = pnt[1]
+                    if (Math.sqrt((x1-x0)**2 + (y1-y0)**2) < 12) {
+                        // console.log("mano bruh in")
+                        selectedObj = cm
+                        // console.log("selobj:", selectedObj)
+                        selpntindex = pntIndexIN;
+                        selectedObj.colorPointsIN[selpntindex] = "#FF0000";
+                        pntType = "IN"
+                        // console.log("click")
+                    }
+                })
+                    // detect if point is OUT
+                    cm.connectionPointsOUT.forEach(pnt => {
+                        pntIndexOUT++;
+                        x0 = pnt[0]
+                        y0 = pnt[1]
+                        if (Math.sqrt((x1-x0)**2 + (y1-y0)**2) < 12) {
+                            // console.log("mano bruh out")
+                            selectedObj = cm
+                            // console.log("selobj:", selectedObj)
+                            selpntindex = pntIndexOUT;
+                            selectedObj.colorPointsOUT[selpntindex] = "#FF0000";
+                            pntType = "OUT"
+                            // console.log("hello")
+                        }
+                    })
+            });
+        }
+        else if (selectedObj && !selectedObj2) {
+            pntIndex = -1
+            components.forEach(cm => {
+            // define 2nd point
+                pntIndex = -1
+                // console.log(pntType)
+                if (pntType == "OUT") {
+                    cm.connectionPointsIN.forEach(pnt => {
+                        pntIndex++;
+                        x0 = pnt[0]
+                        y0 = pnt[1]
+                        if (Math.sqrt((x1-x0)**2 + (y1-y0)**2) < 12) {
+                            // console.log("mano bruh 2 out")
+                            if (cm != selectedObj) {
+                                selectedObj2 = cm
+                                // console.log("selobj2:", selectedObj2)
+                                selpntindex2 = pntIndex;
+                                // console.log([selectedObj.connectionPointsOUT[selpntindex], selectedObj2.connectionPointsIN[selpntindex2]])
+                                if (!selectedObj.isConnectedOUT[selpntindex] && !selectedObj2.isConnectedIN[selpntindex2]) {
+                                    selectedObj.isConnectedOUT[selpntindex] = true;
+                                    selectedObj2.isConnectedIN[selpntindex2] = true;
+                                    // console.log("test")
+                                    // console.log("cpoints:", [selectedObj.connectionPointsOUT[selpntindex], selectedObj2.connectionPointsIN[selpntindex2]])
+                                    connections.push([selectedObj.connectionPointsOUT[selpntindex], selectedObj2.connectionPointsIN[selpntindex2]])
+                                    selectedObj.connectedWithOUT[selpntindex] = selectedObj2;
+                                    selectedObj2.connectedWithIN[selpntindex2] = selectedObj;
+                                }
+                                selectedObj.colorPointsOUT[selpntindex] = "#DDDD00"
+                                selectedObj2.colorPointsIN[selpntindex2] = " #DDDD00"
+                                selectedObj = null
+                                selpntindex = null
+                                selectedObj2 = null
+                                selpntindex = null
+                                pntType = null
+                            }
+                        }
+                    })
+            }
+                else if (pntType == "IN") {
+                    cm.connectionPointsOUT.forEach(pnt => {
+                        /* try {
+                            console.log(components[7])
+                        }
+                        catch {
+                            console.log("u")
+                        } */
+                        pntIndex++;
+                        x0 = pnt[0]
+                        y0 = pnt[1]
+                        if (Math.sqrt((x1-x0)**2 + (y1-y0)**2) < 12) {
+                            // console.log("mano bruh 2 in")
+                            if (cm != selectedObj) {
+                                selectedObj2 = cm
+                                // console.log("selobj2:", selectedObj2)
+                                selpntindex2 = pntIndex;
+                                if (!selectedObj.isConnectedIN[selpntindex] && !selectedObj2.isConnectedOUT[selpntindex2]) {
+                                    selectedObj.isConnectedIN[selpntindex] = true;
+                                    selectedObj2.isConnectedOUT[selpntindex2] = true;
+                                    // // console.log("connected?")
+                                    connections.push([selectedObj.connectionPointsIN[selpntindex], selectedObj2.connectionPointsOUT[selpntindex2]])
+                                    selectedObj.connectedWithIN[selpntindex] = selectedObj2;
+                                    selectedObj2.connectedWithOUT[selpntindex2] = selectedObj;
+                                }
+                                selectedObj.colorPointsIN[selpntindex] = "#DDDD00"
+                                selectedObj2.colorPointsOUT[selpntindex2] = " #DDDD00"
+                                selectedObj = null
+                                selpntindex = null
+                                selectedObj2 = null
+                                selpntindex2 = null
+                                pntType = ""
+                            }
+                        }
+                    })
+            }
+            });
+    }
+    })
+
+    /* components = [new Source(80, 80, true), new Source(80, 160, true), new Gate(240, 120, "XOR"), new Gate(360, 120, "AND"), new OutputIndicator(500, 120),
+        new Bit4Register(500, 400)
+    ] */
+
+    // let cni;
+
+    function simLogic() {
+        ctx.fillStyle = "#FFFFFF"
+        ctx.fillRect(0, 0, c.width, c.height)
+        components.forEach(component => {
+            if (component.constructor.name == "Source") {
+                component.drawSGraphics();
+            }
+            else if (component.constructor.name == "Gate") {
+                component.drawGGraphics();
+                component.simGLogic();
+            }
+            else if (component.constructor.name == "OutputIndicator") {
+                component.drawOIGraphics();
+                component.detectInput();
+            }
+            else if (component.constructor.name == "Bit4Register") {
+                component.draw4bGraphics();
+                component.sim4bLogic();
+            }
+            else if (component.constructor.name == "decimalConverter") {
+                component.drawDecGraphics();
+                component.simDecLogic();
+            }
+            else if (component.constructor.name == "Comparator") {
+                component.drawCompGraphics();
+                component.simCompLogic();
+            }
+            else if (component.constructor.name == "mathOperator") {
+                component.drawMOPGraphics();
+                component.simMOPLogic();
+            }
+            else if (component.constructor.name == "outputExpander") {
+                component.drawOEGraphics();
+                component.simOELogic();
+            }
+            else if (component.constructor.name == "outputSplitter") {
+                component.drawOSGraphics();
+                component.simOSLogic();
+            }
+        });
+        if (typeObjSelected.constructor.name == "Source") {
+            typeObjSelected.drawSGraphics();
+        }
+        else if (typeObjSelected.constructor.name == "Gate") {
+            typeObjSelected.drawGGraphics();
+        }
+        else if (typeObjSelected.constructor.name == "OutputIndicator") {
+            typeObjSelected.drawOIGraphics();
+        }
+        else if (typeObjSelected.constructor.name == "Bit4Register") {
+            typeObjSelected.draw4bGraphics();
+        }
+        else if (typeObjSelected.constructor.name == "decimalConverter") {
+            typeObjSelected.drawDecGraphics();
+        }
+        else if (typeObjSelected.constructor.name == "Comparator") {
+            typeObjSelected.drawCompGraphics();
+        }
+        else if (typeObjSelected.constructor.name == "mathOperator") {
+            typeObjSelected.drawMOPGraphics();
+        }
+        else if (typeObjSelected.constructor.name == "outputExpander") {
+            typeObjSelected.drawOEGraphics();
+        }
+        else if (typeObjSelected.constructor.name == "outputSplitter") {
+            typeObjSelected.drawOSGraphics();
+        }
+        // cni = -2
+        // connections are in the form of [[[x0, y0], [x1, y1]], ...]
+        connections.forEach(cn => {
+            // cni = cni + 2;
+            ctx.strokeStyle = "#000000"
+            ctx.beginPath();
+            ctx.moveTo(cn[0][0], cn[0][1])
+            ctx.lineTo(cn[1][0], cn[1][1])
+            // // console.log(cn[0][0], cn[0][1], "to", cn[1][1], cn[1][1])
+            ctx.stroke();
+            // // console.log(cn)
+            // // console.log(cn[cni][0], cn[cni][1], cn[cni+1][0], cn[cni+1][1])
+            // // console.log(cni, cni+1)
+        })
+        requestAnimationFrame(simLogic)
+    }
+    simLogic()    
+</script>

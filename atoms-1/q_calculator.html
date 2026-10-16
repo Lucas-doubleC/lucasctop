@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .banner {
+            width: 100%;
+            height: 100px;
+            background: #d7ffa8;
+            background: linear-gradient(0deg,rgba(215, 255, 168, 1) 0%, rgba(255, 255, 255, 1) 100%);
+            margin: 0px;
+            border: 0px;
+            padding: 0;
+            border-bottom: solid #5daf00 5px;
+        }
+
+        .descBox {
+            width: 98%;
+            height: 850px;
+            display: block;
+            background-color: white;
+            border: 0px solid black;
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            font-size: 14pt;
+            overflow-wrap: break-all;
+        }
+        .descBox p {
+            margin: 10px;
+        }
+
+        .container {
+            width: 100%;
+            height: 450px;
+            display: block;
+        }
+
+        body {
+            padding: 0;
+            border: 0;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        body #title {
+            margin: 0;
+            font-size: 36pt;
+        }
+
+        canvas {
+            width: 1000px;
+            height: 700px;
+        }
+
+        .container textarea {
+            width: 85%;
+            height: 100px;
+        }
+
+        #subcontainer textarea {
+            width: 5vh;
+            height: 2vh;
+        }
+
+        /* #subcontainer button {
+            width: 5vh;
+            height: 2vh;
+        } */
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="banner">
+<p id="title" style="color: rgb(0, 0, 0);">Calculadora de quatérnios</p>
+<p style="font-style: italic; font-size: 14pt; margin: 12px; color: rgb(0, 0, 0);">Lucas da Costa Campos, 2026</p>
+</div>
+<div class="container">
+<textarea id="input" placeholder="Expressão aqui..." style="font-family: Georgia, 'Times New Roman', Times, serif; position: relative; top: 50px; left: 80px; resize: none;"></textarea>
+<button onclick="calculate(document.getElementById('input').value)" style="font-family: Georgia, 'Times New Roman', Times, serif; position: relative; top: 50px; left: 80px; resize: none; width: 85%; background-color: white;">Calcular</button>
+<div id="subcontainer" style="width: 100%; height: 20%; display: inline-block; position: relative; top: 50px; left: 80px;">
+    <button style="position: relative; top: 25px; width: 3vh; height: 3vh; background-color: white;" onclick="document.getElementById('input').value = document.getElementById('input').value + '+'">+</button>
+    <button style="position: relative; top: 25px; width: 3vh; height: 3vh; background-color: white;" onclick="document.getElementById('input').value = document.getElementById('input').value + '-'">-</button>
+    <button style="position: relative; top: 25px; width: 3vh; height: 3vh; background-color: white;" onclick="document.getElementById('input').value = document.getElementById('input').value + '*'">*</button>
+    <button style="position: relative; top: 25px; width: 3vh; height: 3vh; background-color: white;" onclick="document.getElementById('input').value = document.getElementById('input').value + '/'">/</button>
+    <button style="position: relative; top: 25px; width: 10vh; height: 3vh; background-color: white;" onclick="document.getElementById('input').value = document.getElementById('input').value + '.conj()'">Conjugado</button>
+    <button style="position: relative; top: 25px; width: 10vh; height: 3vh; background-color: white;" onclick="document.getElementById('input').value = document.getElementById('input').value + '.norm()'">Magnitude</button>
+</div>
+<div id="subcontainer" style="width: 100%; height: 20%; display: inline-block; position: relative; top: 30px; left: 80px;">
+    <textarea id="rComponent" placeholder="real" style="font-family: Georgia, 'Times New Roman', Times, serif; resize: none;"></textarea>
+    <textarea id="iComponent" placeholder="i" style="font-family: Georgia, 'Times New Roman', Times, serif; resize: none;"></textarea>
+    <textarea id="jComponent" placeholder="j" style="font-family: Georgia, 'Times New Roman', Times, serif; resize: none;"></textarea>
+    <textarea id="kComponent" placeholder="k" style="font-family: Georgia, 'Times New Roman', Times, serif; resize: none;"></textarea>
+    <button style="position: relative; top: 25px; left: -24vh; width: 15vh; height: 3vh; background-color: white;" onclick="document.getElementById('input').value = document.getElementById('input').value + '(new Q(' + 
+    document.getElementById('rComponent').value + ', ' + document.getElementById('iComponent').value + ', ' + document.getElementById('jComponent').value + ', ' + document.getElementById('kComponent').value + '))'">Criar quatérnio</button>
+</div>
+<textarea id="output" readonly placeholder="Resultado..." style="font-family: Georgia, 'Times New Roman', Times, serif; position: relative; top: 30px; left: 80px; resize: none;"></textarea>
+</div>
+<button id="showDesc" onclick="showDescBox()" style="width: 100%; height: 60px; font-size: 30pt; background-color: white; font-family: 'Times New Roman', Times, serif; display: flex; justify-content: center; position: relative; top: 30px;">Ocultar descrição ↑</button>
+<div id="dB" class="descBox">
+    <p>Sintaxe:</p>
+    <li>
+        <ul>Quatérnio: (new Q(real, i, j, k)) (todos os parênteses são obrigatórios)</ul>
+        <ul>Adição: (new Q(real, i, j, k))+(new Q(real, i, j, k))</ul>
+        <ul>Subtração: (new Q(real, i, j, k))-(new Q(real, i, j, k))</ul>
+        <ul>Multiplicação: (new Q(real, i, j, k))*(new Q(real, i, j, k))</ul>
+        <ul>Divisão: (new Q(real, i, j, k))/(new Q(real, i, j, k))</ul>
+        <ul>Magnitude do Quatérnio: new Q(real, i, j, k).norm()</ul>
+        <ul>Conjugado do Quatérnio: new Q(real, i, j, k).conj()</ul>
+    </li>
+</div>
+</body>
+<script>
+    class Q {
+        constructor(r, i, j, k) {
+            this.r = r
+            this.i = i
+            this.j = j
+            this.k = k
+            if (!r) {this.r = 0}
+            if (!i) {this.i = 0}
+            if (!j) {this.j = 0}
+            if (!k) {this.k = 0}
+            let rd = [[1, 0, 0, 0],
+                [0, 1, 0, 0],
+                [0, 0, 1, 0],
+                [0, 0, 0, 1]]
+            let id = [[0, -1, 0, 0],
+                [1, 0, 0, 0],
+                [0, 0, 0, -1],
+                [0, 0, 0, 1]]
+            let jd = [[0, 0, -1, 0],
+                [0, 0, 0, 1],
+                [1, 0, 0, 0],
+                [0, -1, 0, 0]]
+            let kd = [[0, 0, 0, -1],
+                [0, 0, -1, 0],
+                [0, 1, 0, 0],
+                [1, 0, 0, 0]]
+        }
+
+        add(q) {
+            let r1 = this.r
+            let r2 = this.i
+            let r3 = this.j
+            let r4 = this.k
+            if (isFinite(q)) {
+                r1 += q
+            }
+            else {
+                r1 += q.r
+                r2 += q.i
+                r3 += q.j
+                r4 += q.k
+            }
+            return new Q(r1, r2, r3, r4)
+        }
+        
+        sub(q) {
+            let r1 = this.r
+            let r2 = this.i
+            let r3 = this.j
+            let r4 = this.k
+            if (isFinite(q)) {
+                r1 -= q
+            }
+            else {
+                r1 -= q.r
+                r2 -= q.i
+                r3 -= q.j
+                r4 -= q.k
+            }
+            return new Q(r1, r2, r3, r4)
+        }
+
+        mult(q) {
+            let a = this.r;
+            let b = this.i;
+            let c = this.j;
+            let d = this.k;
+            let e = q.r;
+            let f = q.i;
+            let g = q.j;
+            let h = q.k;
+            let r1 = this.r
+            let r2 = this.i
+            let r3 = this.j
+            let r4 = this.k
+            console.log(q);
+            if (isFinite(q)) {
+                r1 *= q;
+                r2 *= q;
+                r3 *= q;
+                r4 *= q;
+            }
+            else {
+                r1 = (a*e-b*f-c*g-d*h)
+                r2 = (a*f+b*e+c*h-d*g)
+                r3 = (a*g-b*h+c*e+d*f)
+                r4 = (a*h+b*g-c*f+d*e)
+            }
+            return new Q(r1, r2, r3, r4)
+        }
+
+        div(q) {
+            let a = this.r
+            let b = this.i
+            let c = this.j
+            let d = this.k
+            let e = 1/q.r
+            let f = 1/q.i
+            let g = 1/q.j
+            let h = 1/q.k
+            let r1 = this.r
+            let r2 = this.i
+            let r3 = this.j
+            let r4 = this.k
+            if (isFinite(q)) {
+                console.log(q)
+                r1 /= q
+                r2 /= q
+                r3 /= q
+                r4 /= q
+                return new Q(r1, r2, r3, r4)
+            }
+            else {
+                let qConj = q.conj();
+                let qNorm = q.norm() * q.norm()
+                let qInv = new Q(qConj.r/qNorm, qConj.i/qNorm, qConj.j/qNorm, qConj.k/qNorm)
+                return new Q(Math.round(new Q(r1, r2, r3, r4).mult(qInv).r*1000)/1000, Math.round(new Q(r1, r2, r3, r4).mult(qInv).i*1000)/1000,
+                Math.round(new Q(r1, r2, r3, r4).mult(qInv).j*1000)/1000, 
+                Math.round(new Q(r1, r2, r3, r4).mult(qInv).k*1000)/1000,)
+            }
+        }
+
+        pow(q) {
+
+        }
+
+        norm() {
+            return Math.sqrt(this.r**2 + this.i**2 + this.j**2 + this.k**2)
+        }
+
+        conj() {
+            return new Q(this.r, -this.i, -this.j, -this.k)
+        }
+
+        toString() {
+            let returnStr = this.r
+            if (this.i < 0) {
+                returnStr += " - " + Math.sign(this.i)*this.i + "i"
+            }
+            else {
+                returnStr += " + " + this.i + "i"
+            }
+            if (this.j < 0) {
+                returnStr += " - " + Math.sign(this.j)*this.j + "j"
+            }
+            else {
+                returnStr += " + " + this.j + "j"
+            }
+            if (this.k < 0) {
+                returnStr += " - " + Math.sign(this.k)*this.k + "k"
+            }
+            else {
+                returnStr += " + " + this.k + "k"
+            }
+            return returnStr
+        }
+    }
+
+    let ui = new Q(0, 1, 0, 0)
+    let uj = new Q(0, 0, 1, 0)
+    let uk = new Q(0, 0, 0, 1)
+
+    function flipMatrixH(a) {
+        // b is the return matrix
+        b = [[], [], [], []]
+        column = 0;
+        try { 
+            for (let i = 0; i <= a[0].length; i++) {
+                for (let j = 0; j <= a[0].length-1; j++) {
+                    b[i].push(structuredClone(a[j][column]));
+                }
+                column++;
+            }
+        }
+        catch {
+            return b;
+        }
+    }
+
+    function multandAddLists(a, b) {
+        // d is the return number
+        let c = [];
+        let d = 0;
+        for (let i = 0; i <= a.length-1; i++) {
+            c.push(a[i]*b[i]);
+        }
+        for (let i = 0; i <= c.length-1; i++) {
+            d = d + c[i];
+        }
+
+        return d;
+    }
+
+    /* console.log(flipMatrixH([
+  [2, 5, -1, 3],
+  [0, 4, 7, -2],
+  [6, -3, 8, 1],
+  [-4, 2, 0, 9]
+])) */
+
+    function matrixMultiply4(a, b) {
+        // c is the return matrix
+        c = []
+        b = flipMatrixH(b);
+        cIndex = [0, 0]
+        // let nres = 0;
+        rlist = [[], [], [], []];
+        // element = [];
+        for (let h = 0; h <= 3; h++) {
+            for (let i = 0; i <= 3; i++) {
+                rlist[h].push(multandAddLists(a[h], b[i]));
+                // console.log(a[h])
+                // console.log(b[i])
+                // nres = 0;
+            }
+        }
+        return rlist;
+    }
+    /*console.log(matrixMultiply4([
+  [1, 2, 3, 4],
+  [5, 6, 7, 8],
+  [9, 10, 11, 12],
+  [13, 14, 15, 16]
+], [
+  [2, 5, -1, 3],
+  [0, 4, 7, -2],
+  [6, -3, 8, 1],
+  [4, 2, 0, 9]
+])) */
+
+    function calculate(text) {
+        // text filtering
+        // text.replace("*Q", ".mult(Q")
+        // we be regexin'
+        // /.mult(\d{1, 70})/
+        // capture groups!!!
+        text = text.replace(/\*\(new Q\((\d+), (\d+), (\d+), (\d+)\)\)/g, ".mult(new Q($1, $2, $3, $4))");
+        text = text.replace(/\*(\d+)/g, ".mult($1)");
+        text = text.replace(/\+\(new Q\((\d+), (\d+), (\d+), (\d+)\)\)/g, ".add(new Q($1, $2, $3, $4))");
+        text = text.replace(/\+(\d+)/g, ".add($1)");
+        text = text.replace(/\-\(new Q\((\d+), (\d+), (\d+), (\d+)\)\)/g, ".sub(new Q($1, $2, $3, $4))");
+        text = text.replace(/(?<!\d+\))\-(\d+)/g, ".sub($1)");
+        text = text.replace(/\/\(new Q\((\d+), (\d+), (\d+), (\d+)\)\)/g, ".div(new Q($1, $2, $3, $4))");
+        text = text.replace(/\/(\d+)/g, ".div($1)");
+        console.log(text)
+        let calc = Function("expr", "return " + text);
+        if (calc(text) != undefined) {
+            document.getElementById("output").value = calc(text);
+        }
+        else {
+            document.getElementById("output").value = "Erro"
+        }
+    }
+</script>

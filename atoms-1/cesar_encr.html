@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .banner {
+            width: 100%;
+            height: 100px;
+            background: #9c7200;
+            background: linear-gradient(180deg,rgba(156, 114, 0, 1) 0%, rgba(0, 0, 0, 1) 100%);
+            margin: 0px;
+            border: 0px;
+            padding: 0;
+            border-bottom: solid rgb(209, 136, 0) 5px;
+        }
+
+        .descBox {
+            width: 98%;
+            height: 850px;
+            display: block;
+            background-color: white;
+            border: 0px solid black;
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            font-size: 14pt;
+            overflow-wrap: break-all;
+        }
+        .descBox p {
+            margin: 10px;
+        }
+
+        .container {
+            width: 100%;
+            height: 450px;
+            display: block;
+        }
+
+        body {
+            padding: 0;
+            border: 0;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        body #title {
+            margin: 0;
+            font-size: 36pt;
+        }
+
+        canvas {
+            width: 1000px;
+            height: 700px;
+        }
+
+        .container textarea {
+            width: 450px;
+            height: 250px;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="banner">
+<p id="title" style="color: white;">Cifra de César</p>
+<p style="font-style: italic; font-size: 14pt; margin: 12px; color: white;">Lucas da Costa Campos, 2026</p>
+</div>
+<div class="container">
+<textarea id="input" placeholder="Texto para ser encriptado..." style="font-family: Georgia, 'Times New Roman', Times, serif; position: relative; top: 50px; left: 80px; resize: none;"></textarea>
+<textarea id="output" placeholder="Texto encriptado..." readonly="true" style="font-family: Georgia, 'Times New Roman', Times, serif; position: relative; top: 50px; left: 80px; resize: none;"></textarea>
+<label for="alphabetShift" style="font-family: Georgia, 'Times New Roman', Times, serif; position: relative; top: 80px; left: -300px;">Deslocar alfabeto por:</label>
+<input type="number" id="alphabetShift" style="font-family: Georgia, 'Times New Roman', Times, serif; position: relative; top: 80px; left: -300px;" value="1">
+<button onclick="encrypt()" style="font-family: Georgia, 'Times New Roman', Times, serif; position: relative; top: 80px; left: -300px; background-color: rgb(0, 0, 0); color: rgb(180, 180, 0)">Encriptar</button>
+<!-- <label for="r1">Encriptar</label><br>
+<input type="radio" name="method" id="r1" value="en" style="font-family: Georgia, 'Times New Roman', Times, serif; position: relative; top: 80px; left: -300px;">
+<label for="r2">Decriptar</label><br>
+<input type="radio" name="method" id="r2" value="dec"> -->
+<p style="position: relative; top: 100px;">Para decriptar mensagens, basta colocar o deslocamento do alfabeto negativo (ex. mensagem encriptada via deslocamento de 3 letras (direita) no alfabeto → coloque -3 no campo de deslocamento para decriptar (se fosse para a esquerda, seria 3.))</p>
+</div>
+<button id="showDesc" onclick="showDescBox()" style="width: 100%; height: 60px; font-size: 30pt; background-color: white; font-family: 'Times New Roman', Times, serif; display: flex; justify-content: center;">Ocultar descrição ↑</button>
+<div id="dB" class="descBox">
+    <p>É um método que se utiliza do deslocamento de letras do alfabeto para encriptar mensagens.</p>
+    <p>Ex. abcdefg... → deslocamento para a direita (positivo) de 3 → defghi... abc</p>
+</div>
+</body>
+<script>
+    alp = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+    shift = 1
+    function encrypt() {
+        string = document.getElementById("input").value;
+        shift = Number(document.getElementById("alphabetShift").value);
+        stringsplit = string.split("")
+        outputstr = []
+        stringsplit.forEach(l => {
+            if (findIndexofLetter(l) != null) {
+                outputstr.push(alp[(findIndexofLetter(l)+shift) % 26])
+            }
+            else {
+                outputstr.push(l)
+            }            
+        });
+        document.getElementById("output").value = outputstr.join("")
+    }
+
+    function findIndexofLetter(letter) {
+        index = 0
+        isFound = false;
+        alp.forEach(element => {
+            console.log(element, letter)
+            console.log(element == letter)
+            if (element == letter) {
+                isFound = true;
+            }
+            else {
+                if (!isFound) {
+                    index++
+                }
+            }
+        });
+        if (isFound) {
+            return index
+        }
+        else {
+            return null
+        }
+    }
+</script>

@@ -1,0 +1,283 @@
+<head>
+    <style>
+    .rectangle {
+		width: 100%;
+		height: 100px;
+		background-color: #21D6D2;
+		font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+		margin: 0px;
+		background-image: url('assets/rectanglebg.png')
+		}
+    .rectangle h1 {
+		position: absolute;
+		left: 15px;
+		top: 20px;
+		}
+	.rectangle p {
+		position: absolute;
+		top: -10px;
+		}
+    .triangle {
+        width: 0px;
+        height: 0px;
+        border-right: 200px solid transparent;
+        border-bottom: 200px solid coral;
+    }
+    .anglerect {
+        width: 10px;
+        height: 10px;
+        position: relative;
+        background-color: black;
+        bottom: 26px;
+    }
+    .anglerect p {
+        position: relative;
+        bottom: 10px;
+    }
+
+	head {
+		padding: 0px;
+		margin: 0px;
+		box-sizing: border-box;
+		}
+	body {
+		margin: 5px;
+		margin-bottom: 2px;
+		margin-top: 2px;
+		background-image: url('assets/bg.png');
+		overflow-x: hidden;
+		}
+	body p {
+		position: relative;
+		left: 18px;
+		}
+	body img {
+		border-radius: 20px;
+		position: relative;
+		left: 18px;
+		}
+	body button {
+		border-radius: 20px;
+		position: relative;
+		left: 18px;
+		}
+	body h2 {
+		position: relative;
+		left: 18px;
+		}
+	body h3 {
+		position: relative;
+		left: 18px;
+		}
+	body h4 {
+		position: relative;
+		left: 18px;
+	}
+	.graph {
+		width: 100%;
+		height: 600px;
+		display: inline;
+		align-items: flex-start;
+	}
+    </style>
+</head>
+<body>
+    <div class="rectangle">
+        <p>Lucas Costa, 2024</p>
+        <h1>Matemática</h1>
+    </div>
+	<button onclick="showTools()">Ferramentas (mostrar/ocultar)</button>
+	<div class="graph">
+		<canvas id="grapher" width="1920" height="1080" style="display:none; border: solid black 5px; width:800px; height:400px; background-color: white"></canvas>
+		<button onclick="graphFunc('x', true)">$$f(x) = x$$</button>
+		<button onclick="graphFunc('2*x', true)">$$f(x) = 2x$$</button>
+		<button onclick="graphFunc('x*x', true)">$$f(x) = x^2$$</button>
+		<button onclick="graphFunc('x*x*x', true)">$$f(x) = x^3$$</button>
+		<button onclick="graphFunc('2**-(x**2)', true)">$$f(x) = e^{-x^2}$$</button> <!-- pretty shit approximation of euler's number, but hey it works. -->
+		<input id="expression" type="text" placeholder="Escreva uma função. (ex. 2*x = 2x, 2**x = 2^x)" style="width:500px; position: relative; left: 50px;">
+		<button onclick="graphFunc('get', true)" style="position: relative; left: 70px; background-color: green; color: white">Confirmar</button>
+		<button onclick="drawIntegral(lastfunc, -10)" style="position: relative; left: 80px">←</button>
+		<button onclick="drawIntegral(lastfunc, 10)"style="position: relative; left: 80px">→</button>
+		<p id="discl" style="color: red; display: none">*Aviso: nem todas as funções funcionam corretamente decorrente do fato que o gráfico usa apenas amostras de números inteiros.</p>
+		<ul id="list" style="display: none">
+		<li><p>Lista de funções disponíveis:</p></li>
+		<li><p>Math.cos(x), Math.sin(x), Math.tan(x), ...variações de arco (Math.atan(x) etc.)</p></li>
+		<li><p>Math.round(x) - Arredonda para o próximo inteiro</p></li>
+		<li><p>Math.sign(x) - Retorna 1 se o número for positivo, 0 se nulo, -1 se negativo.</p></li>
+		<li><p>Math.log(x) - Logarítmo (base 10)</p></li>
+		<li><p>Math.sqrt(x) - Raiz quadrada</p></li>
+		<li><p>Math.cbrt(x) - Raiz cúbica</p></li>
+		<li><p>** - operador de potência (ex. x**2)</p></li>
+		<li><p>Sempre use * para indicar multiplicações</p></li>
+		<li><p>Math.abs(x) - Módulo de x</p></li>
+		<li><p>Outros - veja em <a style="font-style: italic" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math">Documentação do JavaScript</a></p></li>
+		</ul>
+	</div>
+    <h2>Derivadas</h2>
+    <h3>1ª Derivada</h3>
+	<p>$$\large \frac{d}{dx}$$</p>
+	<p>É quanto o declive de uma determinada função muda.</p>
+	<p>Limite para determiná-la:</p>
+	<p>$$\large f'(x) = \lim_{h\to0} \frac{f(x+h)-f(x)}{h}$$</p>
+	<h3>2ª Derivada / Derivada de segunda ordem</h3>
+	<p>$$\large \frac{d^2}{dx^2}$$</p>
+	<p>É a derivada (a variação de declive de uma função) da derivada.</p>
+	<h2>Integrais</h3>
+	<h4>Indefinidos</h4>
+	<p>Caracterizado por ser a antiderivada de uma função, ou seja, a função cuja derivada é a função original, matematicamente:</p>
+	<p>$$\large \int f(x) \,dx = F(x) + C; \frac{d}{dx} F(x) = f(x)$$</p>
+	<p>O +C indica que, independemente da constante que estava dentro da função (ex. f(x) = x+1 → constante 1), a derivada seria a mesma.</p>
+	<h4>Definidos</h4>
+	<p>Para calculá-lo, geralmente, necessita-se da antiderivativa da função f(x). Com essa antiderivada, F(x), apenas se coloca os valores no limite baixo (o número no "pé" do integral) e os do alto (o no topo)</p>
+	<p style="font-style: italic;">Matematicamente:</p>
+	<p>$$\large \int f(x) \,dx = F(x) + C → \int_{a}^{b} f(x) \,dx = F(b) - F(a)$$</p>
+	<h4>Regra da potência</h4>
+	<p>Quando temos uma função no formato:</p>
+	<p>$$\large f(x) = nx^y$$</p>
+	<p>Pode-se usar uma regra útil no cálculo diferencial, em que:</p>
+	<p>$$\large \int f(x) \,dx = \frac{nx^{y+1}}{y+1}$$</p>
+	<p>Para derivadas:</p>
+	<p>$$\large n \cdot \frac{d}{dx} f(x) = n \cdot yx^{y-1}$$</p>
+	<h4>Exemplos</h4>
+	<p>Suponha que:</p>
+	<p>$$\large f(x) = x^2$$</p>
+	<p>Pode-se usar a regra da potência, ficando:</p>
+	<p>$$\large \int f(x) \,dx = \frac{x^{2+1}}{2+1} → \frac{x^3}{3}$$</p>
+	<p>Essa regra também serve para derivadas:</p>
+	<p>$$\large \frac{d}{dx} f(x) = 2x$$</p>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script>
+	// fucking mess
+	let ctx = document.getElementById("grapher")
+	let cpx = 0
+	g = ctx.getContext("2d")
+	cValue = ctx.width-1000
+	let cValue2 = 0
+	let lastfunc = 'x'
+	let lT = 5
+	let currentx = 100
+	function createCircle(x, y, r, color, mode) {
+        g.fillStyle = color
+        g.beginPath()
+        g.arc(x, y, r, 0, 2*Math.PI)
+        if (mode == 'fill' || mode == null) {
+            g.fill()
+        }
+        else if (mode == 'outline') {
+            g.stroke()
+        }
+    }
+	function showTools() {
+		if (ctx.style.display == 'block') {
+			ctx.style.display = 'none'
+			document.getElementById("list").style.display = 'none'
+			document.getElementById("discl").style.display = 'none'
+		}
+		else {
+			ctx.style.display = 'block'
+			document.getElementById("list").style.display = 'block'
+			document.getElementById("discl").style.display = 'block'
+			makeGrid()
+		}
+	}
+	function makeGrid() {
+		cpx = 0
+		g.fillStyle = "gray"
+		thickness = 3
+		while (cpx < 1920) {
+			cpx++
+			if (cpx % 30 == 0 && cpx > 0) {
+				g.fillRect(cpx, 0, thickness, 1080)
+				if (cpx == 960) {
+					g.fillStyle = 'black'
+					g.fillRect(cpx, 0, thickness, 1080)
+				}
+				g.fillStyle = "gray"
+			}
+		}
+		cpx = 0
+		while (cpx < 1080) {
+			cpx++
+			if (cpx % 30 == 0 && cpx > 0) {
+				g.fillRect(0, cpx, 1920, thickness)
+				if (cpx == 540) {
+					g.fillStyle = 'black'
+					g.fillRect(0, cpx, 1920, thickness)
+				}
+				g.fillStyle = "gray"
+			}
+		}
+	}
+	let cw = ctx.width     // abreviatin
+	let ch = ctx.height
+	function drawIntegral(f, inc) { // still not used
+		if (inc) {
+			currentx += inc
+			g.fillStyle = "white"
+			g.fillRect(0, 0, cw, ch)
+			makeGrid()
+			cValue = cw-600 // displacement
+			cValue2 = 0
+			cancelAnimationFrame(a)
+			graphFunc(lastfunc)
+		}
+		thisissparta = Function("x", "return " + f) 
+		createCircle(currentx+cw/2, ch/2-thisissparta(currentx), 10, "red", "fill")
+		g.fillStyle = "blue"
+		g.fillRect(currentx+cw/2, ch/2-thisissparta(currentx), thickness, thisissparta(currentx))
+	}
+	function graphFunc(f, isNew) {
+		g.lineWidth = lT
+		// if a new function is requested...
+		if (isNew) {
+			if (f == 'get') {
+				f = document.getElementById('expression').value
+			}
+			cValue = cw-600 // displac
+			cValue2 = 0
+			g.fillStyle = "white"
+			g.fillRect(0, 0, cw, ch)
+			g.lineWidth = lT
+			makeGrid()
+			lastfunc = f
+			currentx = 10
+		}
+		// only execute if sample size < 600.
+		if (cValue2 < 600) {
+			console.log(f)
+			// failsafe: if f is null/false, then f = 'x' by default.
+			if (!f) {
+				f = "x"
+			}
+			// first value
+			if (cValue == cw-600) {
+				cValue += 1 // increment
+			}
+			cValue2 = cValue - cw
+			console.log(cValue2) // debug
+			f_1 = f.replace('x', cValue2);
+			let calc = Function("x", "return " + f)
+			result = calc(cValue2)
+			// set stroke color
+			g.strokeStyle = "red"
+			// begin the points' calculations
+			g.beginPath()
+			g.moveTo(cValue2+(cw/2), (ch/2)-result);
+			cValue += 1
+			cValue2 = cValue - cw
+			// calculate the 2nd point
+			f_2 = f.replace('x', cValue2);
+			result_2 = calc(cValue2)
+			// draw the line
+			g.lineTo(cValue2+(cw/2), (ch/2)-result_2)
+			g.stroke()
+			console.log(f_1 + " " + f_2)
+			console.log("f_1: " + result + "\n" + "f_2: " + result_2)
+			console.log("coordinates_1: " + f_1 + ", " + result)
+			console.log("coordinates_2: " + f_2 + ", " + result_2)
+			a = requestAnimationFrame(() => graphFunc(lastfunc))
+		}
+	}
+	graphFunc(lastfunc)
+</script>

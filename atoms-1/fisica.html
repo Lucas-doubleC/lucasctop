@@ -1,0 +1,758 @@
+<head>
+    <title>Física</title>
+    <link rel="icon" type="image/x-icon" href="assets/icon2.png">
+    <style>
+        .header {
+            width: 100%;
+            height: 100px;
+            background-image: linear-gradient(to right top, #05d856, #00cca6, #00b9e5, #009fff, #127ceb);
+            margin: 0%;
+        }
+
+        .header h1 {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            position: absolute;
+            left: 15px;
+            top: 20px;
+            border-radius: 20px;
+        }
+
+        .header p {
+            top: -10px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        .temp {
+            width: 100%;
+            height: 10%;
+            position: relative;
+            background-image: url("assets/underconstr.png");
+            display: flex;
+            justify-content: center;
+        }
+
+        .temp p {
+            color: white;
+            font-size: 24px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+        }
+
+        .empuxob {
+            width: 100px;
+            height: 100px;
+            background-color: coral;
+            position: relative;
+            top: -25%;
+            right: -4%;
+            display: flex;
+            justify-content: center;
+            z-index: 1;
+            border-radius: 20px;
+        }
+
+        .empuxob p {
+            font-size: 20px;
+        }
+
+        .empuxoc {
+            width: 200px;
+            height: 300px;
+            background-color: aquamarine;
+            position: relative;
+            top: 40px;
+            z-index: auto;
+            border-radius: 20px;
+        }
+
+        .empuxoc p {
+            font-size: 20px;
+        }
+
+        #empuxoimg {
+            position: relative;
+            right: -60px;
+        }
+
+        .ball {
+            width: 200px;
+            height: 200px;
+            border-radius: 100%;
+            background-color: coral;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            top: 100px;
+        }
+
+        .ball p {
+            font-size: 20px;
+        }
+
+        .ball2 {
+            width: 200px;
+            height: 200px;
+            border-radius: 100%;
+            background-color: darkolivegreen;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            left: 350px;
+            top: -100px;
+        }
+
+        .ball2 p {
+            font-size: 20px;
+        }
+
+        .recgrav {
+            border-color: black solid 5px;
+            border-style: solid;
+            width: 150px;
+            height: 100px;
+            border-radius: 20px;
+        }
+
+        .recgrav p {
+            font-size: 15px;
+        }
+
+        .objhot {
+            width: 300px;
+            height: 100px;
+            background-image: url("calorimetria/bghot.png");
+            display: flex;
+            justify-content: center;
+            border-radius: 20px;
+        }
+
+        .objhot p {
+            font-size: 20px;
+        }
+
+        .recgrav1 {
+            border-color: black solid 5px;
+            border-style: solid;
+            width: 150px;
+            height: 100px;
+            border-radius: 20px;
+        }
+
+        .recgrav1 p {
+            font-size: 15px;
+        }
+
+        .recgrav2 {
+            border-color: black solid 5px;
+            border-style: solid;
+            width: 225px;
+            height: 150px;   
+            border-radius: 20px;
+        }
+
+        .recgrav2 p {
+            font-size: 15px;
+        }
+
+        .ball3tv {
+            width: 20px;
+            height: 20px;
+            border-radius: 100%;
+            background-color: coral;
+            position: relative;
+            top: 105px;
+            left: 110px;
+        }
+
+        .ang0 {
+            width: 3px;
+            height: 100px;
+            background-color: black;
+            transform: rotate(270deg);
+            transform-origin: top left;
+            position: relative;
+            top: 100px;
+            left: 120px;
+        }
+
+        .ang1 {
+            width: 3px;
+            height: 100px;
+            background-color: black;
+            transform-origin: top left;
+            transform: rotate(-90deg);
+            position: relative;
+            left: 120px;
+            top: -3px;
+        }
+
+        body {
+            height: 100%;
+            font-family: Arial, Helvetica, sans-serif;
+            background-image: url(assets/bg1.png);
+            margin: 5px;
+            overflow-x: hidden;
+        }
+
+        body h2 {
+            color: red;
+            position: relative;
+            left: 18px;
+        }
+
+        body h3 {
+            position: relative;
+            left: 18px;
+        }
+
+        body button {
+            background-color: #0CF018;
+            color: '#000000';
+            border-radius: 10px;
+            position: relative;
+            left: 18px;
+        }
+
+        body img {
+            border-radius: 20px;
+            position: relative;
+            left: 18px;
+        }
+
+        body p {
+            position: relative;
+            left: 18px;
+        }
+
+        body #creditos {
+            top: 5px;
+            left: 5px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <p id="creditos">Lucas Campos, 2024</p>
+        <h1>Física</h1>
+    </div>
+    <p>Outros Conteúdos: <u><a href="fisicanucl.html">Física Nuclear</a></u> <u><a href=quimica.html>Química</a></u></p>
+    <h2>2ª Lei de Newton</h2>
+    <p>$$F = ma$$</p>
+    <p>F significa a força total (em Newtons)</p>
+    <p>M significa a massa do objeto (em kg)</p>
+    <p>A significa a aceleração do objeto (em m/s²)</p>
+    <h3>Exemplo:</h3>
+    <img id='fmaexemplos' src="segunda_lei_newton/fmaexemplo1.png">
+    <p id="fma1">Neste exemplo, a força é a incógnita.</p>
+    <p id="fma2">Utilizando a fórmula F = ma, nós saberemos a força: F = 6 . 10 = 60 N</p>
+    <button onclick=fmaexamples()>Outro exemplo</button>
+    <h2>Aceleração</h2>
+    <p>É como se fosse a "velocidade da velocidade".</p>
+    <p>Vamos tomar como exemplo este gráfico:</p>
+    <img src="aceleracao/graficoac.png">
+    <p>A fórmula para saber a aceleração de um objeto é:</p>
+    <p>$$a = \frac {\Delta v}{\Delta t}$$</p>
+    <p>&Delta;v significa a variação de velocidade (no caso, é 24m/s.)</p>
+    <p>&Delta;t significa a variação de tempo (no caso, é 12s.)</p>
+    <p>Então, dividindo isso, daria 2m/s².</p>
+    <p><u>Observação</u>: Como toda fórmula, pode haver adaptações para descobrir as outras incógnitas, como por exemplo:</p>
+    <p>$$\Delta t = \frac {\Delta v}{a}$$</p><p>ou</p> <p>$$\Delta v = a.\Delta t$$</p>
+    <h2>Empuxo</h2>
+    <p>É a força hidrostática exercida por fluido (líquido ou gás) em condições hidrostáticas sobre um corpo que nele esteja imerso.</p>
+    <img id='empuxoimg' src="empuxo/empuxoimg.png">
+    <p>Fórmula:</p>
+    <p>$$E = dgV$$</p>
+    <p>E significa o empuxo</p>
+    <p>d significa a densidade do fluido</p>
+    <p>g significa a força gravitacional</p>
+    <p>V significa o volume do objeto</p>
+    <p>Exemplo:</p>
+    <div class="empuxoc">
+        <p id="fluidempuxo"></p>
+    </div>
+    <div class="empuxob">
+        <p id="empuxovol">1 m³</p>
+    </div>
+    <p id="gravitylabel">g = 9.8m/s²</p>
+    <p id="densitylabel">d = 997 kg/m³</p>
+    <button onclick="densityopt(1)">Mercúrio</button>
+    <button onclick="densityopt(2)">Bromo</button>
+    <button onclick="densityopt(3)">Água</button>
+    <button onclick="densityopt(4)">Hélio</button>
+    <button onclick="densityopt(5)">Dióxido de Carbono</button>
+    <button onclick="egravity()">Editar Gravidade</button>
+    <button onclick="ecubevol()">Editar Volume</button>
+    <button onclick="edensity()">Editar Densidade</button>
+    <h2>Lei da Gravitação Universal</h2>
+    <p>Essa lei fala que todos os corpos que tem massa, por consequência, têm gravidade.</p>
+    <p>Ou seja, dois corpos se atraem, se tiverem massa.</p>
+    <p>Fórmula:</p>
+    <p>$$F = G . \frac {m_1 . m_2}{d^2}$$</p>
+    <p>F = Força atrativa</p>
+    <p>G = Constante gravitacional (6,67408.10-11 N.kg²/m²)</p>
+    <p>M<sub>n</sub> significa as massas.</p>
+    <p>d significa a distância entre as massas.</p>
+    <p><u>Observação</u>: d sempre tem que ser &ne; 0</p>
+    <h3>Força-peso</h3>
+    <p>Usamos para calcular a constante gravitacional de um planeta.</p>
+    <p>Fórmula da força gravitacional de uma massa: </p>
+    <p>$$G = p/m$$</p>
+    <p>G significa a força gravitacional</p>
+    <p>p significa a força peso (N)</p>
+    <p>m significa a massa (kg)</p>
+    <p>Exemplo:</p>
+    <div class="ball">
+        <p id="ball_grav0">$$m_1 = 0kg$$</p>
+    </div>
+    <div class="ball2">
+        <p id="ball_grav1">$$m_2 = 0kg$$</p>
+    </div>
+    <div class="recgrav">
+        <p id="distancelabel">$$d = 1m$$</p>
+        <p id="answer_grav">$$F = 0N$$</p>
+    </div>
+    <button onclick="mass0()">Editar m<sub>1</sub></button>
+    <button onclick="mass10()">Editar m<sub>2</sub></button>
+    <button onclick="edistance()">Editar distância</button>
+    <h2>Calorimetria</h2>
+    <p>Dá o tanto de calor para esquentar uma massa específica a uma temperatura específica.</p>
+    <p>$$Q = mc \Delta t$$</p>
+    <p>Q significa o calor necessário para esquentar o objeto (J);</p>
+    <p>m significa a massa do objeto a ser esquentado (ou esfriado) (kg);</p>
+    <p>&Delta;t significa a variação de temperatura $$\Delta t - \Delta t_0$$;</p>
+    <p>c significa o calor específico do objeto (exemplo: cal/g°C), nesse caso, quantas calorias precisa para esquentar 1 grau Celsius em um objeto.</p>
+    <p>Exemplo:</p>
+    <div class="objhot">
+        <p id="heatmass">$$m = 0g|$$</p>
+        <p id="calsp">$$c = 1 cal/g$$</p>
+    </div>
+    <img id='fgelo' src="calorimetria/gelo.png">
+    <div class="recgrav1">
+        <p id="deltat0">$$\Delta t = 0 \,^\circ C$$</p>
+        <p id="qcal">$$Q = 0 cal$$</p>
+    </div>
+    <button onclick="emassa()">Editar massa</button>
+    <button onclick="especal()">Editar calor específico</button>
+    <button onclick="edeltat()">Editar variação de temperatura</button>
+    <button onclick="convtojcal()">Converter para Joule/Caloria</button>
+    <button onclick="objliqs(0)">Água</button>
+    <button onclick="objliqs(1)">Gelo</button>
+    <button onclick="objliqs(2)">Ouro</button>
+    <h2>Tempo de voo</h2>
+    <p>Calcula o tempo de voo de um projétil que foi lançado.</p>
+    <p><u>Observação</u>: Esta fórmula só funciona quando o objeto que for lançado estiver no chão, pois ela desconsidera a altura de onde o objeto foi lançado.</p>
+    <p>Fórmula:</p>
+    <p>$$T_v = \frac{2(v_0.sin(\theta))}{g}$$</p>
+    <p>T<sub>v</sub> significa o tempo de voo (s);</p>
+    <p>v<sub>0</sub> significa a velocidade inicial (m/s);</p>
+    <p>sin(&theta;) significa o seno do ângulo do objeto quando foi lançado;</p>
+    <p>g significa a gravidade (m/s²).</p>
+    <div class="ball3tv"></div>
+    <div class="ang0"></div>
+    <div class="ang1"></div>
+    <button onclick="eang()">Editar ângulo</button>
+    <button onclick="initvel()">Editar velocidade inicial</button>
+    <button onclick="egrav()">Editar gravidade</button>
+    <button onclick="arrnd0()">Arrendondamento</button>
+    <p><u>Observação sobre esta calculadora</u>: Se você quiser um número mais exato depois de arrendondar para um mais arredondado (Ex. 2 casas decimais -> 5 casas decimais), apenas insira um valor novamente.</p>
+    <div class="recgrav2">
+        <p id="tempvoo">$$T_v = 0s$$</p>
+        <p id="angtheta">$$\theta = 0^o$$</p>
+        <p id="inicvel">$$v_0 = 0m/s$$</p>
+        <p id="gravlabel">$$g = 1m/s^2$$</p>
+    </div>
+</body>
+<script>
+    var examplen = 0
+    // variáveis do empuxo
+    var density = 997 // kg/m³
+    var cubevol = 1 // m³
+    var gravity = 9.8 // m/s²
+    // (término)
+    // variáveis da lei da gravitação universal
+    var mass1 = 0 // kg
+    var mass2 = 0 // kg
+    var dist = 1 // m
+    var grav_atrac = 6e-11 // constante gravitacional
+    // (término)
+    // variáveis da calorimetria
+    var deltat = 0
+    var masstemp = 0
+    var caloresp = 1
+    var qcal0 = 0
+    var calj = 0
+    var unit = "cal"
+    // (término)
+    // Tempo de voo
+    var ang = 0
+    var ang0 = 0
+    var inicv = 0
+    var g = 1
+    var tv = 0
+    var arrnd = 10
+    // (término) 
+    var empuxo = density * cubevol * gravity
+    var grav_atrac_res = grav_atrac * (mass1 * mass2 / dist ** 2)
+    document.getElementById('fluidempuxo').textContent = "Empuxo: " + empuxo + "N"
+    function fmaexamples() {
+        if (examplen == 0) {
+            examplen += 1;
+            document.getElementById('fmaexemplos').src="segunda_lei_newton/fmaexemplo1.png";
+            document.getElementById('fma1').textContent = "Neste exemplo, a força é a incógnita."
+            document.getElementById('fma2').textContent = 'Utilizando a fórmula F = ma, nós saberemos a força: F = 6 . 10 = 60 N'
+        }
+        else if (examplen == 1) {
+            examplen += 1;
+            document.getElementById('fmaexemplos').src="segunda_lei_newton/fmaexemplo2.png";
+            document.getElementById('fma1').textContent = "Neste exemplo, a massa é a incógnita."
+            document.getElementById('fma2').textContent = "Utilizando a fórmula F = ma, só que de outra maneira, M = f/a, teremos M = 100 / 10, M = 10 kg"
+        }
+        else if (examplen == 2) {
+            examplen = 0
+            document.getElementById('fmaexemplos').src = "segunda_lei_newton/fmaexemplo3.png";
+            document.getElementById('fma1').textContent = "Neste exemplo, a aceleração é a incógnita."
+            document.getElementById('fma2').textContent = "Utilizando a fórmula F = ma, só que de outra maneira, A = f/m, teremos A = 100 / 6 =  16,6 m/s²"
+        }
+    }  
+    // empuxo
+    function densityopt(x) {
+        if (x == 1) {
+            document.querySelector('.empuxoc').style.backgroundColor = "gray";
+            document.getElementById('fluidempuxo').style.color = "black"
+            density = 13545
+        }
+
+        else if (x == 2) {
+            document.querySelector('.empuxoc').style.backgroundColor = "#990000";
+            document.getElementById('fluidempuxo').style.color = "white"
+            density = 3122
+        }
+
+        else if (x == 3) {
+            document.querySelector('.empuxoc').style.backgroundColor = "aquamarine";
+            document.getElementById('fluidempuxo').style.color = "black"
+            density = 997
+        }
+
+        else if (x == 4) {
+            document.querySelector('.empuxoc').style.backgroundColor = "#B0E0E680";
+            document.getElementById('fluidempuxo').style.color = "black"
+            density = 0.1
+        }
+
+        else if (x == 5) {
+            document.querySelector('.empuxoc').style.backgroundColor = "#C6C6C680";
+            document.getElementById('fluidempuxo').style.color = "black"
+            density = 1.97
+        }
+        empuxo = density * cubevol * gravity
+        document.getElementById('fluidempuxo').textContent = "Empuxo: " + empuxo + "N"
+        document.getElementById('densitylabel').textContent = "d = " + density + "kg/m³"
+    }
+
+    function edensity() {
+        var densityprompt = prompt("Editar densidade para (kg/m³):")
+        density = parseFloat(densityprompt)
+        if (density >= 0) {
+            console.log("")
+        }
+        else if (density < 0 || isNaN(density) || density == null) {
+            density = 0
+        }
+        empuxo = density * cubevol * gravity
+        document.getElementById('fluidempuxo').textContent = "Empuxo: " + empuxo + "N"
+        document.getElementById('densitylabel').textContent = "d = " + density + "kg/m³"
+    }
+
+    function egravity() {
+        var gprompt = prompt("Editar gravidade para (m/s²):")
+        gravity = parseFloat(gprompt)
+        if (gravity < Infinity) {
+            console.log("")
+        }
+        else if (isNaN(gravity) || gravity == null) {
+            gravity = 0
+        }
+        empuxo = density * cubevol * gravity
+        document.getElementById('fluidempuxo').textContent = "Empuxo: " + empuxo + "N"
+        document.getElementById('gravitylabel').textContent = "g = " + gravity + "m/s²"
+    }
+
+    function ecubevol() {
+        var promptcubevol = prompt("Editar volume do objeto para (m³):")
+        cubevol = parseFloat(promptcubevol)
+        if (cubevol >= 0) {
+            console.log("")
+        }
+        else if (cubevol < 0 || isNaN(cubevol) || cubevol == null) {
+            cubevol = 0
+        }
+        empuxo = density * cubevol * gravity
+        document.getElementById('fluidempuxo').textContent = "Empuxo: " + empuxo + "N"
+        document.getElementById('empuxovol').textContent = cubevol + "m³"
+    }
+
+    // const. gravitacional
+    function mass0() {
+        var promptmass = prompt("Editando massa 1 (kg):")
+        mass1 = parseFloat(promptmass)
+        if (mass1 < Infinity) {
+            console.log("")
+        }
+        else if (isNaN(mass1) || mass1 == null) {
+            mass1 = 0
+        }
+        grav_atrac_res = grav_atrac * (mass1 * mass2 / dist ** 2)
+        document.getElementById('ball_grav0').innerHTML = "$$ m_1 = " + mass1 + "kg $$"
+        grav_atrac_res = grav_atrac * (mass1 * mass2 / dist ** 2)
+        document.getElementById('answer_grav').innerHTML = "$$ F =" + grav_atrac_res + "N $$"
+        MathJax.typeset()
+    }
+
+    function mass10() {
+        var promptmass0 = prompt("Editando massa 2 (kg):")
+        mass2 = parseFloat(promptmass0)
+        if (mass2 < Infinity) {
+            console.log("")
+        }
+        else if (isNaN(mass2) || mass2 == null) {
+            masstemp = 0
+        }
+        document.getElementById('ball_grav1').innerHTML = "$$ m_2 = " + mass2 + "kg $$"
+        MathJax.typeset()
+        grav_atrac_res = grav_atrac * (mass1 * mass2 / dist ** 2)
+        document.getElementById('answer_grav').innerHTML = "$$ F =" + grav_atrac_res + "N $$"
+        MathJax.typeset()
+    }
+
+    function edistance() {
+        var promptdist = prompt("Editando distância (m):")
+        dist = parseFloat(promptdist)
+        if (dist > 0) {
+            console.log("")
+        }
+        else if (dist <= 0 || isNaN(dist) || dist == null) {
+            dist = 0
+        }
+        document.getElementById('distancelabel').innerHTML = "$$ d = " + dist + "m $$"
+        grav_atrac_res = grav_atrac * (mass1 * mass2 / dist ** 2)
+        document.getElementById('answer_grav').innerHTML = "$$ F =" + grav_atrac_res + "N $$"
+        MathJax.typeset()
+    }
+
+    // calorimetria
+    function emassa() {
+        var promptmass1 = prompt("Editando massa do objeto (g):")
+        masstemp = parseFloat(promptmass1)
+        if (masstemp >= 0) {
+            console.log("")
+        }
+        else if (masstemp < 0 || isNaN(masstemp) || masstemp == null) {
+            masstemp = 0
+        }
+        document.getElementById('heatmass').innerHTML = "$$ m =" + masstemp + "g| $$"
+        qcal0 = masstemp * caloresp * deltat
+        document.getElementById('qcal').innerHTML = "$$ Q =" + qcal0 + unit + "$$"
+        MathJax.typeset()
+    }
+
+    function especal() {
+        var promptcal0 = prompt("Editando calor específico do objeto (" + unit + "/g.°C):")
+        caloresp = parseFloat(promptcal0)
+        if (caloresp >= 0) {
+            console.log("")
+        }
+        else if (caloresp < 0 || isNaN(caloresp) || caloresp == null) {
+            caloresp = 0
+        }
+        document.getElementById('calsp').innerHTML = "$$ c =" + caloresp + unit + "/g.°C $$"
+        qcal0 = masstemp * caloresp * deltat
+        document.getElementById('qcal').innerHTML = "$$ Q =" + qcal0 + unit + " $$"
+        MathJax.typeset()
+    }
+
+    function edeltat() {
+        deltat0 = deltat
+        var promptdeltat = prompt("Editando a variação de temperatura do objeto (Δt) (Celsius):")
+        deltat = parseFloat(promptdeltat)
+        if (deltat < Infinity) {
+            console.log("")
+        }
+        else if (isNaN(deltat) || deltat == null) {
+            deltat = 0
+        }
+        document.getElementById('deltat0').innerHTML = "$$ Δt =" + deltat + "C $$"
+        qcal0 = masstemp * caloresp * deltat
+        document.getElementById('qcal').innerHTML = "$$ Q =" + qcal0 + unit + " $$"
+        if (deltat0 > deltat) {
+            document.getElementById('fgelo').src = "calorimetria/gelo.png"
+        }
+        else if (deltat0 < deltat) {
+            document.getElementById('fgelo').src = "calorimetria/fogo.png"
+        }
+        MathJax.typeset()
+    }
+
+    function convtojcal() {
+        if (calj == 0) {
+            qcal0 *= 4.187
+            caloresp *= 4.187
+            unit = "J"
+            document.getElementById('qcal').innerHTML = "$$ Q =" + qcal0 + unit + " $$"
+            document.getElementById('calsp').innerHTML = "$$ c =" + caloresp + unit + "/g.°C $$"
+            MathJax.typeset()
+            calj = 1
+        }
+        else if (calj == 1) {
+            qcal0 = qcal0 / 4.187
+            caloresp = caloresp / 4.187
+            unit = "cal"
+            document.getElementById('qcal').innerHTML = "$$ Q =" + qcal0 + unit + " $$"
+            document.getElementById('calsp').innerHTML = "$$ c =" + caloresp + unit + "/g.°C $$"
+            MathJax.typeset()
+            calj = 0
+        }
+            
+        }
+    function objliqs(x) {
+        if (x == 0) {
+            document.querySelector(".objhot").style.backgroundImage = "url('calorimetria/agua.png')"
+            if (unit == "cal") {
+                caloresp = 1
+                document.getElementById('calsp').innerHTML = "$$ c =" + caloresp + unit + "/g.°C $$"
+                MathJax.typeset()
+            }
+
+            else if (unit == "J") {
+                caloresp = 4.187
+                document.getElementById('calsp').innerHTML = "$$ c =" + caloresp + unit + "/g.°C $$"
+                MathJax.typeset()
+            }
+        }
+
+        else if (x == 1) {
+            document.querySelector(".objhot").style.backgroundImage = "url('calorimetria/textgelo.png')"
+            if (unit == "cal") {
+                caloresp = 0.5
+                document.getElementById('calsp').innerHTML = "$$ c =" + caloresp + unit + "/g.°C $$"
+                qcal0 = masstemp * caloresp * deltat
+                document.getElementById('qcal').innerHTML = "$$Q =" + qcal0 + "cal$$"
+                MathJax.typeset()
+            }
+
+            else if (unit == "J") {
+                caloresp = 0.5 * 4.187
+                document.getElementById('calsp').innerHTML = "$$ c =" + caloresp + unit + "/g.°C $$"
+                qcal0 = masstemp * caloresp * deltat
+                document.getElementById('qcal').innerHTML = "$$Q =" + qcal0 + "cal$$"
+                MathJax.typeset()
+            }
+        }
+
+        if (x == 2) {
+            document.querySelector(".objhot").style.backgroundImage = "url('calorimetria/ouro.png')"
+            if (unit == "cal") {
+                caloresp = 0.03
+                document.getElementById('calsp').innerHTML = "$$ c =" + caloresp + unit + "/g.°C$$"
+                MathJax.typeset()
+            }
+
+            else if (unit == "J") {
+                caloresp = 0.03 * 4.187
+                document.getElementById('calsp').innerHTML = "$$ c =" + caloresp + unit + "/g.°C $$"
+                MathJax.typeset()
+            }
+        }
+    }
+
+    // tempo de voo
+    function eang() {
+        var angprompt = prompt("Editar ângulo (graus)")
+        ang = parseFloat(angprompt)
+        if (ang <= 180) {
+            ang = parseFloat(angprompt)
+            ang += 90
+            ang *= -1
+            ang0 = ang * -1 - 90
+            console.log(ang0)
+            console.log(Math.sin(ang0 * Math.PI/180))
+        }
+        else if (isNaN(ang) || ang == null) {
+            ang = -90
+            ang0 = 0
+        }
+
+        else if (ang > 180) {
+            ang = -270
+        }
+        document.querySelector(".ang1").style.transform = "rotate(" + ang + "deg)"
+        ang0 =  ang * -1 - 90
+        tv = 2 * (inicv * Math.sin(ang0 * Math.PI/180)) / g
+        if (tv < 0) {tv = Math.abs(tv)}
+        tv = tv.toFixed(arrnd)
+        document.getElementById("tempvoo").innerHTML = "$$T_v = " + tv + "s $$"
+        document.getElementById("angtheta").innerHTML = "$$&theta; =" + (ang0) + "^o$$"
+        MathJax.typeset()
+    }
+
+    function egrav() {
+        var gravprompt = prompt("Editar gravidade (m/s²)")
+        g = parseFloat(gravprompt)
+        if (g < Infinity) {
+            g = parseFloat(gravprompt)
+        }
+        else if (isNaN(g) == true || g == null) {
+            g = 1
+        }
+        document.getElementById("gravlabel").innerHTML = "$$g = " + g + "m/s^2$$"
+        tv = 2 * (inicv * Math.sin(ang0 * Math.PI/180)) / g
+        if (tv < 0) {tv = Math.abs(tv)}
+        tv = tv.toFixed(arrnd)
+        document.getElementById("tempvoo").innerHTML = "$$T_v = " + tv + "s $$"
+        MathJax.typeset()
+    }
+
+    function initvel() {
+        var initvelprompt = prompt("Editar velocidade inicial (m/s)")
+        inicv = parseFloat(initvelprompt)
+        if (inicv < Infinity) {
+            inicv = parseFloat(initvelprompt)
+        }
+        else if (isNaN(inicv) || inicv == null) {
+            inicv = 0
+        }
+        document.getElementById("inicvel").innerHTML = "$$v_0 = " + inicv + "m/s$$"
+        tv = 2 * (inicv * Math.sin(ang0 * Math.PI/180)) / g
+        if (tv < 0) {tv = Math.abs(tv)}
+        tv = tv.toFixed(arrnd)
+        document.getElementById("tempvoo").innerHTML = "$$T_v = " + tv + "s $$"
+        MathJax.typeset()
+    }
+
+    function arrnd0() {
+        arrndprm = prompt("Arredondar para quantas casas decimais?")
+        arrnd = parseFloat(arrndprm)
+        if (arrnd < Infinity) {
+            console.log(arrnd)
+            arrnd = parseFloat(arrndprm)
+        }
+        else if (isNaN(arrnd) || arrnd == null) {
+            arrnd = 10
+        }
+        tv = parseFloat(tv).toFixed(arrnd)
+        document.getElementById("tempvoo").innerHTML = "$$T_v = " + tv + "s $$"
+        MathJax.typeset()
+    }
+    var rdn = Math.floor(Math.random() * 2) + 1
+    if (rdn == 1) {
+        document.getElementById("creditos").textContent = "Lucas Costa, 2024"
+    }
+    else if (rdn == 1) {
+        document.getElementById("creditos").textContent = "Lucas Campos, 2024"
+    }
+
+</script>
+

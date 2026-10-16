@@ -1,0 +1,394 @@
+<head>
+    <title>Química</title>
+    <link rel="icon" type="image/x-icon" href="assets/icon4.png">
+    <style>
+        .header {
+            width: 100%;
+            height: 100px;
+            background-image: linear-gradient(45deg, rgba(195,195,195,1) 10%, rgba(0,212,255,1) 81%);
+        }
+
+        .header h1 {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            position: absolute;
+            left: 15px;
+            top: 20px;
+        }
+
+        .header p {
+            top: -10px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        .temp {
+            width: 100%;
+            height: 10%;
+            position: relative;
+            background-image: url(assets/underconstr.png);
+            display: flex;
+            justify-content: center;
+        }
+
+        .temp p {
+            color: white;
+            font-size: 24px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        body {
+            background-image: url("assets/bg3.png");
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 5px;
+            overflow-x: hidden;
+        }
+
+        body h2 {
+            color: red;
+            position: relative;
+            left: 18px;
+        }
+
+        body button {
+            background-color: #0CF018;
+            color: '#000000';
+            border-radius: 10px;
+            position: relative;
+            left: 18px;
+        }
+
+        body p {
+            position: relative;
+            left: 18px;
+        }
+
+        body img {
+            border-radius: 10px;
+            position: relative;
+            left: 50px;
+            transition-duration: 300ms;
+        }
+
+        body img:hover {
+            transition-duration: 300ms;
+            scale: 1.2;
+        }
+        
+        body h3 {
+            position: relative;
+            left: 18px;
+        }
+
+        .chemcontainer {
+            height: 150px;
+            width: 150px;
+            border-color: black 5px;
+            border-style: solid;
+            border-radius: 10%;
+            position: relative;
+            left: 18px;
+        }
+
+        .atom {
+            height: 30px;
+            width: 30px;
+            border-color: black 5px;
+            border-style: solid;
+            border-radius: 100%;
+            position: relative;
+            left: 18px;
+            display: flex;
+            justify-content: center;
+        }
+
+        #patomico {
+            color: red;
+            display: flex;
+            position: relative;
+            top: -212px;
+            left: 100px;
+        }
+
+        #natomico {
+            font-size: 15px;
+            display: flex;
+            position: relative;
+            top: -180px;
+            left: 10px;
+        }
+
+        #name {
+            font-size: 15px;
+            display: flex;
+            position: relative;
+            top: -125px;
+            left: 40px;
+        }
+
+        #simbolo {
+            font-size: 75px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            top: -15px;
+        }
+
+        #creditos {
+            top: 5px;
+            left: 10px;
+        }
+        
+        #canvas {
+            border: solid black 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <p id="creditos">Lucas Campos, 2024</p>
+        <h1>Química</h1>
+    </div>
+    <div class="temp">
+        <p>Esta página está em construção.</p>
+    </div>
+    <p>Outros Conteúdos: <a href="fisicanucl.html">Física Nuclear</a> <a href="fisica.html">Física</a></p>
+    <!--
+    <h2 id="elementtype">Elementos fundamentais da vida</h2>
+    <div class="chemcontainer" id="periodic">
+        <h1 id="simbolo">H</h1>
+        <p id="natomico">1</p>
+        <p id="patomico">1,008</p>
+        <p id="name">Hidrogênio</p>
+    </div>
+    <p id="desc">O hidrogênio é o elemento menos denso da tabela periódica, pode formar compostos como a amônia (NH<sub>4</sub>) e a água (H<sub>2</sub>O)</p>
+    <button onclick="nextElement()">Próximo</button>
+    <button onclick="changeElement(1)">Halogênios</button>
+    <button onclick="changeElement(0)">Elementos fundamentais</button>
+    -->
+    <h2>Moléculas</h2>
+    <h3>Água (H<sub>2</sub>O)</h3>
+    <img src="moleculas/H2O.png">
+    <p>A água é composta por dois átomos de hidrogênio e um de oxigênio, tem um ângulo de ligação equivalente a 104.5&deg; e o oxigênio tem mais eletronegatividade do que o hidrogênio, assim puxando os elétrons para mais perto do oxigênio, mesmo assim, o símbolo delta (&delta;) indica que a carga positiva ou negativa é parcial. É como se fosse um "cabo de guerra" entre o hidrogênio e o oxigênio.</p>
+    <p>Ponto de Solidificação: 0&deg;C à 1 atm</p>
+    <p>Ponto de Fusão: >0&deg;C à 1atm</p>
+    <p>Ponto de Ebulição: 100&deg;C à 1 atm</p>
+    <h3>Dióxido de Carbono (CO<sub>2</sub>)</h3>
+    <img src="moleculas/CO2.png">
+    <p>O Dióxido de Carbono é formado por um átomo de carbono e uma molécula de oxigênio, tem um ângulo de ligação equivalente a 180&deg; (geometria linear)</p>
+    <img src="moleculas/co2temp.png" id="bigimage">
+    <h2>Isótopos</h2>
+    <p>Variações de um mesmo elemento com número de nêutrons e massa diferentes.</p>
+    <h3>Exemplos (Isótopos do hidrogênio):</h3>
+    <canvas id="canvas" width="800", height="600"></canvas>
+    <button onclick="setIsotope()">Ver isótopo...</button>
+</body>
+<script>
+    /* deprecated shit
+    document.getElementById("periodic").style.backgroundColor = "white";
+    var element = 1
+    function changeElement(x) {
+        if (x == 0) {
+            document.getElementById("elementtype").textContent = "Elementos fundamentais da vida"
+            document.getElementById("elementtype").style.color = "darkgreen"
+            if (element == 1) {
+            document.getElementById("natomico").textContent = "6"
+            document.getElementById("patomico").textContent = "12,011"
+            document.getElementById("name").textContent = "Carbono"
+            document.getElementById("simbolo").textContent = "C"
+            document.getElementById("periodic").style.backgroundColor = "limegreen"
+            document.getElementById("desc").innerHTML = "É conhecido por ser tetravalente (quatro ligações), e formar a maioria dos compostos do ser humano, como a glicose (C<sub>6</sub>H<sub>12</sub>O<sub>6</sub>) e o dióxido de carbono (CO<sub>2</sub>)"
+        }
+
+        else if (element == 2) {
+                document.getElementById("natomico").textContent = "7"
+                document.getElementById("patomico").textContent = "14,007"
+                document.getElementById("name").textContent = "Nitrogênio"
+                document.getElementById("simbolo").textContent = "N"
+                document.getElementById("periodic").style.backgroundColor = "#f5cd1b"
+                document.getElementById("desc").innerHTML = "É fundamental para a síntese de proteínas, ácidos nucleiclos, e é o gás com maior abundância na atmosfera da Terra e compõe alguns compostos do ser humano, como a amônia (descartada - NH<sub>4</sub>) e hormônios como a adrenalina (C<sub>9</sub>H<sub>13</sub>NO<sub>3</sub>)"
+        }
+
+            else if (element == 3) {
+                document.getElementById("natomico").textContent = "8"
+                document.getElementById("patomico").textContent = "15,999"
+                document.getElementById("name").textContent = "Oxigênio"
+                document.getElementById("simbolo").textContent = "O"
+                document.getElementById("periodic").style.backgroundColor = "#f5cd1b"
+                document.getElementById("desc").innerHTML = "Provavelmente o elemento mais importante, o Oxigênio é utilizado na respiração de seres vivos aeróbicos na sua forma O<sub>2</sub> e também faz parte do composto químico da água (H<sub>2</sub>O)."
+        }
+
+            else if (element == 4) {
+                document.getElementById("natomico").textContent = "15"
+                document.getElementById("patomico").textContent = "30,974"
+                document.getElementById("name").textContent = "Fósforo"
+                document.getElementById("simbolo").textContent = "P"
+                document.getElementById("periodic").style.backgroundColor = "#f5cd1b"
+                document.getElementById("desc").innerHTML = "Age junto com o Cálcio fortalecendo os ossos, ajuda na saúde das gengivas e serve também no crescimento de plantas, faz parte de compostos como o ATP (adenosina trifosfato - C<sub>10</sub>H<sub>16</sub>N<sub>5</sub>O<sub>13</sub>P<sub>3</sub>)."
+        }
+
+            else if (element == 5) {
+                document.getElementById("natomico").textContent = "16"
+                document.getElementById("patomico").textContent = "32,065"
+                document.getElementById("name").textContent = "Enxofre"
+                document.getElementById("simbolo").textContent = "S"
+                document.getElementById("periodic").style.backgroundColor = "#f5cd1b"
+                document.getElementById("desc").innerHTML = "Participa no processo de oxigenação do cérebro, serve para as plantas como nutriente."
+        }
+
+            else if (element == 6) {
+                element = 0
+                document.getElementById("natomico").textContent = "1"
+                document.getElementById("patomico").textContent = "1,008"
+                document.getElementById("name").textContent = "Hidrogênio"
+                document.getElementById("simbolo").textContent = "H"
+                document.getElementById("periodic").style.backgroundColor = "#FFFFFF"
+                document.getElementById("desc").innerHTML = "O hidrogênio é o elemento menos denso da tabela periódica, pode formar compostos como a amônia (NH<sub>4</sub>) e a água (H<sub>2</sub>O)"
+        }
+        }
+
+        else if (x == 1) {
+            document.getElementById("elementtype").textContent = "Halogênios"
+            document.getElementById("elementtype").style.color = "blue"
+            document.getElementById("natomico").textContent = "9"
+            document.getElementById("patomico").textContent = "18,998"
+            document.getElementById("name").textContent = "Flúor"
+            document.getElementById("simbolo").textContent = "F"
+            document.getElementById("periodic").style.backgroundColor = "#f5cd1b"
+            document.getElementById("desc").innerHTML = "O flúor é o elemento químico com a maior eletronegatividade da tabela periódica (4,0), ele pode participar em alguns compostos, como o hexafluoreto de Urânio (UF<sub>6</sub>), também serve para manter a saúde bucal."
+        }
+
+        if (element == 2) {
+            document.getElementById("natomico").textContent = "17"
+            document.getElementById("patomico").textContent = "35,45"
+            document.getElementById("name").textContent = "Cloro"
+            document.getElementById("simbolo").textContent = "Cl"
+            document.getElementById("periodic").style.backgroundColor = "#f5cd1b"
+            document.getElementById("desc").innerHTML = "O Cloro é um ametal que ocorre na natureza como um gás diatômico (Cl<sub>2</sub>), está incluido em compostos como o ácido clorídrico (HCl)"
+        }
+
+        else if (element == 3) {
+            document.getElementById("natomico").textContent = "35"
+            document.getElementById("patomico").textContent = "79,094"
+            document.getElementById("name").textContent = "Bromo"
+            document.getElementById("simbolo").textContent = "Br"
+            document.getElementById("periodic").style.backgroundColor = "#f5cd1b"
+            document.getElementById("desc").innerHTML = "É um oxidante forte na água, é um líquido na temperatura ambiente, o seu ponto de fusão é -7,6 graus Celsius, é usado na produção de farmacêuticos, está incluido em compostos como o ácido brómico (HBrO)"
+        }
+
+        else if (element == 4) {
+            document.getElementById("natomico").textContent = "53"
+            document.getElementById("patomico").textContent = "126,90"
+            document.getElementById("name").textContent = "Iodo"
+            document.getElementById("simbolo").textContent = "I"
+            document.getElementById("periodic").style.backgroundColor = "#f5cd1b"
+            document.getElementById("desc").innerHTML = "Ele é utilizado na síntese de hormônios na tireóide, como tiroxina e triiodotironina, essenciais par ao crescimento físico e neurológicos dos seres humanos, está incluido em compostos como o iodeto de prata (AgI) e o iodeto de hidrogênio (HI)"
+        }
+
+        else if (element == 5) {
+            document.getElementById("natomico").textContent = "85"
+            document.getElementById("patomico").textContent = "(210)"
+            document.getElementById("name").textContent = "Astato"
+            document.getElementById("simbolo").textContent = "At"
+            document.getElementById("periodic").style.backgroundColor = "#f5cd1b"
+            document.getElementById("desc").innerHTML = "O astato pode ser utilizado no tratamento de hipertireoidismo, pela emissão de partículas alfa, ele é raríssimo de encontrar e ele é incluido em compostos que têm halogênios (AtCl), o isótopo mais estável do astato é o 210At, com uma meia-vida de mais ou menos 8,1 horas."
+        }
+
+        else if (element == 6) {
+            element = 0
+            document.getElementById("natomico").textContent = "117"
+            document.getElementById("patomico").textContent = "(294)"
+            document.getElementById("name").textContent = "Tenessino"
+            document.getElementById("simbolo").textContent = "Ts"
+            document.getElementById("periodic").style.backgroundColor = "grey"
+            document.getElementById("desc").innerHTML = "É um elemento descoberto em 2010, é um halogênio sintético com uma meia-vida (isótopo mais estável) de 51 milissegundos."
+        }
+        }
+    function nextElement() {
+        element = element + 1
+        const elementp = document.getElementById("elementtype").textContent
+        if (elementp == "Elementos fundamentais da vida") {
+            changeElement(0)
+        }
+        else if (elementp == "Halogênios") {
+            changeElement(1)
+        }
+    }
+    */
+    var rdn = Math.floor(Math.random() * 2) + 1
+    if (rdn == 1) {
+        document.getElementById("creditos").textContent = "Lucas Costa, 2024"
+    }
+    else if (rdn == 1) {
+        document.getElementById("creditos").textContent = "Lucas Campos, 2024"
+    }
+
+    // hydrogen model
+    const c = document.getElementById("canvas")
+    const pen = c.getContext("2d")
+    let mult = 201
+    pen.font = "15px Arial"
+    rx = 0
+    i = 0
+    function createCircle(x, y, r, color, mode) {
+        pen.fillStyle = color
+        pen.beginPath()
+        pen.arc(x, y, r, 0, 2*Math.PI)
+        if (mode == 'fill' || mode == null) {
+            pen.fill()
+        }
+        else if (mode == 'outline') {
+            pen.stroke()
+        }
+    }
+
+    function setIsotope() {
+        i = Number(window.prompt("Ver isótopo (Hidrogênio-1, 2, 3 ou 4):"))-1
+    }
+    function anim() {
+        pen.font = "15px Arial"
+        pen.clearRect(0, 0, c.width, c.height)
+        createCircle((c.width/2)-20, (c.height/2)-20, 20, "red")
+        pen.fillStyle = "black"
+        pen.fillText("p⁺", (c.width/2)-25, (c.height/2)-15)
+        if (i >= 1) {
+            createCircle((c.width/2)-(50), (c.height/2)-(20), 20, "gray")
+            pen.fillStyle = "black"
+            pen.fillText("n⁰", (c.width/2)-55, (c.height/2)-15)
+        }
+        if (i >= 2) {
+            createCircle((c.width/2)-(50+(3*-10)), (c.height/2)-(20+(2*17)), 20, "gray")
+            pen.fillStyle = "black"
+            pen.fillText("n⁰", (c.width/2)-25, (c.height/2)-49)
+        }
+        if (i >= 3) {
+            createCircle((c.width/2)-(50), (c.height/2)-(20+(2*17)), 20, "gray")
+            pen.fillStyle = "black"
+            pen.fillText("n⁰", (c.width/2)-55, (c.height/2)-(49))
+        }
+        createCircle((c.width/2)-30, (c.height/2)-30, 200, "black", "outline")
+        createCircle(((c.width/2)+(Math.cos(rx)*mult)-30), ((c.height/2)+(Math.sin(rx)*mult)-30), 10, "blue", "fill")
+        pen.fillStyle = "black"
+        elecx = ((c.width/2)+(Math.cos(rx)*mult)-30)
+        elecy = ((c.height/2)+(Math.sin(rx)*mult)-30)
+        pen.font = "12px Arial"
+        pen.fillStyle = "white"
+        pen.fillText("e⁻", elecx-8, elecy+4)
+        rx = rx + 0.01
+        pen.fillStyle = "black"
+        pen.font = "36px Arial"
+        if (i == 0) {
+            pen.fillText("Prótio", 350, 550)
+        }
+        else if (i == 1) {
+            pen.fillText("Deutério", 350, 550)
+        }
+        else if (i == 2) {
+            pen.fillText("Trítio", 350, 550)
+        }
+        else if (i == 3) {
+            pen.fillText("Hidrogênio-4", 250, 550)
+        }
+        requestAnimationFrame(anim)
+    }
+    anim()
+</script>

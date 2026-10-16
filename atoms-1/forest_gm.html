@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .banner {
+            width: 100%;
+            height: 100px;
+            background-image: url("floresta_ac/forestbg.png");
+            background-repeat: stretch;
+            margin: 0px;
+            border: 0px;
+            padding: 0;
+            border-bottom: solid black 5px;
+        }
+
+        .descBox {
+            width: 98%;
+            height: 850px;
+            display: block;
+            background-color: white;
+            border: 0px solid black;
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            font-size: 14pt;
+            overflow-wrap: break-all;
+        }
+        .descBox p {
+            margin: 10px;
+        }
+
+        .container {
+            width: 100%;
+            height: 700px;
+            display: inline-flex;
+            vertical-align: bottom;
+        }
+
+        body {
+            padding: 0;
+            border: 0;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        body #title {
+            margin: 0;
+            font-size: 36pt;
+        }
+
+        canvas {
+            width: 1200px;
+            height: 680px;
+        }
+
+        .container li {
+            font-size: 15pt;
+        }
+
+        .vignette {
+            width: 100%;
+            height: 100px;
+            background-color: #00000077;
+            position: absolute;
+        }
+
+        #t {
+            transition-duration: 0.2s;
+            accent-color: #00AB00;
+        }
+        #b {
+            transition-duration: 0.2s;
+            accent-color: #000000
+        }
+        #w {
+            transition-duration: 0.2s;
+            accent-color: #0098d4
+        }
+        #f {
+            transition-duration: 0.2s;
+            accent-color: #ffbb00
+        }
+        #o {
+            transition-duration: 0.2s;
+            accent-color: #7a4500
+        }
+        input[type='radio'] {
+            width: 15px;
+            height: 15px;
+        }
+        label {
+            font-size: 12pt;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="vignette">
+<p id="title" style="color: white;">Autômata celular: Floresta</p>
+<p style="font-style: italic; font-size: 14pt; margin: 12px; color: white;">Lucas da Costa Campos, 2026</p>
+</div>
+<div class="banner">
+</div>
+<div class="container">
+<canvas id="c" width="1200" height="680" style="border: 2px solid black; position: relative; margin: 15px;" tabindex='0' autofocus></canvas>
+<ul>
+    <p id="pop" style="font-size: 20pt">População: 0</p>
+    <p style="font-size: 16pt" id="startstopLabel">Iniciar simulação:</p>
+    <button id="startstop" onclick="playsim()" style="font-size: 36pt; color: green; background-color: rgb(255, 255, 255);">▶</button>
+    <p></p>
+    <button onclick="createCells()" style="color: red; font-size: 16pt; font-family: 'Times New Roman', Times, serif; background-color: white">⌦ Reiniciar</button>
+    <p id="editLabel" style="font-size: 14pt; font-style: oblique;">Modo de edição de células: Clicar</p>
+    <p>Gerações por segundo: <input type="number" id="fpsfield" min="1" max="30" value="5"></p>
+    <button style="color: black; background-color: rgb(255, 255, 255); border-radius: 20%;" onclick="fps = Math.round(document.getElementById('fpsfield').value/10); document.getElementById('fpsfield').value = fps">/10</button>
+    <button style="color: black; background-color: rgb(255, 255, 255); border-radius: 20%;" onclick="fps = Math.round(document.getElementById('fpsfield').value/5); document.getElementById('fpsfield').value = fps">/5</button>
+    <button style="color: black; background-color: rgb(255, 255, 255); border-radius: 20%;" onclick="fps = Math.round(document.getElementById('fpsfield').value/2); document.getElementById('fpsfield').value = fps">/2</button>
+    <button style="color: black; background-color: rgb(255, 255, 255); border-radius: 20%;" onclick="fps = document.getElementById('fpsfield').value*2; document.getElementById('fpsfield').value = fps">x2</button>
+    <button style="color: black; background-color: rgb(255, 255, 255); border-radius: 20%;" onclick="fps = document.getElementById('fpsfield').value*5; document.getElementById('fpsfield').value = fps">x5</button>
+    <button style="color: black; background-color: rgb(255, 255, 255); border-radius: 20%;" onclick="fps = document.getElementById('fpsfield').value*10; document.getElementById('fpsfield').value = fps">x10</button>
+    <p></p>
+    <button style="color: green; background-color: rgb(255, 255, 255);" onclick="fps = document.getElementById('fpsfield').value">Definir</button>
+    <br>
+    <br>
+    <input type="radio" style="background-color: black;" id="t" name="celltype" value="tree" checked>
+    <label for="t">Árvore</label>
+    <br>
+    <br>
+    <input type="radio" id="b" name="celltype" value="burnt">
+    <label for="b">Árvore queimada</label>
+    <br>
+    <br>
+    <input type="radio" id="w" name="celltype" value="water">
+    <label for="w">Água</label>
+    <br>
+    <br>
+    <input type="radio" id="f" name="celltype" value="fire">
+    <label for="f">Fogo</label>
+    <br>
+    <br>
+    <input type="radio" id="o" name="celltype" value="outpost">
+    <label for="o">Base</label>
+    <br>
+    <br>
+    <textarea id="saveSpace" style="resize: none; width: 550px; height: 125px"></textarea>
+    <button onclick="document.getElementById('saveSpace').value = save()" style="font-size: 14pt; background-color: white">💾 Salvar estado</button>
+    <button onclick="load(document.getElementById('saveSpace').value)" style="font-size: 14pt; background-color: white">📥 Carregar estado</button>
+    <button onclick="navigator.clipboard.writeText(document.getElementById('saveSpace').value)" style="font-size: 14pt; background-color: white">📄 Copiar</button>
+
+    <!-- <p style="font-size: 16pt">Padrões:</p>
+    <p>Adicionar em:</p>
+    <p>x: <input type="number" id="px" min="1" max="30"></p>
+    <p>y: <input type="number" id="py" min="1" max="30"></p>
+    <p></p>
+    <button onclick="addPattern(0, document.getElementById('px').value, document.getElementById('py').value)">Glider</button>
+    <button onclick="addPattern(1, document.getElementById('px').value, document.getElementById('py').value)">Arma de Gosper</button>
+    <p style="font-size: 16pt">Regras:</p>
+    <p>B: <input type="text" id="B" value="3"></p>
+    <p>S: <input type="text" id="S" value="23"></p>
+    <button onclick="applyRules(document.getElementById('B').value, document.getElementById('S').value)" style="background-color: white;color:green">Aplicar</button>
+    <p style="font-size: 16pt">Gerar células aleatórias</p>
+    <p id="densityLabel">Densidade: 0%</p>
+    <input type="range" id="prob" min="0" max="100" value="0" style="width: 150px;" oninput="document.getElementById('densityLabel').textContent = 'Densidade: ' + document.getElementById('prob').value + '%'"> 
+    <button style="background-color: white;color:black" onclick="genRandomCells(document.getElementById('prob').value/100)">Gerar</button> -->
+</ul>
+</div>
+<p style="margin: 20px; font-size:16pt; font-style: italic">Mapas: </p>
+<button style="margin: 10px; font-size:14pt; font-style: italic" onclick="navigator.clipboard.writeText('wwwwwwwwwwwwwwwwwwwwwwwwtttttttttttttttttttttttttttttttttttttwwwwwwwwwwwwwwwwwwwwwwwwwwtttttttttttttttttttttttttttttttttttwwwwwwwwwwwwwwwwwwwwwwwwwwwwwttttttttttttttttttttttttttttttttwwwwwwwwwwttttttttttttwwwwwwwttttttttttttttttttttttttttttttttttwwwwwwwwwtttttttttttttwwwwwttttttttttttttttttttttttttttttttttttwwwwwwwwwwtttttttttttwwwwwwttttttttttttttttttttttttttttttttttttwwwwwwwwwwtttttttttttwwwwwtttttttttttttttttttttttttttttttttttttwwwwwwwwwwtttttttttttwwwwtttttttttttttttttttttttttttttttttttttttwwwwwwwtttttttttttwwwwwwtttttttttttttttttttttttttttttttttttttttwwwwwwwttttttttttwwwwwwttttttttttttttttttttttttttttttttttttttwwwwwwwwwwwwtttttttwwwwwttttttttttttttttttttttttttttttttttttttwwwwwwwwwwwwwttttttwwwwwtttttttttttttttttttttttttttttttttttttttwwwttwwwwwwwttttttwwwwwwtttttttttttttttttttttttttttttttttttttwwwtttwwwwwwtttttttwwwwwwtttttwwwwtttttttttttttttttttttttttttwwwtttttwwwwwwtwtttttwwwwwwwwwwwwwwwttttttttttttttttttttttttttwwttttttwwwwwwwwwwwwwwwwwwwwwwwwwwwtttttttttttttttttttttttttwwwwttttttwwwwwwwwwwwwwwwwwwwtttwwwwwtttttttttttttttttttttttttwwwtttttttttttwwwwwwttttwwwwttttwwwwttttttttttttttttttttttttttwwwwwtttttttttttttttttttwwwwtttttwwwttttttttttttttttttttttttttttwwwwwtttttttttttttttttwwwtttttwwwwtttttttttttttttttttttttttttttwwwwwwtttttttttttttttwwwwttttwwwtttttttttttttttttttttttttttttttwwwwwwwtttttttttttttwwwwtttwwwwttttttttttttttttttttttttttttttttwwwwwwwttttttttttttwwwwtttwwwwttttttttttttttttttttttttttttttttttwwwwwwwttttttttttwwwwttwwwwttttttttttttttttttttttttttttttttttttwwwwwwwwttttttttwwwwttwwwtttttttttttttttttttttttttttttttttttttttwwwwwwwwwtttttwwwwtwwwttttttttttttttttttttttttttttttttttttttttttwwwwwwwwwtttwwwtwwwtttttttttttttttttttttttttttttttttttttttttttttwwwwwwwwwtwwwwwwwttttttttttttttttttttttttttttttttttttttttttttttwwwwwwwwwwwwwwwwwwtttttttttttttttttttttttttttttttttttttttttttttttwwwwwwwwwwwwwwttttttttttttttttttttttttttttttttttttttttttttttttttttwwwwwwwwtttttttttttttttttttttttttttttttttttttttttttttttttttttttwwwwwwwtttttttttttttttttttttttttttttttttttttttttttttttttttttttwwwwwwttttttttttttttttttttttttttttttttttttttttttttttttttttttttwwwwwttttttttttttttttttttttttttttttttttttttttttttttttttttttttttwwt')">Ilhas</button>
+<button id="showDesc" onclick="showDescBox()" style="width: 100%; height: 60px; font-size: 30pt; background-color: white; font-family: 'Times New Roman', Times, serif; display: flex; justify-content: center;">Ocultar descrição ↑</button>
+<div id="dB" class="descBox">
+    <p>Este é um autômata celular que simula o comportamento de florestas e queimadas.</p>
+    <p style="font-size: 18pt; font-style: italic;">Descrições de cada tipo de unidade:</p>
+    <p>🟩: Esta é a árvore. Suscetível ao elemento fogo (🟧), é a população do mapa. Quando exposta a um vizinho 🟧, ela vira a árvore queimada (⬛).</p>
+    <p>🟦: Esta é a água. Barreira natural contra o fogo. Pode-se fazer ilhas com ela.</p>
+    <p>🟧: Este é o fogo. Queima árvores, convertendo-as para árvores queimadas (⬛). Ele pode ser extinguido por um vizinho 🟫, ou destruí-lo, quando seu número é maior do que 3 na vizinhança local de Moore da base.</p>
+    <p>⬛: Esta é a árvore queimada. Ela pode ser regenerada quando exposta a um vizinho 🟩 (árvore viva), representando o crescimento da floresta por si só, ou pela 🟫 (base de fiscalização), representando a replantação de árvores.</p>
+    <p>🟫: Esta é a base de fiscalização. Ela pode extinguir o fogo e replantar árvores na sua vizinhança de Moore ou ser destruída, caso tiver mais de 3 vizinhos 🟧 (fogo).</p>
+    <p style="font-size: 18pt; font-style: italic;">Usando o simulador:</p>
+    <p>Para mudar o modo de espalhar células, pressione a tecla Q (troca entre o modo espalhar (passar o mouse em cima das células as pintam) e clique (clicar células as pintam individualmente)).</p>
+    <p>Para mudar o material da célula (🟩, 🟦, 🟧, ⬛, 🟫), clique na tecla E ou nos radiobuttons (botões circulares) ao lado do nome do material que deseja.</p>
+    <p>Para salvar o estado atual das células, clique no botão "Salvar estado" e copie o texto dentro da caixa de texto.</p>
+    <p>Para carregar o estado salvo, basta copiar o texto anteriormente salvo e clicar em "Carregar estado".</p>
+    <p>Para usar os mapas predefinidos, clique no botão do mapa que deseja (isso irá colocar o código do mapa na sua área de transferência) e copie-o dentro da caixa de texto, após isso, clique em "Carregar estado".</p>
+</div>
+<script>
+    // código por: Lucas da Costa Campos
+    // variáveis
+    var cjs = document.getElementById("c")
+    var ctx = cjs.getContext("2d");
+    var triangleWidth = 20; // universal
+    var triangleHeight = 20; // universal
+    var play = false;
+    var mode = 'water'
+    var editMode = 'click'
+    brules = ['3'] // regras (b)
+    srules = ['2', '3'] // regras (s)
+
+    function applyRules(B, S) {
+        B = B.toString()
+        S = S.toString()
+        brules = B.split("")
+        srules = S.split("")
+    }
+
+    // apagar tudo no canvas
+    function clearCanvas() {
+        ctx.fillStyle = "#FFFFFF";
+        ctx.fillRect(0, 0, cjs.width, cjs.height)
+    }
+
+    // mostrar a caixa de descrição do jogo
+    function showDescBox() {
+        dbox = document.getElementById("dB")
+        sdb = document.getElementById("showDesc")
+        if (dbox.style.display == 'block') {
+            dbox.style.display = 'none'
+            sdb.textContent = "Mostrar descrição ↓"
+        }
+        else {
+            dbox.style.display = 'block'
+            sdb.textContent = "Ocultar descrição ↑"
+        }
+    }
+    
+    function getMouseCoords(c, ev) {
+        let rectangle = c.getBoundingClientRect();
+        let x = event.clientX - rectangle.left;
+        let y = event.clientY - rectangle.top;
+        return [x, y];
+    }
+    var mouseCoords;
+    cjs.addEventListener("mousemove", function (e) {
+        if (editMode == 'smear') {
+            mouseCoords = getMouseCoords(cjs, e);
+            mX = Math.round(mouseCoords[0])
+            mY = Math.round(mouseCoords[1])
+            mode = document.querySelector("input[name='celltype']:checked").value
+            cells[Math.floor(mY/20)][Math.floor(mX/20)].state = mode
+            oldcells[Math.floor(mY/20)][Math.floor(mX/20)].state = mode
+        }
+    })
+
+    cjs.addEventListener("mousedown", function (e) {
+        if (editMode == 'click') {
+            mouseCoords = getMouseCoords(cjs, e);
+            mX = Math.round(mouseCoords[0])
+            mY = Math.round(mouseCoords[1])
+            mode = document.querySelector("input[name='celltype']:checked").value
+            cells[Math.floor(mY/20)][Math.floor(mX/20)].state = mode
+            oldcells[Math.floor(mY/20)][Math.floor(mX/20)].state = mode
+        }
+    })
+
+    cjs.addEventListener("keypress", function (e) {
+        console.log(e.key)
+        if (e.key == 'q') {
+            switch (editMode) {
+                case "smear":
+                    editMode = "click";
+                    document.getElementById("editLabel").textContent = "Modo de edição de células: Clicar"
+                    break;
+                case "click":
+                    editMode = "smear";
+                    document.getElementById("editLabel").textContent = "Modo de edição de células: Espalhar"
+                    break;
+                default:
+                    break;
+            }
+        } 
+        else if (e.key == 'e') {
+            switch (mode) {
+                case "tree":
+                    mode = "burnt"
+                    document.getElementById("t").checked = false
+                    document.getElementById("w").checked = true
+                    break;
+                case "burnt":
+                    mode = "water"
+                    document.getElementById("w").checked = false
+                    document.getElementById("f").checked = true
+                    break;
+                case "water":
+                    mode = "fire"
+                    document.getElementById("f").checked = false
+                    document.getElementById("o").checked = true
+                    break;
+                case "fire":
+                    mode = "outpost"
+                    document.getElementById("o").checked = false
+                    document.getElementById("t").checked = true
+                    break;
+                case "outpost":
+                    mode = "tree"
+                    document.getElementById("o").checked = false
+                    document.getElementById("t").checked = true
+                    break;
+            }
+
+        }
+    })
+
+    function drawGrid() {
+        ctx.strokeStyle = "#5F5F5F"
+        for (i = 0; i <= 60; i++) {
+            ctx.beginPath();
+            ctx.moveTo((cjs.width/60)*i, 0);
+            ctx.lineTo((cjs.width/60)*i, cjs.height);
+            ctx.stroke();
+        }
+        for (i = 0; i < 34; i++) {
+            ctx.beginPath();
+            ctx.moveTo(0, (cjs.height/34)*i);
+            ctx.lineTo(cjs.width, (cjs.height/34)*i);
+            ctx.stroke();
+        }
+    }
+
+    class Cell {
+        constructor(x, y, state) {
+            this.x = x*20
+            this.y = y*20
+            this.state = state
+        }
+    }
+    cells = []
+    let oldcells = []
+    allowed = false
+
+    function playsim() {
+        play = !play
+        if (!play) {
+            document.getElementById("startstopLabel").textContent = "Iniciar simulação:"
+            document.getElementById("startstop").style.color = "green"
+            document.getElementById("startstop").textContent = "▶"
+        }
+        else {
+            document.getElementById("startstopLabel").textContent = "Pausar simulação:"
+            document.getElementById("startstop").style.color = "red"
+            document.getElementById("startstop").textContent = "⏸"
+        }
+    }
+
+    function save() {
+        let savecode = ''
+        cells.forEach(e => {
+            e.forEach(se => {
+                savecode = savecode + se.state.split("")[0]
+            })
+        })
+        return savecode;
+    }
+
+    function load(c) {
+        index = -1;
+        cList = c.split("");
+        subarray = []
+        cells.forEach(e => {
+            e.forEach(se => {
+                index++;
+                if (cList[index] == 't') {se.state = 'tree'}
+                else if (cList[index] == 'w') {se.state = 'water'; console.log('testin')}
+                else if (cList[index] == 'f') {se.state = 'fire'}
+                else if (cList[index] == 'b') {se.state = 'burnt'}
+                else if (cList[index] == 'o') {se.state = 'outpost'}
+                subarray.push(new Cell(se.x/20, se.y/20, se.state))
+            })
+            oldcells.push(structuredClone(subarray))
+            subarray = []
+        })
+    }
+    subarray = []
+    function createCells() {
+        cells = []
+        oldcells = []
+        cx = 0
+        cy = 0
+        for (k = 0; k <= 34; k++) {
+            cx = 0
+            for (i = 0; i <= 60; i++) {
+                subarray.push(new Cell(cx, cy, 'tree'))
+                cx++;
+            }
+            cells.push(structuredClone(subarray))
+            oldcells.push(structuredClone(subarray))
+            subarray.length = 0
+            cy++;
+        }
+    }
+    createCells();
+    cellNB = []
+    // mostrar o output no canvas
+    let start;
+    let fps = 5
+    let fpsInt = 1000 / fps
+    let loops = 0;
+    let alive = 0;
+    function outputResult(ts) {
+        let fpsInt = 1000 / fps
+        if (start === undefined) {
+            start = ts
+        }
+        const elp = ts - start
+        if (elp > fpsInt) {
+            start = ts - (elp % fpsInt)
+            clearCanvas();
+            ctx.fillStyle = "#000000"
+            // update labels
+            /* cells.forEach(element => {
+                if (element.state == true) {
+                    console.log(element.x)
+                    console.log(element.y)
+                    cellNB.push(cells.filter((cell) => (cell.x) == (element.x) && (cell.y) == (element.y-20) && (cell.state))[0])
+                    cellNB.push(cells.filter((cell) => (cell.x) == (element.x+20) && (cell.y) == (element.y-20) && (cell.state))[0])
+                    cellNB.push(cells.filter((cell) => (cell.x) == (element.x+20) && (cell.y) == (element.y) && (cell.state))[0])
+                    cellNB.push(cells.filter((cell) => (cell.x) == (element.x+20) && (cell.y) == (element.y+20) && (cell.state))[0])
+                    cellNB.push(cells.filter((cell) => (cell.x) == (element.x) && (cell.y) == (element.y+20) && (cell.state))[0])
+                    if (element.x >= 1*20) {
+                        cellNB.push(cells.filter((cell) => (cell.x) == (element.x-20) && (cell.y) == (element.y) && (cell.state))[0])
+                        cellNB.push(cells.filter((cell) => (cell.x) == (element.x-20) && (cell.y) == (element.y-20) && (cell.state))[0])
+                        cellNB.push(cells.filter((cell) => (cell.x) == (element.x-20) && (cell.y) == (element.y+20) && (cell.state))[0])
+                    }
+                    console.log(cellNB)
+                }
+            });
+            ctx.fillStyle = "#00FF00"
+            cellNB.forEach(element => {
+                ctx.fillRect(element.x, element.y, 20, 20)
+            });
+            */
+           if (!play) {
+                alive = 0
+                ctx.fillStyle = "#00AB00"
+                cells.forEach(element => {
+                    element.forEach(subelement => {
+                        if (subelement.state === 'tree') {ctx.fillStyle = "#00AB00"; ctx.fillRect(subelement.x, subelement.y, 20, 20); alive++;}
+                        else if (subelement.state === 'water') {ctx.fillStyle = '#468bfa'; ctx.fillRect(subelement.x, subelement.y, 20, 20);}
+                        else if (subelement.state === 'fire') {ctx.fillStyle = '#FFAB00'; ctx.fillRect(subelement.x, subelement.y, 20, 20);}
+                        else if (subelement.state === 'burnt') {ctx.fillStyle = '#000000'; ctx.fillRect(subelement.x, subelement.y, 20, 20);}
+                        else if (subelement.state === 'outpost') {ctx.fillStyle = '#6e3f01'; ctx.fillRect(subelement.x, subelement.y, 20, 20);}
+                });
+                drawGrid();
+            });
+                document.getElementById("pop").textContent = "População: " + alive
+                //console.log(cells)
+           }
+
+            if (play) {
+                cells.forEach(element => {
+                    element.forEach(selement => {
+                    loops++
+                    /* v1 = oldcells.find((cell) => (cell.x) == (element.x) && (cell.y) == (element.y-20) && (cell.state))
+                    v2 = oldcells.find((cell) => (cell.x) == (element.x+20) && (cell.y) == (element.y-20) && (cell.state))
+                    v3 = oldcells.find((cell) => (cell.x) == (element.x+20) && (cell.y) == (element.y) && (cell.state))
+                    v4 = oldcells.find((cell) => (cell.x) == (element.x+20) && (cell.y) == (element.y+20) && (cell.state))
+                    v5 = oldcells.find((cell) => (cell.x) == (element.x) && (cell.y) == (element.y+20) && (cell.state))
+                    v6 = oldcells.find((cell) => (cell.x) == (element.x-20) && (cell.y) == (element.y) && (cell.state))
+                    v7 = oldcells.find((cell) => (cell.x) == (element.x-20) && (cell.y) == (element.y-20) && (cell.state))
+                    v8 = oldcells.find((cell) => (cell.x) == (element.x-20) && (cell.y) == (element.y+20) && (cell.state))
+                    if (v1 !== undefined) {
+                    cellNB.push(new Cell(v1.x, v1.y, v1.state))
+                    }
+                    if (v2 !== undefined) {
+                    cellNB.push(new Cell(v2.x, v2.y, v2.state))
+                    }
+                    if (v3 !== undefined) {
+                    cellNB.push(new Cell(v3.x, v3.y, v3.state))
+                    }
+                    if (v4 !== undefined) {
+                    cellNB.push(new Cell(v4.x, v4.y, v4.state))
+                    }
+                    if (v5 !== undefined) {
+                    cellNB.push(new Cell(v5.x, v5.y, v5.state))
+                    }
+                    if (element.x >= 20) {
+                        if (v6 !== undefined) {
+                        cellNB.push(new Cell(v6.x, v6.y, v6.state))
+                        }
+                        if (v7 !== undefined) {
+                        cellNB.push(new Cell(v7.x, v7.y, v7.state))
+                        }
+                        if (v8 !== undefined) {
+                        cellNB.push(new Cell(v8.x, v8.y, v8.state))
+                        }
+                    }
+                    */
+                   // nos trancos e barrancos... talvez funcione
+                   if (selement.y >= 20) {
+                        cellNB.push(new Cell(oldcells[(selement.y-20)/20][(selement.x)/20].x/20, oldcells[(selement.y-20)/20][(selement.x)/20].y/20, oldcells[(selement.y-20)/20][(selement.x)/20].state))
+                   }
+                   if (selement.y >= 20 && selement.x < cjs.width) {
+                        cellNB.push(new Cell(oldcells[(selement.y-20)/20][(selement.x+20)/20].x/20, oldcells[(selement.y-20)/20][(selement.x+20)/20].y/20, oldcells[(selement.y-20)/20][(selement.x+20)/20].state))
+                   }
+                    if (selement.y < cjs.height && selement.x < cjs.width) {
+                        cellNB.push(new Cell(oldcells[(selement.y+20)/20][(selement.x+20)/20].x/20, oldcells[(selement.y+20)/20][(selement.x+20)/20].y/20, oldcells[(selement.y+20)/20][(selement.x+20)/20].state))
+                        cellNB.push(new Cell(oldcells[(selement.y+20)/20][selement.x/20].x/20, oldcells[(selement.y+20)/20][(selement.x)/20].y/20, oldcells[(selement.y+20)/20][(selement.x)/20].state))
+                        cellNB.push(new Cell(oldcells[selement.y/20][(selement.x+20)/20].x/20, oldcells[selement.y/20][(selement.x+20)/20].y/20, oldcells[selement.y/20][(selement.x+20)/20].state))
+                    }
+                   if (selement.x >= 20) {
+                        if (selement.y >= 20) {
+                            cellNB.push(new Cell(oldcells[(selement.y-20)/20][(selement.x-20)/20].x/20, oldcells[(selement.y-20)/20][(selement.x-20)/20].y/20, oldcells[(selement.y-20)/20][(selement.x-20)/20].state))
+                        }
+                        cellNB.push(new Cell(oldcells[selement.y/20][(selement.x-20)/20].x/20, oldcells[selement.y/20][(selement.x-20)/20].y/20, oldcells[selement.y/20][(selement.x-20)/20].state))
+                        if (selement.y < cjs.height) {
+                            cellNB.push(new Cell(oldcells[(selement.y+20)/20][(selement.x-20)/20].x/20, oldcells[(selement.y+20)/20][(selement.x-20)/20].y/20, oldcells[(selement.y+20)/20][(selement.x-20)/20].state))
+                        }
+                   }
+                    if (selement.state == 'tree') {
+                        //console.log(cellNB.length)
+                        //console.log(srules)
+                        //console.log(srules.includes((cellNB.length).toString()))
+                        //else if (cellNB.length == 2 || cellNB.length == 3) {
+                        if (cellNB.some(c => c.state === 'fire')) {
+                            selement.state = 'fire'
+                        }
+                    }
+                    else if (selement.state == 'fire') {
+                        selement.state = 'burnt'
+                    }
+
+                    else if (selement.state == 'outpost') {
+                        fires = cellNB.filter(e => e.state == 'fire')
+                        if (fires.length > 3) {
+                            selement.state = 'fire'
+                        }
+                        else {
+                            fires.forEach(f => {
+                                f.state = 'burnt'
+                            })
+                        }
+                    }
+
+                    else if (selement.state == 'burnt') {
+                        ops = cellNB.filter(e => e.state == 'outpost').length
+                        trees = cellNB.filter(e => e.state == 'tree')
+                        if (ops !== 0) {
+                            selement.state = 'tree'
+                        }
+                        else if (trees.length >= 1) {
+                            selement.state = 'tree'
+                        }
+                    }
+                    cellNB.length = 0
+                    //if (element.state) {
+                        //console.log(cellNB)
+                    //}
+                    if (loops % (35*61) == 0) {
+                        alive = 0
+                        oldcells.length = 0
+                        subarray.length = 0
+                        //console.log("updated")
+                        cells.forEach(element => {
+                            element.forEach(subelement => {
+                                subarray.push(new Cell(subelement.x/20, subelement.y/20, subelement.state))
+                                if (subelement.state === 'tree') {ctx.fillStyle = '#00AB00'; ctx.fillRect(subelement.x, subelement.y, 20, 20); alive++;}
+                                else if (subelement.state === 'water') {ctx.fillStyle = '#468bfa'; ctx.fillRect(subelement.x, subelement.y, 20, 20);}
+                                else if (subelement.state === 'fire') {ctx.fillStyle = '#FFAB00'; ctx.fillRect(subelement.x, subelement.y, 20, 20);}
+                                else if (subelement.state === 'burnt') {ctx.fillStyle = '#000000'; ctx.fillRect(subelement.x, subelement.y, 20, 20);}
+                                else if (subelement.state === 'outpost') {ctx.fillStyle = '#6e3f01'; ctx.fillRect(subelement.x, subelement.y, 20, 20);}
+                                drawGrid();
+                            });
+                            oldcells.push(structuredClone(subarray))
+                            subarray.length = 0
+                        });
+                        document.getElementById("pop").textContent = "População: " + alive
+                    }
+                   });
+                   drawGrid();
+                });
+            }
+        }
+        requestAnimationFrame(outputResult);
+    }
+    requestAnimationFrame(outputResult);
+
+</script>

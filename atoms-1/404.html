@@ -1,0 +1,48 @@
+<head>
+    <style>
+         body {
+            background-image: url("assets/bg2.png");
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 5px;
+        }
+    </style>
+</head>
+<h1>404</h1>
+<p id="msg"></p>
+<p>Volte para a <a href="index.html">Página inicial.</a></p>
+<script>
+    var msgn = Math.floor(Math.random() * 10) + 1
+    if (msgn == 0) {
+        document.getElementById("msg").innerHTML = "A página formou um buraco negro enquanto tentava dividir por 0."
+    }
+    else if (msgn == 1) {
+        document.getElementById("msg").innerHTML = "A página comeu urânio-235."
+    }
+    else if (msgn == 2) {
+        document.getElementById("msg").innerHTML = "Talvez eu tenha deletado essa página por acidente, ou não."
+    }
+    else if (msgn == 3) {
+        document.getElementById("msg").innerHTML = "A página inalou monóxido de carbono."
+    }
+    else if (msgn == 4) {
+        document.getElementById("msg").innerHTML = "Dica: tente se redirecionar pelos links disponibilizados pela página inicial."
+    }
+    else if (msgn == 5) {
+        document.getElementById("msg").innerHTML = "A página não quis aparecer."
+    }
+    else if (msgn == 6) {
+        document.getElementById("msg").innerHTML = "Eu acho que o certificado SSL irá expirar logo logo -Lucas"
+    }
+    else if (msgn == 7) {
+        document.getElementById("msg").innerHTML = "Você bateu no paywall! Espera... não há paywall..."
+    }
+    else if (msgn == 8) {
+        document.getElementById("msg").innerHTML = "Por favor, não mude os elementos do meu site com inspecionar elemento... ah tanto faz mesmo, só se aplica no client..."
+    }
+    else if (msgn == 9) {
+        document.getElementById("msg").innerHTML = "Acho que você fez algum erro de digitação ou esqueceu de incluir .html na página"
+    }
+    else if (msgn == 10) {
+        document.getElementById("msg").innerHTML = "A página rasgou."
+    }
+</script>

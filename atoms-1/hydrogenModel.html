@@ -1,0 +1,79 @@
+<html>
+    <style>
+        #canvas {
+            border: solid black 5px;
+        }
+    </style>
+    <canvas id="canvas" width="800", height="600"></canvas>
+    <button onclick="setIsotope()">Ver isótopo...</button>
+</html>
+<script>
+    const c = document.getElementById("canvas")
+    const pen = c.getContext("2d")
+    let mult = 201
+    pen.font = "15px Arial"
+    rx = 0
+    i = 0
+    function createCircle(x, y, r, color, mode) {
+        pen.fillStyle = color
+        pen.beginPath()
+        pen.arc(x, y, r, 0, 2*Math.PI)
+        if (mode == 'fill' || mode == null) {
+            pen.fill()
+        }
+        else if (mode == 'outline') {
+            pen.stroke()
+        }
+    }
+
+    function setIsotope() {
+        i = Number(window.prompt("Ver isótopo (Hidrogênio-1, 2, 3 ou 4):"))-1
+    }
+    function anim() {
+        pen.font = "15px Arial"
+        pen.clearRect(0, 0, c.width, c.height)
+        createCircle((c.width/2)-20, (c.height/2)-20, 20, "red")
+        pen.fillStyle = "black"
+        pen.fillText("p⁺", (c.width/2)-25, (c.height/2)-15)
+        if (i >= 1) {
+            createCircle((c.width/2)-(50), (c.height/2)-(20), 20, "gray")
+            pen.fillStyle = "black"
+            pen.fillText("n⁰", (c.width/2)-55, (c.height/2)-15)
+        }
+        if (i >= 2) {
+            createCircle((c.width/2)-(50+(3*-10)), (c.height/2)-(20+(2*17)), 20, "gray")
+            pen.fillStyle = "black"
+            pen.fillText("n⁰", (c.width/2)-25, (c.height/2)-49)
+        }
+        if (i >= 3) {
+            createCircle((c.width/2)-(50), (c.height/2)-(20+(2*17)), 20, "gray")
+            pen.fillStyle = "black"
+            pen.fillText("n⁰", (c.width/2)-55, (c.height/2)-(49))
+        }
+        createCircle((c.width/2)-30, (c.height/2)-30, 200, "black", "outline")
+        createCircle(((c.width/2)+(Math.cos(rx)*mult)-30), ((c.height/2)+(Math.sin(rx)*mult)-30), 10, "blue", "fill")
+        pen.fillStyle = "black"
+        elecx = ((c.width/2)+(Math.cos(rx)*mult)-30)
+        elecy = ((c.height/2)+(Math.sin(rx)*mult)-30)
+        pen.font = "12px Arial"
+        pen.fillStyle = "white"
+        pen.fillText("e⁻", elecx-8, elecy+4)
+        rx = rx + 0.01
+        pen.fillStyle = "black"
+        pen.font = "36px Arial"
+        if (i == 0) {
+            pen.fillText("Prótio", 350, 550)
+        }
+        else if (i == 1) {
+            pen.fillText("Deutério", 350, 550)
+        }
+        else if (i == 2) {
+            pen.fillText("Trítio", 350, 550)
+        }
+        else if (i == 3) {
+            pen.fillText("Hidrogênio-4", 250, 550)
+        }
+        requestAnimationFrame(anim)
+    }
+    anim()    
+</script>

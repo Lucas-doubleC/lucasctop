@@ -1,0 +1,593 @@
+<head>
+
+    <title>Física Nuclear</title>
+
+    <link rel="icon" type="image/x-icon" href="assets/icon.png">
+
+    <style>
+
+        .rectangle {
+
+            width: 100%;
+
+            height: 100px;
+
+            background-color: #21D6D2;
+
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+            margin: 0px;
+
+            background-image: url('assets/rectanglebg.png')
+
+        }
+
+
+
+        .rectangle h1 {
+
+            position: absolute;
+
+            left: 15px;
+
+            top: 20px;
+
+        }
+
+
+
+        .rectangle p {
+
+            position: absolute;
+
+            top: -10px;
+
+        }
+
+
+
+        head {
+
+            padding: 0px;
+
+            margin: 0px;
+
+            box-sizing: border-box;
+
+        }
+
+
+
+        body {
+
+            margin: 5px;
+
+            margin-bottom: 2px;
+
+            margin-top: 2px;
+
+            background-image: url('assets/bg.png');
+
+            overflow-x: hidden;
+
+        }
+
+        body p {
+            position: relative;
+            left: 18px;
+        }
+
+        body img {
+            border-radius: 20px;
+            position: relative;
+            left: 18px;
+        }
+
+        body button {
+            border-radius: 20px;
+            position: relative;
+            left: 18px;
+        }
+
+        body h2 {
+            position: relative;
+            left: 18px;
+        }
+
+        body h3 {
+            position: relative;
+            left: 18px;
+        }
+
+    </style>
+
+    <div class="rectangle">
+
+        <p id='creditos'>Lucas Campos, 2024</p>
+
+        <h1>Física Nuclear</h1>
+
+    </div>
+
+</head>
+
+
+
+<body>
+    <p>Outros conteúdos: <a href='fisica.html'><u>Física</u></a> <u><a href=quimica.html>Química</a></u></p>
+    <h2 id='text'>Isótopos</h2>
+
+    <p id='text1'>Os isótopos são variações de um elemento químico que possuem diferentes números de nêutrons.</p>
+
+    <img id='isoimg' src="">
+
+    <p id='halflife'></p>
+
+    <button id='isobutton'>Buscar Isótopo</button>
+
+
+
+    <h2 id='text2'>Decaimento</h2>
+
+    <p id='text3'>O decaimento radioativo (ou transmutação) é o processo natural em que um núcleo atômico instável emite radiação, de forma sucessiva, a fim de diminuir sua energia e tornar-se estável</p>
+
+    <h3 id='text4'>-> Decaimento Alfa</h3>
+
+    <p>A emissão alfa, desintegração alfa ou decaimento alfa é uma forma de decaimento radioativo</p>
+
+    <p>que ocorre quando um núcleo atômico instável emite uma partícula alfa transformando-se em outro núcleo atômico</p>
+
+    <p>com número atômico de duas unidades menor e número de massa 4 unidades menor.</p>
+
+    <img src="decaimento/Partalfa.png">
+
+    <img id='imgdecay' src="decaimento/U238.png">
+
+    <button id="buttondecay" onclick="document.getElementById('imgdecay').src='decaimento/T234He2.png'">Decair!</button>
+
+    <button id="buttondecay1" onclick="document.getElementById('imgdecay').src='decaimento/U238.png'">Desfazer!</button>
+
+    
+
+    <h3>-> Decaimento Beta</h3>
+
+    <p>No decaimento beta ocorre a emissão de uma partícula que pode ser um elétron ou um pósitron.</p>
+
+    <p>No decaimento β−, um nêutron é convertido num próton, com a emissão de um elétron e de um antineutrino de elétron (a antipartícula do neutrino)</p>
+
+    <p>No decaimento β+, um próton é convertido num nêutron, com a emissão de um pósitron e de um neutrino de elétron</p>
+
+    <img src="decaimento/beta-.png">
+
+    <img src="decaimento/beta+.png">
+
+    
+
+    <h3>-> Decaimento Gama</h3>
+
+    <p>Decaimento gama é tipo de decaimento radioativo quando ocorre emissão de raios gama, fótons de alta energia</p>
+
+    <p>em resultado de transição de núcleo de um estado excitado a um estado de energia mais baixa.</p>
+
+    <img src="decaimento/gama.png">
+
+    <img id='imglight' src="decaimento/luz.png">
+
+    <button onclick="zoominout()">Zoom +/-</button>
+
+    <h3>--> Ondas</h3>
+
+    <h3>Fórmula do Comprimento de Onda:</h3><img src="decaimento/ondacomp.png">
+
+    <p>λ -> Comprimento da Onda (m)</p>
+
+    <p>v -> Velocidade da Onda (m/s)</p>
+
+    <p>f -> Frequência da Onda (Hz)</p>
+
+    <h3>Fórmula da Velocidade de Propagação da Onda:</h3><img src="decaimento/Velonda.png">
+
+    <p>λ -> Comprimento da Onda (m)</p>
+
+    <p>U -> Velocidade de Propagação da Onda (m/s)</p>
+
+    <p>f -> Frequência da Onda (Hz)</p>
+
+    <h3>Fórmula da Energia transportada por uma onda Eletromagnética:</h3><img src="decaimento/OndaE.png">
+
+    <p>E -> Energia da Onda</p>
+
+    <p>h -> Constante de Planck</p>
+
+    <p>f -> Frequência da Onda</p>
+
+    <p>Então, uma onda gama tem muita energia, pois a frequência da onda é extremamente grande.</p>
+
+
+
+    <h2>Íons</h2>
+
+    <p>São átomos carregados tanto com carga positiva (cátions) ou negativa (ânions), ambos tem uma certa atração eletromagnética pelo outro.</p>
+
+    <p>Um exemplo dessa atração é o do Cl- (Ânion de cloro) e do Na+ (Cátion de sódio)</p>
+
+    <p>O átomo pode ser carregado com carga negativa quando o número de elétrons excede o número de prótons.</p>
+
+    <p>E já os cátions são o contrário dos ânions; são carregados com carga positiva; o número de prótons é maior do que o de elétrons.</p>
+
+    <p>Os ânions e os cátions são atraídos pois um átomo precisa de elétrons e outro precisa de ceder elétrons para se estabilizar</p>
+
+    <img id='ionimg' src="ions/Na-Cl.png">
+
+    <button onclick="document.getElementById('ionimg').src='ions/NaCl.png'">Juntar!</button>
+
+    <button onclick="document.getElementById('ionimg').src='ions/Na-Cl.png'">Desfazer!</button>
+
+    <img src="ions/ions.png">
+
+
+
+    <h2>Tipos de Partículas Subatômicas</h2>
+
+    <img src='parts_subatomicas/modelo.png'>
+
+    <h2>Quarks</h2>
+
+    <h3>-> Up</h3>
+
+    <p>Compõe os prótons e os nêutrons, tem spin +1/2 e tem massa 2.15±0.15 MeV/c².</p>
+
+    <p>Tem carga elétrica +2/3 e</p>
+
+    <h3>-> Down</h3>
+
+    <p>Compõe os prótons e os nêutrons, tem spin +1/2 e tem massa 4.8+0.5; -0.3 MeV/c2</p>
+
+    <p>Tem carga elétrica -1/3 e</p>
+
+    <h3>-> Charm</h3>
+
+    <p>Tem spin +1/2, carga elétrica +2/3 e tem massa 1.27 GeV/c².</p>
+
+    <h3>-> Strange</h3>
+
+    <p>Tem spin +1/2, carga elétrica -1/3, e tem massa 104 MeV/c².</p>
+
+    <h3>-> Top</h3>
+
+    <p>Tem massa 171.2 GeV/c².</p>
+
+    <h3>-> Bottom</h3>
+
+    <p>Tem carga elétrica de -1/3 e, com uma massa de 4.7 GeV/c².</p>
+
+
+
+    <h2>Léptons</h2>
+
+    <h3>-> Elétron</h3>
+
+    <p>Tem símbolo e- ou β− e tem carga elétrica negativa, tem a massa aproximadamente de 1/1836 de um próton.</p>
+
+    <p>Tem carga elétrica de -1 e, e o tempo de decaimento dessa partícula é de mais de 6.6x10^28 anos. (Estável)</p>
+
+    <p>Tem massa de 0.511 MeV/c²</p>
+
+    <h3>-> Neutrino do Elétron</h3>
+
+    <p>Tem spin 1/2, tem carga neutra (0 e)</p>
+
+    <p>Tem como antipartícula o Antineutrino do Elétron <img src='parts_subatomicas/antineutrino_eletron.png'></p>
+
+    <h3>-> Múon</h3>
+
+    <p>É uma partícula semelhante ao elétron, com carga elétrica de -1 e e spin de 1/2, mas com uma massa muito maior (105.66 MeV/c²).</p>
+
+    <p>Tem como antipartícula o antimúon (μ+)</p>
+
+    <h3>-> Neutrino do Múon</h3>
+
+    <p>Tem carga elétrica neutra (0 e), spin 1/2 e tem como antipartícula o antineutrino do múon <img src='parts_subatomicas/antineutrino_muon.png'></p>
+
+    <h3>-> Tau</h3>
+
+    <p>Ele é parecido com um elétron, genericamente chamado de "elétron superpesado", tem massa 1.777 GeV/c², tem carga elétrica -1 e, spin 1/2</p>
+
+    <p>Tem como antipartícula o Antitau</p>
+
+    <h3>-> Neutrino do Tau</h3>
+
+    <p>Tem carga elétrica neutra (0 e), tem spin 1/2 e tem como antipartícula o Antineutrino do tau <img src='parts_subatomicas/antineutrino_tau.png'></p>
+
+    <h2>Bósons</h2>
+
+    <h3>-> Glúon</h3>
+
+    <p>Glúons ou gluões são partículas fundamentais que agem como partículas de troca para a força forte entre quarks</p>
+
+    <p>análoga à troca de fótons na força eletromagnética entre duas partículas carregadas e tem massa nula.</p>
+
+    <img src='parts_subatomicas/glúon.png'>
+
+    <h3>-> Fóton</h3>
+
+    <p>Tem massa nula, pode ser representado por símbolos como 	γ, hν, ou ħω.</p>
+
+    <p>Tem carga elétrica nula (ou menor que 1.10^-35 e) e tem spin 1</p>
+
+    <p>Pode ser criado por decaimento nuclear, como o decaimento gama.</p>
+
+    <h3>-> Bóson W e Z</h3>
+
+    <p>Em física de partículas, os bósons W e Z são bósons vetoriais que juntos são conhecidos como bósons fracos ou mais geralmente como bósons vetoriais intermediários.</p>
+
+    <p>Essas partículas elementares medeiam a interação fraca; os respectivos símbolos são W+ , W- , e Z0.</p>
+
+    <p>Massa do Bóson Z -> 91.2 GeV/c²</p>
+
+    <p>Massa do Bóson W -> 80.4 GeV/c²</p>
+
+    <h3>-> Bóson de Higgs</h3>
+
+    <p>Bóson de Higgs ou bosão de Higgs é uma partícula elementar bosônica prevista pelo Modelo Padrão de partículas</p>
+
+    <p>teoricamente surgida logo após ao Big Bang de escala maciça hipotética predita para validar o modelo padrão atual de partículas.</p>
+
+    <p>Tem uma massa de aproximadamente 126 GeV/c².</p>
+
+    <h2>Lei Fundamental da Desintegração Radioativa</h2>
+
+    <img src="lei_desintrativa/prot_form.png">
+
+    <p>N -> Número de Átomos</p>
+
+    <p>N<sub>0</sub> -> Número de Átomos inicial</p>
+
+    <p>λ -> Constante de Decaimento</p>
+
+    <p>t -> Tempo</p>
+
+    <p>t<sub><sup>1</sup>&frasl;<sub>2</sub>> -> Meia-vida</p>
+
+    <p>Quando t = t<sub>1/2</sub>, o número de átomos cai pela metade, ou seja N = N<sub>0</sub>/2</p>
+
+    <p>Ou seja, N<sub>0</sub>/2 = N<sub>0</sub>.e<sup>-λ.t<sub><sup>1</sup>&frasl;<sub>2</sub></sup>, e também N<sub>0</sub> se repete nos dois lados da equação, então podemos cortá-los da equação</p>
+
+    <p>ficando <sup>1</sup>&frasl;<sub>2</sub> = e<sup>-λ.t<sub><sup>1</sup>&frasl;<sub>2</sub></sup>, continuando a lógica do raciocínio,(ln = logarítmo) ln <sup>1</sup>&frasl;<sub>2</sub> = ln e<sup>-λ.t<sub><sup>1</sup>&frasl;<sub>2</sub></sup></p>
+
+    <p>e depois ln 1 - ln 2 = ln e<sup>-λ.t<sub><sup>1</sup>&frasl;<sub>2</sub></sup>, depois ln 1 - ln 2 = -λt<sup>1</sup>&frasl;<sub>2</sub> . ln e, usando uma calculadora para calcular os logarítmos, temos</p>
+
+    <p>0 - ln 2 = -λt<sup>1</sup>&frasl;<sub>2</sub> . 1 -> -ln 2 = -λt<sup>1</sup>&frasl;<sub>2</sub> -> ln 2 = λt<sup>1</sup>&frasl;<sub>2</sub></p>
+
+    <p>λ = <sup>0,693</sup>&frasl;<sub>t<sub><sup>1</sup>&frasl;<sub>2</sub></p>
+
+    <h3>-> Atividade</h3>
+
+    <img src="lei_desintrativa/atividade_form.png">
+
+    <p>A -> Atividade</p>
+
+    <p>dN -> Derivada do número de átomos</p>
+
+    <p>dt -> Tempo</p>
+
+    <p>A<sub>0</sub> -> Atividade inicial</p>
+
+    <p>λ -> Constante de decaimento</p>
+
+    <p>t -> Tempo</p>
+
+    <h3>-> Unidades (SI)</h3>
+
+    <p>Becquerel (Bq)</p>
+
+    <p>1 Bq = 1 Desintegração/s (podemos abreviar desintegração para apenas "d", assim ficaria 1 dPs)</p>
+
+    <h3>-> Outras unidades</h3>
+
+    <p>Curie (Ci)</p>
+
+    <p>1 Ci = 1g de Rádio-226</p>
+
+    <p>1 Ci = 3,7 . 10<sup>10</sup> Bq ou 3,7 . 10<sup>10</sup> dPs</p>
+
+    <h2>Massa Atômica</h2>
+
+    <p>É simbolizado pela letra "u", 1 u = 1/12 da massa do Carbono-12 (Um isótopo estável, composto por 6 prótons e 6 nêutrons, com massa equivalente a 12 u)</p>
+
+    <p>1 u também equivale a 1,66054 . 10<sup>-24</sup>. Exemplo: Supondo que o átomo de sódio é 23 vezes maior que a massa de 1/12 da massa do Carbono-12, ele tem 23 u.</p>
+
+    <h3>Fórmula:</h3>
+
+    <img src='massa_atomica/massa_atom_form.png'>
+
+    <p>M<sub>a</sub> -> Massa atômica (u)</p>
+
+    <p>m<sub>1</sub> -> Massa do primeiro isótopo</p>
+
+    <p>a<sub>n</sub> -> Abundância do isótopo na natureza (%)</p>
+
+    <p>m<sub>2</sub> -> Massa do segundo isótopo</p>
+
+    <p>a<sub>n</sub> -> Abundância do isótopo na natureza</p>
+
+    <h3>Exemplo:</h3>
+
+    <img src='massa_atomica/enxofre_abundância.png'>
+
+    <p>1º passo:</p>
+
+    <img id='imgatom' src='massa_atomica/massa_atom_form1.png'>
+
+    <p id='textatom'>Substituir m<sub>n</sub> pelas massas</p>
+
+    <button onclick="document.getElementById('imgatom').src='massa_atomica/massa_atom_form1.png'; document.getElementById('textatom').textContent = 'Substituir mn pelas massas'">passo 1</button>
+
+    <button onclick="document.getElementById('imgatom').src='massa_atomica/massa_atom_form2.png'; document.getElementById('textatom').textContent = 'Substituir mn pelos valores de abundância.'">passo 2</button>
+
+    <button onclick="document.getElementById('imgatom').src='massa_atomica/massa_atom_form3.png'; document.getElementById('textatom').textContent = 'Resolver as multiplicações'">passo 3</button>
+
+    <button onclick="document.getElementById('imgatom').src='massa_atomica/massa_atom_form4.png'; document.getElementById('textatom').textContent = 'Efetue as adições'">passo 4</button>
+
+    <button onclick="document.getElementById('imgatom').src='massa_atomica/massa_atom_form5.png'; document.getElementById('textatom').textContent = 'Divida. Agora você tem a massa atômica do Enxofre!'">passo 5</button>
+
+
+    <script id='script1' type="text/javascript">
+
+        document.getElementById('isobutton').addEventListener('click', searchiso)
+
+
+
+        function searchiso() {
+
+            let isotope = prompt("Buscador de Isótopos", "")
+
+            if (isotope === "Hidrogênio-1" || isotope === "Prótio") {
+
+                document.getElementById('isoimg').src='';
+
+                document.getElementById('isoimg').src='isotopos/H1.png';
+
+                document.getElementById('halflife').textContent='Meia-vida: 10^36 anos'
+
+            }  else if (isotope === "Hidrogênio-2" || isotope === "Deutério") {
+
+                document.getElementById('isoimg').src='';
+
+                document.getElementById('isoimg').src='isotopos/H2.png';
+
+                document.getElementById('halflife').textContent='Meia-vida: (Estável)'
+
+            } else if (isotope === "Hidrogênio-3" || isotope === "Trítio") {
+
+                document.getElementById('isoimg').src='';
+
+                document.getElementById('isoimg').src='isotopos/H3.png';
+
+                document.getElementById('halflife').textContent='Meia-vida: 12,32 anos'
+
+            } else if (isotope === "Hidrogênio-4") {
+
+                document.getElementById('isoimg').src='';
+
+                document.getElementById('isoimg').src='isotopos/H4.png';
+
+                document.getElementById('halflife').textContent='Meia-vida: 130 yoctosegundos'
+
+            } else if (isotope === "Hidrogênio-5") {
+
+                document.getElementById('isoimg').src='';
+
+                document.getElementById('isoimg').src='isotopos/H5.png';
+
+                document.getElementById('halflife').textContent='Meia-vida: 910 yoctosegundos'
+
+            } else if (isotope === "Hidrogênio-6") {
+
+                document.getElementById('isoimg').src='';
+
+                document.getElementById('isoimg').src='isotopos/H6.png';
+
+                document.getElementById('halflife').textContent='Meia-vida: 290 yoctosegundos'
+
+            } else if (isotope === "Hidrogênio-7") {
+
+                document.getElementById('isoimg').src='';
+
+                document.getElementById('isoimg').src='isotopos/H7.png';
+
+                document.getElementById('halflife').textContent='Meia-vida: 23 yoctosegundos'
+
+            }
+
+            
+
+
+
+        }
+
+        
+
+        
+
+    </script>
+
+
+
+    <script id='script2'>
+
+        var isZoomed = false
+
+        function zoominout() {
+
+            if (isZoomed == false) {
+
+                let img = document.getElementById('imglight');
+
+                let curWidth = img.clientWidth;
+
+                img.style.width = (curWidth + 250) + "px";
+
+                var isZoomed = true;
+
+            } else if (isZoomed == true) {
+
+                let img = document.getElementById('imglight');
+
+                let curWidth = img.clientWidth;
+
+                img.style.width = (curWidth - 250) + "px";
+
+                var isZoomed = false;
+
+            }
+
+        }
+
+    </script>
+
+
+
+    <script>
+
+        document.body.style.fontFamily = 'Arial, sans-serif'
+
+        const buttons = document.querySelectorAll('button')
+
+        buttons.forEach(button => {
+
+            button.style.backgroundColor = '#0CF018';
+
+            button.style.color = '#000000';
+
+        }
+
+        )
+
+
+
+        const subtitles = document.querySelectorAll('h2')
+
+        subtitles.forEach(h2 => {
+
+            h2.style.color = '#FF0000'
+
+        }
+
+        )
+
+
+
+        const subsubtitles = document.querySelectorAll('h3')
+
+        subsubtitles.forEach(h3 => {
+
+            h3.style.color = '#0F9FF0'
+
+        }
+
+        )
+
+    </script>
+
+</body>

@@ -1,0 +1,1069 @@
+{
+  "elements": [
+    {
+      "name": "Hidrogênio",
+      "symbol": "H",
+      "z": "1",
+      "mass": "1,0078",
+      "type": "hydrogen",
+      "eneg": "2,2",
+      "utility": "Produção energética"
+    },
+    {
+      "name": "Hélio",
+      "symbol": "He",
+      "z": "2",
+      "mass": "4,0076",
+      "type": "noble_gas",
+      "eneg": "-",
+      "utility": "Balões de festa" 
+    },
+    {
+      "name": "Lítio",
+      "symbol": "Li",
+      "z": "3",
+      "mass": "6,9410",
+      "type": "al_metal",
+      "eneg": "0,98",
+      "utility": "Baterias" 
+    },
+    {
+      "name": "Berílio",
+      "symbol": "Be",
+      "z": "4",
+      "mass": "9,0122",
+      "type": "alt_metal",
+      "eneg": "1,57",
+      "utility": "Aumentar a resistência de ligas metálicas" 
+    },
+    {
+      "name": "Boro",
+      "symbol": "B",
+      "z": "5",
+      "mass": "10,811",
+      "type": "metalloid",
+      "eneg": "2,04",
+      "utility": "Fertilizante na agricultura" 
+    },
+    {
+      "name": "Carbono",
+      "symbol": "C",
+      "z": "6",
+      "mass": "12,011",
+      "type": "ametal",
+      "eneg": "2,55",
+      "utility": "Estrutura fundamental das células humanas" 
+    },
+    {
+      "name": "Nitrogênio",
+      "symbol": "N",
+      "z": "7",
+      "mass": "14,007",
+      "type": "ametal",
+      "eneg": "3,04",
+      "utility": "Serve como refrigerante (congelamento de alimentos, ...)" 
+    },
+    {
+      "name": "Oxigênio",
+      "symbol": "O",
+      "z": "8",
+      "mass": "15,999",
+      "type": "ametal",
+      "eneg": "3,44",
+      "utility": "Cilindros para mergulho" 
+    },
+    {
+      "name": "Flúor",
+      "symbol": "F",
+      "z": "9",
+      "mass": "18,998",
+      "type": "ametal",
+      "eneg": "3,98",
+      "utility": "Produção de pasta dental" 
+    },
+    {
+      "name": "Neônio",
+      "symbol": "Ne",
+      "z": "10",
+      "mass": "20,180",
+      "type": "noble_gas",
+      "eneg": "-",
+      "utility": "Fonte de iluminação" 
+    },
+    {
+      "name": "Sódio",
+      "symbol": "Na",
+      "z": "11",
+      "mass": "22,190",
+      "type": "al_metal",
+      "eneg": "0,93",
+      "utility": "Compõe o sal de cozinha" 
+    },
+    {
+      "name": "Magnésio",
+      "symbol": "Mg",
+      "z": "12",
+      "mass": "24,305",
+      "type": "alt_metal",
+      "eneg": "1,31",
+      "utility": "Regular a função nervosa" 
+    },
+    {
+      "name": "Alumínio",
+      "symbol": "Al",
+      "z": "13",
+      "mass": "26,182",
+      "type": "post_metal",
+      "eneg": "1,61",
+      "utility": "Embalagens, latas de bebidas, etc." 
+    },
+    {
+      "name": "Silício",
+      "symbol": "Si",
+      "z": "14",
+      "mass": "28,086",
+      "type": "metalloid",
+      "eneg": "1,9",
+      "utility": "Produção de microcontroladores" 
+    },
+    {
+      "name": "Fósforo",
+      "symbol": "P",
+      "z": "15",
+      "mass": "30,974",
+      "type": "ametal",
+      "eneg": "2,19",
+      "utility": "Fabricação de caixas de fósforo" 
+    },
+    {
+      "name": "Enxofre",
+      "symbol": "S",
+      "z": "16",
+      "mass": "32,065",
+      "type": "ametal",
+      "eneg": "2,58",
+      "utility": "Produção de bactericidas" 
+    },
+    {
+      "name": "Cloro",
+      "symbol": "Cl",
+      "z": "17",
+      "mass": "35,453",
+      "type": "ametal",
+      "eneg": "3,16",
+      "utility": "Tratamento de água de piscinas" 
+    },
+    {
+      "name": "Argônio",
+      "symbol": "Ar",
+      "z": "18",
+      "mass": "39,948",
+      "type": "noble_gas",
+      "eneg": "-",
+      "utility": "Laser para medicina oftalmológica" 
+    },
+    {
+      "name": "Potássio",
+      "symbol": "K",
+      "z": "19",
+      "mass": "39,098",
+      "type": "al_metal",
+      "eneg": "0,82",
+      "utility": "Produção de células fotoelétricas" 
+    },
+    {
+      "name": "Cálcio",
+      "symbol": "Ca",
+      "z": "20",
+      "mass": "40,078",
+      "type": "alt_metal",
+      "eneg": "1",
+      "utility": "Parte da estrutura dos ossos" 
+    },
+    {
+      "name": "Escândio",
+      "symbol": "Sc",
+      "z": "21",
+      "mass": "44,956",
+      "type": "t_metal",
+      "eneg": "1,36",
+      "utility": "Compõe lâmpadas de mercúrio" 
+    },
+    {
+      "name": "Titânio",
+      "symbol": "Ti",
+      "z": "22",
+      "mass": "47,867",
+      "type": "t_metal",
+      "eneg": "1,54",
+      "utility": "Produção de aviões, mísseis e foguetes" 
+    },
+    {
+      "name": "Vanádio",
+      "symbol": "V",
+      "z": "23",
+      "mass": "50,942",
+      "type": "t_metal",
+      "eneg": "1,63",
+      "utility": "Produção de aços inoxidáveis" 
+    },
+    {
+      "name": "Cromo",
+      "symbol": "Cr",
+      "z": "24",
+      "mass": "51,996",
+      "type": "t_metal",
+      "eneg": "1,66",
+      "utility": "Produção de ligas metálicas" 
+    },
+    {
+      "name": "Manganês",
+      "symbol": "Mn",
+      "z": "25",
+      "mass": "54,938",
+      "type": "t_metal",
+      "eneg": "1,55",
+      "utility": "Produção de baterias de zinco-carbono/alcalinas" 
+    },
+    {
+      "name": "Ferro",
+      "symbol": "Fe",
+      "z": "26",
+      "mass": "55,845",
+      "type": "t_metal",
+      "eneg": "1,83",
+      "utility": "Produção de ligas metálicas (principalmente aço)" 
+    },
+    {
+      "name": "Cobalto",
+      "symbol": "Co",
+      "z": "27",
+      "mass": "58,933",
+      "type": "t_metal",
+      "eneg": "1,88",
+      "utility": "Compõe a vitamina B12" 
+    },
+    {
+      "name": "Níquel",
+      "symbol": "Ni",
+      "z": "28",
+      "mass": "58,693",
+      "type": "t_metal",
+      "eneg": "1,91",
+      "utility": "Cunhagem de moedas" 
+    },
+    {
+      "name": "Cobre",
+      "symbol": "Cu",
+      "z": "29",
+      "mass": "63,546",
+      "type": "t_metal",
+      "eneg": "1,9",
+      "utility": "Produção de fios elétricos" 
+    },
+    {
+      "name": "Zinco",
+      "symbol": "Zn",
+      "z": "30",
+      "mass": "65,380",
+      "type": "t_metal",
+      "eneg": "1,65",
+      "utility": "Revestimento antioxidante" 
+    },
+    {
+      "name": "Gálio",
+      "symbol": "Ga",
+      "z": "31",
+      "mass": "69,723",
+      "type": "post_metal",
+      "eneg": "1,81",
+      "utility": "Produção de semicondutores" 
+    },
+    {
+      "name": "Germânio",
+      "symbol": "Ge",
+      "z": "32",
+      "mass": "72,640",
+      "type": "metalloid",
+      "eneg": "2,01",
+      "utility": "Produção de fibra óptica" 
+    },
+    {
+      "name": "Arsênio",
+      "symbol": "As",
+      "z": "33",
+      "mass": "74,922",
+      "type": "metalloid",
+      "eneg": "2,18",
+      "utility": "Produção de inseticidas" 
+    },
+    {
+      "name": "Selênio",
+      "symbol": "Se",
+      "z": "34",
+      "mass": "78,960",
+      "type": "ametal",
+      "eneg": "2,55",
+      "utility": "Manutenção da saúde em seres vivos" 
+    },
+    {
+      "name": "Bromo",
+      "symbol": "Br",
+      "z": "35",
+      "mass": "79,904",
+      "type": "ametal",
+      "eneg": "2,96",
+      "utility": "Aditivo antichamas em plásticos" 
+    },
+    {
+      "name": "Criptônio",
+      "symbol": "Kr",
+      "z": "36",
+      "mass": "83,798",
+      "type": "noble_gas",
+      "eneg": "3",
+      "utility": "Serve em lâmpadas incandescentes para retardar a evaporação do filamento de tungstênio." 
+    },
+    {
+      "name": "Rubídio",
+      "symbol": "Rb",
+      "z": "37",
+      "mass": "85,468",
+      "type": "al_metal",
+      "eneg": "0,82",
+      "utility": "Compõe relógios atômicos" 
+    },
+    {
+      "name": "Estrôncio",
+      "symbol": "Sr",
+      "z": "38",
+      "mass": "87,620",
+      "type": "alt_metal",
+      "eneg": "0,95",
+      "utility": "Produção de fogos de artifício vermelhos" 
+    },
+    {
+      "name": "Ítrio",
+      "symbol": "Y",
+      "z": "39",
+      "mass": "88,906",
+      "type": "t_metal",
+      "eneg": "1,22",
+      "utility": "Compõe monitores de computadores" 
+    },
+    {
+      "name": "Zircônio",
+      "symbol": "Zr",
+      "z": "40",
+      "mass": "91,224",
+      "type": "t_metal",
+      "eneg": "1,33",
+      "utility": "Revestimento de combustíveis de usinas nucleares" 
+    },
+    {
+      "name": "Nióbio",
+      "symbol": "Nb",
+      "z": "41",
+      "mass": "92,906",
+      "type": "t_metal",
+      "eneg": "1,6",
+      "utility": "Compõe ligas metálicas usadas em motores de automóveis" 
+    },
+    {
+      "name": "Molibdênio",
+      "symbol": "Mo",
+      "z": "42",
+      "mass": "95,950",
+      "type": "t_metal",
+      "eneg": "2,16",
+      "utility": "Confecção de tipos de aço" 
+    },
+    {
+      "name": "Tecnécio",
+      "symbol": "Tc",
+      "z": "43",
+      "mass": "(98)",
+      "type": "artificial",
+      "eneg": "1,9",
+      "utility": "Marcador radioativo para exames de imagem" 
+    },
+    {
+      "name": "Rutênio",
+      "symbol": "Ru",
+      "z": "44",
+      "mass": "101,07",
+      "type": "t_metal",
+      "eneg": "2,2",
+      "utility": "Catalisador de ligas metálicas" 
+    },
+    {
+      "name": "Ródio",
+      "symbol": "Rh",
+      "z": "45",
+      "mass": "102,91",
+      "type": "t_metal",
+      "eneg": "2,28",
+      "utility": "Catalisadores automotivos (diminuir a emissão de gases poluentes)" 
+    },
+    {
+      "name": "Paládio",
+      "symbol": "Pd",
+      "z": "46",
+      "mass": "106,42",
+      "type": "t_metal",
+      "eneg": "2,2",
+      "utility": "Fabricação de relés (componente elétrico)" 
+    },
+    {
+      "name": "Prata",
+      "symbol": "Ag",
+      "z": "47",
+      "mass": "107,87",
+      "type": "t_metal",
+      "eneg": "1,93",
+      "utility": "Uso em joalherias como metal precioso" 
+    },
+    {
+      "name": "Cádmio",
+      "symbol": "Cd",
+      "z": "48",
+      "mass": "112,81",
+      "type": "t_metal",
+      "eneg": "1,69",
+      "utility": "Producão de estabilizadores de PVC" 
+    },
+    {
+      "name": "Índio",
+      "symbol": "In",
+      "z": "49",
+      "mass": "114,82",
+      "type": "post_metal",
+      "eneg": "1,78",
+      "utility": "Usado na fabricação de displays LED/LCD" 
+    },
+    {
+      "name": "Estanho",
+      "symbol": "Sn",
+      "z": "50",
+      "mass": "118,71",
+      "type": "post_metal",
+      "eneg": "1,96",
+      "utility": "Produção do bronze (liga metálica entre Cobre e Estanho)" 
+    },
+    {
+      "name": "Antimônio",
+      "symbol": "Sb",
+      "z": "51",
+      "mass": "121,76",
+      "type": "metalloid",
+      "eneg": "2,05",
+      "utility": "Produção de ligas entre chumbo e antimônio" 
+    },
+    {
+      "name": "Telúrio",
+      "symbol": "Te",
+      "z": "52",
+      "mass": "127,60",
+      "type": "metalloid",
+      "eneg": "2,1",
+      "utility": "Aditivo de ligas metálicas" 
+    },
+    {
+      "name": "Iodo",
+      "symbol": "I",
+      "z": "53",
+      "mass": "126,90",
+      "type": "ametal",
+      "eneg": "2,66",
+      "utility": "Usado como desinfetante e antisséptico" 
+    },
+    {
+      "name": "Xenônio",
+      "symbol": "Xe",
+      "z": "54",
+      "mass": "131,29",
+      "type": "noble_gas",
+      "eneg": "2,6",
+      "utility": "Emissão de luz" 
+    },
+    {
+      "name": "Césio",
+      "symbol": "Cs",
+      "z": "55",
+      "mass": "132,91",
+      "type": "al_metal",
+      "eneg": "0,79",
+      "utility": "Lâmpadas infravermelho (IR)" 
+    },
+    {
+      "name": "Bário",
+      "symbol": "Ba",
+      "z": "56",
+      "mass": "137,33",
+      "type": "alt_metal",
+      "eneg": "0,89",
+      "utility": "Remoção de oxigênio em válvulas eletrônicas" 
+    },
+    {
+      "name": "Lantânio",
+      "symbol": "La",
+      "z": "57",
+      "mass": "138,91",
+      "type": "lant",
+      "eneg": "1,1",
+      "utility": "Produção de lentes de telescópio" 
+    },
+    {
+      "name": "Cério",
+      "symbol": "Ce",
+      "z": "58",
+      "mass": "140,12",
+      "type": "lant",
+      "eneg": "1,12",
+      "utility": "Abrasivo na indústria de polimento de vidros" 
+    },
+    {
+      "name": "Praseodímio",
+      "symbol": "Pr",
+      "z": "59",
+      "mass": "140,91",
+      "type": "lant",
+      "eneg": "1,13",
+      "utility": "Usado como corante na indústria de vidros e cerâmicas" 
+    },
+    {
+      "name": "Neodímio",
+      "symbol": "Nd",
+      "z": "60",
+      "mass": "144,24",
+      "type": "lant",
+      "eneg": "1,14",
+      "utility": "Fabricação de superimãs" 
+    },
+    {
+      "name": "Promécio",
+      "symbol": "Pm",
+      "z": "61",
+      "mass": "(145)",
+      "type": "lant",
+      "eneg": "-",
+      "utility": "Fonte de radiações β para produzir medidores de espessuras muito finas" 
+    },
+    {
+      "name": "Samário",
+      "symbol": "Sm",
+      "z": "62",
+      "mass": "150,36",
+      "type": "lant",
+      "eneg": "1,17",
+      "utility": "Absorvedor de nêutrons em reatores nucleares" 
+    },
+    {
+      "name": "Európio",
+      "symbol": "Eu",
+      "z": "63",
+      "mass": "151,96",
+      "type": "lant",
+      "eneg": "-",
+      "utility": "Usado como agente para a produção de vidros fluorescentes" 
+    },
+    {
+      "name": "Gadolínio",
+      "symbol": "Gd",
+      "z": "64",
+      "mass": "157,25",
+      "type": "lant",
+      "eneg": "1,2",
+      "utility": "Usado como contrastes intravenosos para realçar imagens em ressonância magnética" 
+    },
+    {
+      "name": "Térbio",
+      "symbol": "Tb",
+      "z": "65",
+      "mass": "158,93",
+      "type": "lant",
+      "eneg": "1,21",
+      "utility": "Material de lasers que emitem radiação em 546nm" 
+    },
+    {
+      "name": "Disprósio",
+      "symbol": "Dy",
+      "z": "66",
+      "mass": "162,5",
+      "type": "lant",
+      "eneg": "1,22",
+      "utility": "Usado para barras de resfriamento em reatores nucleares" 
+    },
+    {
+      "name": "Hólmio",
+      "symbol": "Ho",
+      "z": "67",
+      "mass": "164,93",
+      "type": "lant",
+      "eneg": "1,23",
+      "utility": "Produção de lasers usados em medicina e odontologia" 
+    },
+    {
+      "name": "Érbio",
+      "symbol": "Er",
+      "z": "68",
+      "mass": "167,26",
+      "type": "lant",
+      "eneg": "1,24",
+      "utility": "Usado para tingir vidros e porcelana" 
+    },
+    {
+      "name": "Túlio",
+      "symbol": "Tm",
+      "z": "69",
+      "mass": "168,93",
+      "type": "lant",
+      "eneg": "1,25",
+      "utility": "Produção de aparelhos de raio-X" 
+    },
+    {
+      "name": "Itérbio",
+      "symbol": "Yb",
+      "z": "70",
+      "mass": "173,04",
+      "type": "lant",
+      "eneg": "-",
+      "utility": "Utilizado como melhorador do aço inoxidável" 
+    },
+    {
+      "name": "Lutécio",
+      "symbol": "Lu",
+      "z": "71",
+      "mass": "174,97",
+      "type": "lant",
+      "eneg": "1,27",
+      "utility": "Utilizado em processos como a hidrogenação em indústrias petroquímicas" 
+    },
+    {
+      "name": "Háfnio",
+      "symbol": "Hf",
+      "z": "72",
+      "mass": "178,49",
+      "type": "t_metal",
+      "eneg": "1,3",
+      "utility": "Utilizado em processadores Intel com tecnologia 45nm (Arquiteturas Penryn e Nehalem)" 
+    },
+    {
+      "name": "Tântalo",
+      "symbol": "Ta",
+      "z": "73",
+      "mass": "180,95",
+      "type": "t_metal",
+      "eneg": "1,5",
+      "utility": "Produção de capacitores" 
+    },
+    {
+      "name": "Tungstênio",
+      "symbol": "W",
+      "z": "74",
+      "mass": "183,84",
+      "type": "t_metal",
+      "eneg": "2,36",
+      "utility": "Filamento de lâmpadas incandescentes" 
+    },
+    {
+      "name": "Rênio",
+      "symbol": "Re",
+      "z": "75",
+      "mass": "186,21",
+      "type": "t_metal",
+      "eneg": "1,9",
+      "utility": "Utilizado como filamentos em espectrógrafos de massa e em detectores de íons" 
+    },
+    {
+      "name": "Ósmio",
+      "symbol": "Os",
+      "z": "76",
+      "mass": "190,23",
+      "type": "t_metal",
+      "eneg": "2,2",
+      "utility": "Produção de pontas de canetas-tinteiro" 
+    },
+    {
+      "name": "Irídio",
+      "symbol": "Ir",
+      "z": "77",
+      "mass": "192,22",
+      "type": "t_metal",
+      "eneg": "2,2",
+      "utility": "Produção de velas de ignição usadas em automóveis" 
+    },
+    {
+      "name": "Platina",
+      "symbol": "Pt",
+      "z": "78",
+      "mass": "195,08",
+      "type": "t_metal",
+      "eneg": "2,28",
+      "utility": "Produção de luvas resistentes à altas temperaturas" 
+    },
+    {
+      "name": "Ouro",
+      "symbol": "Au",
+      "z": "79",
+      "mass": "196,97",
+      "type": "t_metal",
+      "eneg": "2,54",
+      "utility": "Produção de películas refletoras de radiação infravermelha" 
+    },
+    {
+      "name": "Mercúrio",
+      "symbol": "Hg",
+      "z": "80",
+      "mass": "200,59",
+      "type": "t_metal",
+      "eneg": "2",
+      "utility": "Produção de termômetros de mercúrio" 
+    },
+    {
+      "name": "Tálio",
+      "symbol": "Tl",
+      "z": "81",
+      "mass": "204,38",
+      "type": "post_metal",
+      "eneg": "1,62",
+      "utility": "Aditivo de vidros especiais" 
+    },
+    {
+      "name": "Chumbo",
+      "symbol": "Pb",
+      "z": "82",
+      "mass": "207,20",
+      "type": "post_metal",
+      "eneg": "1,87",
+      "utility": "Produção de recipientes de dejetos radioativos" 
+    },
+    {
+      "name": "Bismuto",
+      "symbol": "Bi",
+      "z": "83",
+      "mass": "208,98",
+      "type": "post_metal",
+      "eneg": "2,02",
+      "utility": "Alternativa não tóxica para o chumbo em ligas metálicas" 
+    },
+    {
+      "name": "Polônio",
+      "symbol": "Po",
+      "z": "84",
+      "mass": "(209)",
+      "type": "post_metal",
+      "eneg": "2",
+      "utility": "Usado como gerador termoelétrico" 
+    },
+    {
+      "name": "Astato",
+      "symbol": "At",
+      "z": "85",
+      "mass": "(210)",
+      "type": "metalloid",
+      "eneg": "2,2",
+      "utility": "Utilizado na medicina nuclear (tratamento com radiação α, a qual pode destruir células cancerígenas)" 
+    },
+    {
+      "name": "Radônio",
+      "symbol": "Rn",
+      "z": "86",
+      "mass": "(222)",
+      "type": "noble_gas",
+      "eneg": "2,2",
+      "utility": "Usado nas radioterapias" 
+    },
+    {
+      "name": "Frâncio",
+      "symbol": "Fr",
+      "z": "87",
+      "mass": "(223)",
+      "type": "al_metal",
+      "eneg": "0,79",
+      "utility": "Estudos sobre a estrutura atômica" 
+    },
+    {
+      "name": "Rádio",
+      "symbol": "Ra",
+      "z": "88",
+      "mass": "(226)",
+      "type": "alt_metal",
+      "eneg": "0,9",
+      "utility": "Fonte de nêutrons para a física experimental e base da unidade de radioatividade 'curie' (no caso do isótopo do rádio-226)" 
+    },
+    {
+      "name": "Actínio",
+      "symbol": "Ac",
+      "z": "89",
+      "mass": "(227)",
+      "type": "act",
+      "eneg": "1,1",
+      "utility": "Empregado na medicina na produção de Bi-213" 
+    },
+    {
+      "name": "Tório",
+      "symbol": "Th",
+      "z": "90",
+      "mass": "232,04",
+      "type": "act",
+      "eneg": "1,3",
+      "utility": "Usado como combustível físsil (combustível usado em usinas nucleares)" 
+    },
+    {
+      "name": "Protactínio",
+      "symbol": "Pa",
+      "z": "91",
+      "mass": "231,04",
+      "type": "act",
+      "eneg": "1,5",
+      "utility": "Datação de objetos antigos" 
+    },
+    {
+      "name": "Urânio",
+      "symbol": "U",
+      "z": "92",
+      "mass": "238,03",
+      "type": "act",
+      "eneg": "1,38",
+      "utility": "Produção de bombas atômicas" 
+    },
+    {
+      "name": "Neptúnio",
+      "symbol": "Np",
+      "z": "93",
+      "mass": "237,05",
+      "type": "act",
+      "eneg": "1,36",
+      "utility": "Síntese do Pu-238" 
+    },
+    {
+      "name": "Plutônio",
+      "symbol": "Pu",
+      "z": "94",
+      "mass": "(244)",
+      "type": "act",
+      "eneg": "1,28",
+      "utility": "Fonte de calor em missões espaciais" 
+    },
+    {
+      "name": "Amerício",
+      "symbol": "Am",
+      "z": "95",
+      "mass": "(243)",
+      "type": "artificial",
+      "eneg": "1,3",
+      "utility": "Usado em detectores de fumaça (Am-241)" 
+    },
+    {
+      "name": "Cúrio",
+      "symbol": "Cm",
+      "z": "96",
+      "mass": "(247)",
+      "type": "artificial",
+      "eneg": "1,28",
+      "utility": "Usado em analisadores de minerais" 
+    },
+    {
+      "name": "Berquélio",
+      "symbol": "Bk",
+      "z": "97",
+      "mass": "(247)",
+      "type": "artificial",
+      "eneg": "1,3",
+      "utility": "Usado para pesquisas sobre os elementos" 
+    },
+    {
+      "name": "Califórnio",
+      "symbol": "Cf",
+      "z": "98",
+      "mass": "(251)",
+      "type": "artificial",
+      "eneg": "1,3",
+      "utility": "Fonte de nêutrons para a análise do solo terrestre e foi usado para produzir o oganessônio (Og)" 
+    },
+    {
+      "name": "Einstênio",
+      "symbol": "Es",
+      "z": "99",
+      "mass": "(252)",
+      "type": "artificial",
+      "eneg": "1,3",
+      "utility": "*Homenagem a Albert Einstein"
+    },
+    {
+      "name": "Férmio",
+      "symbol": "Fm",
+      "z": "100",
+      "mass": "(257)",
+      "type": "artificial",
+      "eneg": "1,3",
+      "utility": "*Homenagem a Enrico Fermi",
+      "h": "Enrico Fermi"
+    },
+    {
+      "name": "Mendelévio",
+      "symbol": "Md",
+      "z": "101",
+      "mass": "(258)",
+      "type": "artificial",
+      "eneg": "1,3",
+      "utility": "*Homenagem a Dmitri Mendeleev",
+      "h": "Dmitri Mendeleev"
+    },
+    {
+      "name": "Nobélio",
+      "symbol": "No",
+      "z": "102",
+      "mass": "(259)",
+      "type": "artificial",
+      "eneg": "1,3",
+      "utility": "*Homenagem a Alfred Nobel",
+      "h": "Alfred Nobel"
+    },
+    {
+      "name": "Laurêncio",
+      "symbol": "Lr",
+      "z": "103",
+      "mass": "(262)",
+      "type": "artificial",
+      "eneg": "1,3",
+      "utility": "*Homenagem a Ernest O. Lawrence",
+      "h": "Ernest O. Lawrence"
+    },
+    {
+      "name": "Rutherfórdio",
+      "symbol": "Rf",
+      "z": "104",
+      "mass": "(267)",
+      "type": "artificial",
+      "utility": "*Homenagem a Ernest Rutherford",
+      "h": "Ernest Rutherford"
+    },
+    {
+      "name": "Dúbnio",
+      "symbol": "Db",
+      "z": "105",
+      "mass": "(262)",
+      "type": "artificial",
+      "utility": "*Homenagem à cidade de Dubna, Rússia",
+      "h": "Dubna"
+    },
+    {
+      "name": "Seabórguio",
+      "symbol": "Sg",
+      "z": "106",
+      "mass": "(269)",
+      "type": "artificial",
+      "utility": "*Homenagem a Glenn T. Seaborg",
+      "h": "Glenn T. Seaborg"
+    },
+    {
+      "name": "Bóhrio",
+      "symbol": "Bh",
+      "z": "107",
+      "mass": "(264)",
+      "type": "artificial",
+      "utility": "*Homenagem a Niels Bohr",
+      "h": "Niels Bohr"
+    },
+    {
+      "name": "Hássio",
+      "symbol": "Hs",
+      "z": "108",
+      "mass": "(269)",
+      "type": "artificial",
+      "utility": "*Homenagem a região de Hessen, Alemanha",
+      "h": "Hessen"
+    },
+    {
+      "name": "Meitnério",
+      "symbol": "Mt",
+      "z": "109",
+      "mass": "(278)",
+      "type": "artificial",
+      "utility": "*Homenagem a Lise Meitner",
+      "h": "Lise Meitner"
+    },
+    {
+      "name": "Darmstádio",
+      "symbol": "Ds",
+      "z": "110",
+      "mass": "(281)",
+      "type": "artificial",
+      "utility": "*Homenagem a cidade de Darmstadt, Alemanha" 
+    },
+    {
+      "name": "Roentgênio",
+      "symbol": "Rg",
+      "z": "111",
+      "mass": "(282)",
+      "type": "artificial",
+      "utility": "*Homenagem a Wilhelm Conrad Roentgen",
+      "h": "Wilhelm Conrad Roentgen"
+    },
+    {
+      "name": "Copernício",
+      "symbol": "Cn",
+      "z": "112",
+      "mass": "(285)",
+      "type": "artificial",
+      "utility": "*Homenagem a Nicolau Copérnico",
+      "h": "Nicolau Copérnico"
+    },
+    {
+      "name": "Nihônio",
+      "symbol": "Nh",
+      "z": "113",
+      "mass": "(286)",
+      "type": "artificial",
+      "utility": "*Homenagem ao Japão (Nihon, em japonês)",
+      "h": "Japão"
+    },
+    {
+      "name": "Fleróvio",
+      "symbol": "Fl",
+      "z": "114",
+      "mass": "(289)",
+      "type": "artificial",
+      "utility": "*Homenagem a Georgy Flyorov",
+      "h": "Georgy Flyorov"
+    },
+    {
+      "name": "Moscóvio",
+      "symbol": "Mc",
+      "z": "115",
+      "mass": "(289)",
+      "type": "artificial",
+      "utility": "*Homenagem a cidade de Moscou, Rússia",
+      "h": "Moscou"
+    },
+    {
+      "name": "Livermório",
+      "symbol": "Lv",
+      "z": "116",
+      "mass": "(293)",
+      "type": "artificial",
+      "utility": "*Homenagem ao Lawrence Livermore National Laboratory",
+      "h": "Lawrence Livermore National Laboratory"
+    },
+    {
+      "name": "Tenesso",
+      "symbol": "Ts",
+      "z": "117",
+      "mass": "(294)",
+      "type": "artificial",
+      "utility": "*Homenagem ao estado de Tennessee, EUA",
+      "h": "Tennessee"
+    },
+    {
+      "name": "Oganessônio",
+      "symbol": "Og",
+      "z": "118",
+      "mass": "(294)",
+      "type": "artificial",
+      "utility": "*Homenagem a Yuri Oganessian",
+      "h": "Yuri Oganessian"
+    }
+  ]
+}

@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .banner {
+            width: 100%;
+            height: 100px;
+            margin: 0px;
+            border: 0px;
+            padding: 0;
+            border-bottom: solid black 5px;
+            background: #ff7878;
+            background: linear-gradient(180deg,rgba(255, 120, 120, 1) 0%, rgba(247, 255, 201, 1) 100%);
+        }
+
+        .descBox {
+            width: 98%;
+            height: 850px;
+            display: block;
+            background-color: white;
+            border: 0px solid black;
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            font-size: 14pt;
+            overflow-wrap: break-all;
+        }
+        .descBox p {
+            margin: 10px;
+        }
+
+        .container {
+            width: 100%;
+            height: 900px;
+            display: inline-flex;
+            vertical-align: bottom;
+        }
+
+        body {
+            padding: 0;
+            border: 0;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        body #title {
+            margin: 0;
+            font-size: 36pt;
+        }
+
+        #c {
+            width: 1200px;
+            height: 680px;
+        }
+
+        .container li {
+            font-size: 15pt;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="banner">
+<p id="title" style="color: black;">Autômata celular: Batalha de células</p>
+<p style="font-style: italic; font-size: 14pt; margin: 12px; color: rgb(0, 0, 0);">Lucas da Costa Campos, 2026</p>
+</div>
+<div class="container">
+<canvas id="c" width="1200" height="680" style="border: 2px solid black; position: relative; margin: 15px;"></canvas>
+<ul>
+    <p id="popg" style="font-size: 16pt; color: green;">$$P_{verde} = 0$$</p>
+    <p id="popr" style="font-size: 16pt; color: red;">$$P_{vermelha} = 0$$</p>
+    <p id="popb" style="font-size: 16pt; color: blue;">$$P_{azul} = 0$$</p>
+    <p id="popl" style="font-size: 16pt; color: rgb(219, 143, 0);">$$P_{laranja} = 0$$</p>
+    <p id="popv" style="font-size: 16pt; color: rgb(153, 0, 255);">$$P_{roxa} = 0$$</p>
+    <canvas id="graph" width="400" height="200" style="border: 2px solid black; position: relative; margin: 15px;"></canvas>
+    <!-- <p>Manter populações:</p>
+    <input type="checkbox" id="r" checked="true">
+    <label for="r">Vermelho</label>
+    <input type="checkbox" id="g" checked="true">
+    <label for="g">Verde</label>
+    <input type="checkbox" id="b" checked="true">
+    <label for="b">Azul</label>
+    <input type="checkbox" id="l" checked="true">
+    <label for="l">Laranja</label>
+    <input type="checkbox" id="v" checked="true">
+    <label for="v">Roxo</label>
+    <p>Clique em gerar para aplicar as cores.</p> -->
+    <p style="font-size: 16pt" id="startstopLabel">Iniciar simulação:</p>
+    <button id="startstop" onclick="playsim()" style="font-size: 36pt; color: green; background-color: rgb(255, 255, 255);">▶</button>
+    <p></p>
+    <p>Gerações por segundo: <input type="number" id="fpsfield" min="1" max="30" value="5"></p>
+    <button style="color: black; background-color: rgb(255, 255, 255); border-radius: 20%;" onclick="fps = Math.round(document.getElementById('fpsfield').value/10); document.getElementById('fpsfield').value = fps">/10</button>
+    <button style="color: black; background-color: rgb(255, 255, 255); border-radius: 20%;" onclick="fps = Math.round(document.getElementById('fpsfield').value/5); document.getElementById('fpsfield').value = fps">/5</button>
+    <button style="color: black; background-color: rgb(255, 255, 255); border-radius: 20%;" onclick="fps = Math.round(document.getElementById('fpsfield').value/2); document.getElementById('fpsfield').value = fps">/2</button>
+    <button style="color: black; background-color: rgb(255, 255, 255); border-radius: 20%;" onclick="fps = document.getElementById('fpsfield').value*2; document.getElementById('fpsfield').value = fps">x2</button>
+    <button style="color: black; background-color: rgb(255, 255, 255); border-radius: 20%;" onclick="fps = document.getElementById('fpsfield').value*5; document.getElementById('fpsfield').value = fps">x5</button>
+    <button style="color: black; background-color: rgb(255, 255, 255); border-radius: 20%;" onclick="fps = document.getElementById('fpsfield').value*10; document.getElementById('fpsfield').value = fps">x10</button>
+    <p></p>
+    <button style="color: green; background-color: rgb(255, 255, 255);" onclick="fps = document.getElementById('fpsfield').value">Definir</button>
+    <p style="font-size: 16pt">Gerar células aleatórias</p>
+    <button style="background-color: white;color:black" onclick="createCells()">Gerar</button>
+</ul>
+</div>
+<button id="showDesc" onclick="showDescBox()" style="width: 100%; height: 60px; font-size: 30pt; background-color: white; font-family: 'Times New Roman', Times, serif; display: flex; justify-content: center;">Ocultar descrição ↑</button>
+<div id="dB" class="descBox">
+    <ul>
+        <p>Este é um autómata celular representando a luta de cinco populações, onde:</p>
+        <p style="font-size: 16pt; font-style: italic">Regras</p>
+        <li>🟩 🤜 🟪, 🟦</li>
+        <li>🟥 🤜 🟩, 🟧</li>
+        <li>🟦 🤜 🟥, 🟧</li>
+        <li>🟧 🤜 🟩, 🟪</li>
+        <li>🟪 🤜 🟥, 🟦</li>
+        <p>(Qualquer célula com 3 ou mais vizinhos da mesma cor que a derrotam, se convertem para aquela cor, caso houver dois grupos de células de cores diferentes que a derrotam (ex. 3 vermelhas e 4 azuis junto com uma laranja), essa célula se converterá para a cor que a derrota que é a mais abundante em sua vizinhança (Moore))</p>
+    </ul>
+</div>
+<script>
+    // código por: Lucas da Costa Campos
+    // variáveis
+    var cjs = document.getElementById("c")
+    var ctx = cjs.getContext("2d");
+    var graphelem = document.getElementById("graph")
+    var graphCanvas = graphelem.getContext("2d");
+    var triangleWidth = 20; // universal
+    var triangleHeight = 20; // universal
+    var play = false;
+    brules = ['3'] // regras (b)
+    srules = ['2', '3'] // regras (s)
+
+
+    function applyRules(B, S) {
+        B = B.toString()
+        S = S.toString()
+        brules = B.split("")
+        srules = S.split("")
+    }
+
+    // apagar tudo no canvas
+    function clearCanvas() {
+        ctx.fillStyle = "#FFFFFF";
+        ctx.fillRect(0, 0, cjs.width, cjs.height)
+    }
+
+    // mostrar a caixa de descrição do jogo
+    function showDescBox() {
+        dbox = document.getElementById("dB")
+        sdb = document.getElementById("showDesc")
+        if (dbox.style.display == 'block') {
+            dbox.style.display = 'none'
+            sdb.textContent = "Mostrar descrição ↓"
+        }
+        else {
+            dbox.style.display = 'block'
+            sdb.textContent = "Ocultar descrição ↑"
+        }
+    }
+    
+    function getMouseCoords(c, ev) {
+        let rectangle = c.getBoundingClientRect();
+        let x = event.clientX - rectangle.left;
+        let y = event.clientY - rectangle.top;
+        return [x, y];
+    }
+    var mouseCoords;
+    cjs.addEventListener("mousedown", function (e) {
+        mouseCoords = getMouseCoords(cjs, e);
+        mX = Math.round(mouseCoords[0])
+        mY = Math.round(mouseCoords[1])
+        console.log(cells)
+        console.log(Math.floor(mX), Math.floor(mY))
+        console.log(Math.floor(mX/20), Math.floor(mY/20))
+        tg = cells[Math.floor(mY/20)][Math.floor(mX/20)]
+        switch (tg.color) {
+            case "blue":
+                tg.color = "red"
+                break;
+            case "red":
+                tg.color = "green"
+                break;
+            case "green":
+                tg.color = "orange"
+                break;
+            case "orange":
+                tg.color = "violet"
+                break;
+            case "violet":
+                tg.color = "blue"
+                break;
+        }
+        oldcells[Math.floor(mY/20)][Math.floor(mX/20)].color = tg.color
+    })
+
+    function drawGrid() {
+        ctx.strokeStyle = "#5F5F5F"
+        for (i = 0; i <= 60; i++) {
+            ctx.beginPath();
+            ctx.moveTo((cjs.width/60)*i, 0);
+            ctx.lineTo((cjs.width/60)*i, cjs.height);
+            ctx.stroke();
+        }
+        for (i = 0; i < 34; i++) {
+            ctx.beginPath();
+            ctx.moveTo(0, (cjs.height/34)*i);
+            ctx.lineTo(cjs.width, (cjs.height/34)*i);
+            ctx.stroke();
+        }
+    }
+
+    class Cell {
+        constructor(x, y, color) {
+            this.x = x*20
+            this.y = y*20
+            this.color = color
+        }
+    }
+    cells = []
+    let oldcells = []
+    allowed = false
+    lastxpoint = 0;
+
+    function genRandomCells() {
+        oldcells.length = 0;
+        subarray.length = 0;
+        cells.forEach(element => {
+            element.forEach(subelement => {
+                rNumber = Math.random()
+                if (rNumber >= 0 && rNumber <= 0.33) {
+                    subarray.push(new Cell(cx, cy, "green"))
+                    subelement.color = "green"
+                }
+                else if (rNumber > 0.33 && rNumber <= 0.66) {
+                    subarray.push(new Cell(cx, cy, "blue"))
+                    subelement.color = "blue"
+                }
+                else if (rNumber > 0.66 && rNumber <= 1) {
+                    subarray.push(new Cell(cx, cy, "red"))
+                    subelement.color = "red"
+                }
+            });
+            oldcells.push(structuredClone(subarray))
+            subarray.length = 0;
+        });
+        aliver = 0
+        aliveg = 0
+        aliveb = 0
+        cells.forEach(subelement => {
+            if (subelement.color == "red") {ctx.fillStyle = "#AB0000"; ctx.fillRect(subelement.x, subelement.y, 20, 20); aliver++;}
+            else if (subelement.color == "blue") {ctx.fillStyle = "#0000AB"; ctx.fillRect(subelement.x, subelement.y, 20, 20); aliveb++;}
+            else if (subelement.color == "green") {ctx.fillStyle = "#00AB00"; ctx.fillRect(subelement.x, subelement.y, 20, 20); aliveg++;}
+        });
+    }
+
+    function playsim() {
+        play = !play
+        if (!play) {
+            document.getElementById("startstopLabel").textContent = "Iniciar simulação:"
+            document.getElementById("startstop").style.color = "green"
+            document.getElementById("startstop").textContent = "▶"
+        }
+        else {
+            document.getElementById("startstopLabel").textContent = "Pausar simulação:"
+            document.getElementById("startstop").style.color = "red"
+            document.getElementById("startstop").textContent = "⏸"
+        }
+    }
+    subarray = []
+    checkboxes = 5;
+    function createCells() {
+        cells = []
+        oldcells = []
+        cx = 0
+        cy = 0
+        for (k = 1; k <= 34; k++) {
+            cx = 0
+            for (i = 1; i <= 60; i++) {
+                rNumber = Math.random()
+                if (rNumber >= 0 && rNumber <= 1/5) {
+                    subarray.push(new Cell(cx, cy, "green"))
+                }
+                else if (rNumber > 1/5 && rNumber <= 2/5) {
+                    subarray.push(new Cell(cx, cy, "blue"))
+                }
+                else if (rNumber > 2/5 && rNumber <= 3/5) {
+                    subarray.push(new Cell(cx, cy, "red"))
+                }
+                else if (rNumber > 3/5 && rNumber <= 4/5) {
+                    subarray.push(new Cell(cx, cy, "orange"))
+                }
+                else if (rNumber > 4/5 && rNumber <= 1) {
+                    subarray.push(new Cell(cx, cy, "violet"))
+                }
+                cx++;
+            }
+            cells.push(structuredClone(subarray))
+            oldcells.push(structuredClone(subarray))
+            subarray.length = 0
+            cy++;
+        }
+    }
+    createCells();
+    cellNB = []
+    // mostrar o output no canvas
+    let start;
+    let fps = 5
+    let fpsInt = 1000 / fps
+    let loops = 0;
+    let alive = 0;
+    function outputResult(ts) {
+        let fpsInt = 1000 / fps
+        if (start === undefined) {
+            start = ts
+        }
+        const elp = ts - start
+        if (elp > fpsInt) {
+            start = ts - (elp % fpsInt)
+            clearCanvas();
+            ctx.fillStyle = "#000000"
+            // update labels
+            /* cells.forEach(element => {
+                if (element.state == true) {
+                    console.log(element.x)
+                    console.log(element.y)
+                    cellNB.push(cells.filter((cell) => (cell.x) == (element.x) && (cell.y) == (element.y-20) && (cell.state))[0])
+                    cellNB.push(cells.filter((cell) => (cell.x) == (element.x+20) && (cell.y) == (element.y-20) && (cell.state))[0])
+                    cellNB.push(cells.filter((cell) => (cell.x) == (element.x+20) && (cell.y) == (element.y) && (cell.state))[0])
+                    cellNB.push(cells.filter((cell) => (cell.x) == (element.x+20) && (cell.y) == (element.y+20) && (cell.state))[0])
+                    cellNB.push(cells.filter((cell) => (cell.x) == (element.x) && (cell.y) == (element.y+20) && (cell.state))[0])
+                    if (element.x >= 1*20) {
+                        cellNB.push(cells.filter((cell) => (cell.x) == (element.x-20) && (cell.y) == (element.y) && (cell.state))[0])
+                        cellNB.push(cells.filter((cell) => (cell.x) == (element.x-20) && (cell.y) == (element.y-20) && (cell.state))[0])
+                        cellNB.push(cells.filter((cell) => (cell.x) == (element.x-20) && (cell.y) == (element.y+20) && (cell.state))[0])
+                    }
+                    console.log(cellNB)
+                }
+            });
+            ctx.fillStyle = "#00FF00"
+            cellNB.forEach(element => {
+                ctx.fillRect(element.x, element.y, 20, 20)
+            });
+            */
+           if (!play) {
+            // red = scissors
+            // blue = rock
+            // green = paper
+                aliver = 0
+                aliveb = 0
+                aliveg = 0
+                aliveo = 0
+                alivev = 0
+                ctx.fillStyle = "#000000"
+                cells.forEach(element => {
+                    element.forEach(subelement => {
+                        if (subelement.color === "red") {ctx.fillStyle = "#AB0000"; ctx.fillRect(subelement.x, subelement.y, 20, 20); aliver++;}
+                        if (subelement.color === "blue") {ctx.fillStyle = "#0000AB"; ctx.fillRect(subelement.x, subelement.y, 20, 20); aliveb++;}
+                        if (subelement.color === "green") {ctx.fillStyle = "#00AB00"; ctx.fillRect(subelement.x, subelement.y, 20, 20); aliveg++;}
+                        if (subelement.color === "orange") {ctx.fillStyle = "#DE9400"; ctx.fillRect(subelement.x, subelement.y, 20, 20); aliveo++;}
+                        if (subelement.color === "violet") {ctx.fillStyle = "#7e00ab"; ctx.fillRect(subelement.x, subelement.y, 20, 20); alivev++;}
+                });
+                drawGrid();
+            });
+                document.getElementById("popb").textContent = "$$P_{azul} = " + aliveb + "$$"
+                document.getElementById("popg").textContent = "$$P_{verde} = " + aliveg + "$$"
+                document.getElementById("popr").textContent = "$$P_{vermelho} =" + aliver + "$$"
+                document.getElementById("popl").textContent = "$$P_{laranja} =" + aliveo + "$$"
+                document.getElementById("popv").textContent = "$$P_{roxa} =" + alivev + "$$"
+                MathJax.typesetPromise(); // consertar latex
+                //console.log(cells)
+           }
+
+            if (play) {
+                cells.forEach(element => {
+                    element.forEach(selement => {
+                    //console.log(selement)
+                    loops++
+                    /* v1 = oldcells.find((cell) => (cell.x) == (element.x) && (cell.y) == (element.y-20) && (cell.state))
+                    v2 = oldcells.find((cell) => (cell.x) == (element.x+20) && (cell.y) == (element.y-20) && (cell.state))
+                    v3 = oldcells.find((cell) => (cell.x) == (element.x+20) && (cell.y) == (element.y) && (cell.state))
+                    v4 = oldcells.find((cell) => (cell.x) == (element.x+20) && (cell.y) == (element.y+20) && (cell.state))
+                    v5 = oldcells.find((cell) => (cell.x) == (element.x) && (cell.y) == (element.y+20) && (cell.state))
+                    v6 = oldcells.find((cell) => (cell.x) == (element.x-20) && (cell.y) == (element.y) && (cell.state))
+                    v7 = oldcells.find((cell) => (cell.x) == (element.x-20) && (cell.y) == (element.y-20) && (cell.state))
+                    v8 = oldcells.find((cell) => (cell.x) == (element.x-20) && (cell.y) == (element.y+20) && (cell.state))
+                    if (v1 !== undefined) {
+                    cellNB.push(new Cell(v1.x, v1.y, v1.state))
+                    }
+                    if (v2 !== undefined) {
+                    cellNB.push(new Cell(v2.x, v2.y, v2.state))
+                    }
+                    if (v3 !== undefined) {
+                    cellNB.push(new Cell(v3.x, v3.y, v3.state))
+                    }
+                    if (v4 !== undefined) {
+                    cellNB.push(new Cell(v4.x, v4.y, v4.state))
+                    }
+                    if (v5 !== undefined) {
+                    cellNB.push(new Cell(v5.x, v5.y, v5.state))
+                    }
+                    if (element.x >= 20) {
+                        if (v6 !== undefined) {
+                        cellNB.push(new Cell(v6.x, v6.y, v6.state))
+                        }
+                        if (v7 !== undefined) {
+                        cellNB.push(new Cell(v7.x, v7.y, v7.state))
+                        }
+                        if (v8 !== undefined) {
+                        cellNB.push(new Cell(v8.x, v8.y, v8.state))
+                        }
+                    }
+                    */
+                   // nos trancos e barrancos... talvez funcione
+                   if (selement.y >= 20) {
+                        cellNB.push(new Cell(oldcells[(selement.y-20)/20][(selement.x)/20].x/20, oldcells[(selement.y-20)/20][(selement.x)/20].y/20, oldcells[(selement.y-20)/20][(selement.x)/20].color))
+                   }
+                   if (selement.y >= 20 && selement.x < cjs.width-20) {
+                        cellNB.push(new Cell(oldcells[(selement.y-20)/20][(selement.x+20)/20].x/20, oldcells[(selement.y-20)/20][(selement.x+20)/20].y/20, oldcells[(selement.y-20)/20][(selement.x+20)/20].color))
+                   }
+                    if (selement.y < cjs.height-20 && selement.x < cjs.width-20) {
+                        cellNB.push(new Cell(oldcells[(selement.y+20)/20][(selement.x+20)/20].x/20, oldcells[(selement.y+20)/20][(selement.x+20)/20].y/20, oldcells[(selement.y+20)/20][(selement.x+20)/20].color))
+                    }
+                    if (selement.y < cjs.height-20) {
+                        cellNB.push(new Cell(oldcells[(selement.y+20)/20][selement.x/20].x/20, oldcells[(selement.y+20)/20][(selement.x)/20].y/20, oldcells[(selement.y+20)/20][(selement.x)/20].color))
+                    }
+                   if (selement.x >= 20) {
+                        if (selement.y >= 20) {
+                            cellNB.push(new Cell(oldcells[(selement.y-20)/20][(selement.x-20)/20].x/20, oldcells[(selement.y-20)/20][(selement.x-20)/20].y/20, oldcells[(selement.y-20)/20][(selement.x-20)/20].color))
+                        }
+                        cellNB.push(new Cell(oldcells[selement.y/20][(selement.x-20)/20].x/20, oldcells[selement.y/20][(selement.x-20)/20].y/20, oldcells[selement.y/20][(selement.x-20)/20].color))
+                        if (selement.y < cjs.height-20) {
+                            cellNB.push(new Cell(oldcells[(selement.y+20)/20][(selement.x-20)/20].x/20, oldcells[(selement.y+20)/20][(selement.x-20)/20].y/20, oldcells[(selement.y+20)/20][(selement.x-20)/20].color))
+                        }
+                   }
+                    if (selement.x < 1180) {
+                        cellNB.push(new Cell(oldcells[selement.y/20][(selement.x+20)/20].x/20, oldcells[selement.y/20][(selement.x+20)/20].y/20, oldcells[selement.y/20][(selement.x+20)/20].color))
+                    }
+                    cellNB = cellNB.filter(function(el) {
+                        return el !== undefined
+                    })
+                    cellNBr = 0
+                    cellNBg = 0
+                    cellNBb = 0
+                    cellNBo = 0
+                    cellNBv = 0
+                    cellNB.forEach(element => {
+                        if (element.color == "red") {
+                            cellNBr++;
+                        }
+                        if (element.color == "green") {
+                            cellNBg++;
+                        }
+                        if (element.color == "blue") {
+                            cellNBb++;
+                        }
+                        if (element.color == "orange") {
+                            cellNBo++;
+                        }
+                        if (element.color == "violet") {
+                            cellNBv++;
+                        }
+                    });
+                    // red beats green
+                    // green beats blue
+                    // blue beats red
+                    if (selement.color == "red") {
+                        if (cellNBb > 2 || cellNBo > 2) {
+                            if (cellNBb > cellNBo) {
+                                selement.color = "blue"
+                            }
+                            if (cellNBo > cellNBb) {
+                                selement.color = "orange"
+                            }
+                        }
+                    }
+                    if (selement.color == "green") {
+                        if (cellNBr > 2 || cellNBv > 2) {
+                            if (cellNBr > cellNBv) {
+                                selement.color = "red"
+                            }
+                            if (cellNBv > cellNBr) {
+                                selement.color = "violet"
+                            }
+                        }
+                    }
+                    if (selement.color == "blue") {
+                        if (cellNBg > 2 || cellNBo > 2) {
+                            if (cellNBg > cellNBo) {
+                                selement.color = "green"
+                            }
+                            if (cellNBo > cellNBg) {
+                                selement.color = "orange"
+                            }
+                        }
+                    }
+                    if (selement.color == "orange") {
+                        if (cellNBv > 2 || cellNBg > 2) {
+                            if (cellNBv > cellNBg) {
+                                selement.color = "violet"
+                            }
+                            if (cellNBg > cellNBv) {
+                                selement.color = "green"
+                            }
+                        }
+                    }
+                    if (selement.color == "violet") {
+                        if (cellNBr > 2 || cellNBb > 2) {
+                            if (cellNBr > cellNBb) {
+                                selement.color = "red"
+                            }
+                            if (cellNBb > cellNBr) {
+                                selement.color = "blue"
+                            }
+                        }
+                    }
+                    cellNB.length = 0
+                    //if (element.state) {
+                        //console.log(cellNB)
+                    //}
+                    if (loops % (2040) == 0) {
+                        aliveb = 0
+                        aliveg = 0
+                        aliver = 0
+                        aliveo = 0
+                        alivev = 0
+                        oldcells.length = 0
+                        subarray.length = 0
+                        cells.forEach(element => {
+                            element.forEach(subelement => {
+                                subarray.push(new Cell(subelement.x/20, subelement.y/20, subelement.color))
+                                if (subelement.color === "red") {ctx.fillStyle = "#AB0000"; ctx.fillRect(subelement.x, subelement.y, 20, 20); aliver++;}
+                                if (subelement.color === "blue") {ctx.fillStyle = "#0000AB"; ctx.fillRect(subelement.x, subelement.y, 20, 20); aliveb++;}
+                                if (subelement.color === "green") {ctx.fillStyle = "#00AB00"; ctx.fillRect(subelement.x, subelement.y, 20, 20); aliveg++;}
+                                if (subelement.color === "orange") {ctx.fillStyle = "#DE9400"; ctx.fillRect(subelement.x, subelement.y, 20, 20); aliveo++;}
+                                if (subelement.color === "violet") {ctx.fillStyle = "#7E00AB"; ctx.fillRect(subelement.x, subelement.y, 20, 20); alivev++;}
+                            });
+                            oldcells.push(structuredClone(subarray))
+                            subarray = [];
+                            subarray.length = 0
+                        });
+                        lasty = graphelem.height/2
+                        graphCanvas.beginPath();
+                        graphCanvas.moveTo(lastxpoint, lasty)
+                        graphCanvas.strokeStyle = "#0000FF";
+                        graphCanvas.lineTo(lastxpoint, graphelem.height/2 + Math.round(aliveb / 2040 * 100));
+                        graphCanvas.stroke();
+                        lasty = graphelem.height/2 +  Math.round(aliveb / 2040 * 100)
+
+                        graphCanvas.beginPath();
+                        graphCanvas.moveTo(lastxpoint, lasty)
+                        graphCanvas.strokeStyle = "#00FF00";
+                        graphCanvas.lineTo(lastxpoint, graphelem.height/2 + Math.round(aliveg / 2040 * 100)*2);
+                        graphCanvas.stroke();
+                        lasty = graphelem.height/2 + Math.round(aliveg / 2040 * 100)*2
+
+                        graphCanvas.beginPath();
+                        graphCanvas.moveTo(lastxpoint, lasty)
+                        graphCanvas.strokeStyle = "#FF0000";
+                        graphCanvas.lineTo(lastxpoint, graphelem.height/2 +  Math.round(aliver / 2040 * 100)*3);
+                        graphCanvas.stroke();
+                        lasty = graphelem.height/2 + Math.round(aliver / 2040 * 100)*3
+
+                        graphCanvas.beginPath();
+                        graphCanvas.moveTo(lastxpoint, lasty)
+                        graphCanvas.strokeStyle = "#DE9400";
+                        graphCanvas.lineTo(lastxpoint, graphelem.height/2 + Math.round(aliver / 2040 * 100)*4);
+                        graphCanvas.stroke();
+                        lasty = graphelem.height/2 + Math.round(aliver / 2040 * 100)*4
+
+                        graphCanvas.beginPath();
+                        graphCanvas.moveTo(lastxpoint, lasty)
+                        graphCanvas.strokeStyle = "#7E00AB";
+                        graphCanvas.lineTo(lastxpoint, graphelem.height/2 + Math.round(aliver / 2040 * 100)*5);
+                        graphCanvas.stroke();
+                        lasty = graphelem.height/2
+                        
+                        lastxpoint += 1
+
+                        if (lastxpoint > graphelem.width) {
+                            graphCanvas.fillStyle = "#FFFFFF"
+                            graphCanvas.fillRect(0, 0, graphelem.width, graphelem.height)
+                            lastxpoint = 0;
+                        }
+                        document.getElementById("popb").textContent = "$$P_{azul} = " + aliveb + "$$"
+                        document.getElementById("popg").textContent = "$$P_{verde} = " + aliveg + "$$"
+                        document.getElementById("popr").textContent = "$$P_{vermelho} =" + aliver + "$$"
+                        document.getElementById("popl").textContent = "$$P_{laranja} =" + aliveo + "$$"
+                        document.getElementById("popv").textContent = "$$P_{roxa} =" + alivev + "$$"
+                        MathJax.typesetPromise(); // consertar latex
+                    }
+                   });
+                   drawGrid();
+                });
+            }
+        }
+        requestAnimationFrame(outputResult);
+    }
+    requestAnimationFrame(outputResult);
+
+</script>
