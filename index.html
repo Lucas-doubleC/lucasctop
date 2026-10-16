@@ -24,6 +24,7 @@
         body {
             background: #91c8ff;
             background: linear-gradient(0deg,rgba(145, 200, 255, 1) 0%, rgba(0, 183, 255, 1) 100%);
+            background-repeat: no-repeat;
             overflow: hidden;
             text-align: center;
         }
@@ -54,11 +55,12 @@
             z-index: 4;
             position: relative;
             animation: fadein 3.5s;
-            top: 5vh;
+            top: 10vh;
             font-family:monospace;
             font-size: 25pt;
         }
     </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 </head>
 <body>
     <!-- <div class="cloudcontainer">
@@ -262,11 +264,13 @@
 
     function cloudUpdate() {
         clouds.forEach(cloud => {
-            cloud.style.left = (Number(cloud.style.left.replace("%", "")) + 0.01) + "%";
+            cloud.style.left = (Number(cloud.style.left.replace("%", "")) + 0.025) + "%";
             [...cloud.children].forEach(child => {
                 child.style.backgroundColor = cloudColor;
             });
         });
+        document.body.style.backgroundRepeat = "no-repeat"
+        document.body.style.backgroundSize = 250 + "% " + 250 + "%"
         if (timer >= 540) {
             for (let i = 0; i <= 4; i++) {
                 let c = makeCloudElement(Math.random() * 5, Math.random() * 100, document.body);
