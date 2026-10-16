@@ -1,0 +1,138 @@
+<style>
+    .gamepad {
+        width: 230px;
+        height: 230px;
+        background-color: gray;
+        display: inline-block;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .gamepad button {
+        width:75px;
+        height:75px;
+        display: inline-block;
+        vertical-align:bottom;
+    }
+
+    #upper, #lower {
+        display: block;
+        position: relative;
+        left: 75px
+    }
+
+    #r {
+        position: relative;
+        left: 75px
+    }
+</style>
+<html>
+<meta charset="UTF-8">
+<h1>ascii game 2 play when bored</h1>
+<p>made by lucas-doubleC</p>
+<p id="pts">Pts: 0</p>
+<div class="gamepad">
+    <button id="upper" style="font-size: 20pt; border-radius: 100%" onclick="move('down')">↑</button>
+    <button style=" font-size: 20pt; border-radius: 100%" onclick="move('left')">←</button>
+    <button id="r" style="font-size: 20pt; border-radius: 100%" onclick="move('right')">→</button>
+    <button id="lower" style="font-size: 20pt; border-radius: 100%" onclick="move('up')">↓</button>
+</div>
+<pre id="map" style="display: inline-block; vertical-align:middle; font-size: 30pt; letter-spacing: 35pt"><code>
+    ⋅⋅⋅⋅⋅⋅⋅
+    ⋅⋅⋅⋅⋅⋅⋅
+    ⋅⋅⋅⋅⋅⋅⋅
+    ⋅⋅⋅⋅⋅⋅⋅
+    ⋅⋅⋅⋅⋅⋅⋅
+    ⋅⋅⋅⋅⋅⋅⋅
+    ⋅⋅⋅⋅⋅⋅⋅
+</code></pre>
+<!-- <button style="display: inline-block; background-color:red; color:white; vertical-align:middle; font-size: 20pt; width:30pt; height: 30pt; text-align:left; border-radius: 100%">B</button>
+<button style="display: inline-block; background-color:green; color:white; vertical-align:middle; font-size: 20pt; width:30pt; height: 30pt; text-align:left; border-radius: 100%">A</button> -->
+</html>
+<script>
+    let x = 0
+    let y = 1
+    let mArray = [['⋅', '⋅', '⋅', '⋅', '⋅', '⋅', '⋅'], ['⋅', '⋅', '⋅', '⋅', '⋅', '⋅', '⋅'], ['⋅', '⋅', '⋅', '⋅', '⋅', '⋅', '⋅'], ['⋅', '⋅', '⋅', '⋅', '⋅', '⋅', '⋅'], ['⋅', '⋅', '⋅', '⋅', '⋅', '⋅', '⋅'], ['⋅', '⋅', '⋅', '⋅', '⋅', '⋅', '⋅'], ['⋅', '⋅', '⋅', '⋅', '⋅', '⋅', '⋅']]
+    let bounds = [7, 7]
+    let randCoordinate = [Math.floor(Math.random()*bounds[0]), Math.floor(Math.random()*bounds[1])]
+    let isGen = false
+    let str1 = (mArray[0]+"\n"+mArray[1]+"\n"+mArray[2]+"\n"+mArray[3]+"\n"+mArray[4]+"\n"+mArray[5]+"\n"+mArray[6]+"\n")
+    let reps = 0
+    let index = str1.length
+    let ptsP = 0
+    while (reps <= str1.length) {
+            str1 = str1.replace(',', '')
+            reps += 1
+    }
+    reps = 0
+    document.getElementById('map').textContent = str1
+    function move(dir) {
+        if (dir == 'down') {
+            if (y > 0) {
+                mArray[y][x] = '⋅'
+                y -= 1
+                if (mArray[y][x] == 'X') {
+                    ptsP++
+                    document.getElementById('pts').textContent = "Pts: " + ptsP
+                    isGen = false
+                }
+                mArray[y][x] = '∘'
+            }
+        }
+        else if (dir == 'up') {
+            if (y < bounds[0]-1) {
+                mArray[y][x] = '⋅'
+                y += 1
+                if (mArray[y][x] == 'X') {
+                    ptsP++
+                    document.getElementById('pts').textContent = "Pts: " + ptsP
+                    isGen = false
+                }
+                mArray[y][x] = '∘'
+            }
+        }
+        else if (dir == 'left') {
+            if (x > 0) {
+                mArray[y][x] = '⋅'
+                x -= 1
+                if (mArray[y][x] == 'X') {
+                    ptsP++
+                    document.getElementById('pts').textContent = "Pts: " + ptsP
+                    isGen = false
+                }
+                mArray[y][x] = '∘'
+            }
+        }
+        else if (dir == 'right') {
+            if (x < bounds[1]-1) {
+                mArray[y][x] = '⋅'
+                x += 1
+                if (mArray[y][x] == 'X') {
+                    ptsP++
+                    document.getElementById('pts').textContent = "Pts: " + ptsP
+                    isGen = false
+                }
+                mArray[y][x] = '∘'
+            }
+        }
+        if (!isGen) {
+            isGen = true
+            let randCoordinate = [Math.floor(Math.random()*bounds[0]), Math.floor(Math.random()*bounds[1])]
+            if (mArray[randCoordinate[0]][randCoordinate[1]] != '∘') {
+                mArray[randCoordinate[0]][randCoordinate[1]] = 'X'
+                console.log(randCoordinate)
+            }
+            else {
+                let randCoordinate = [Math.floor(Math.random()*bounds[0]), Math.floor(Math.random()*bounds[1])]
+                isGen = false
+            }
+        }
+        str1 = (mArray[0]+"\n"+mArray[1]+"\n"+mArray[2]+"\n"+mArray[3]+"\n"+mArray[4]+"\n"+mArray[5]+"\n"+mArray[6]+"\n")
+        while (reps <= str1.length) {
+            str1 = str1.replace(',', '')
+            reps += 1
+        }
+        reps = 0
+        document.getElementById('map').textContent = str1
+    }
+</script>
