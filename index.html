@@ -1,127 +1,285 @@
 <head>
     <style>
-        .banner {
-            width: 100%;
-            height: 15vh;
-            border: .1vw solid black;
+        .cloudcontainer {
+            width: 250px;
+            height: 125px;
+        }
+
+        .cloudrect {
+            width: 200px;
+            height: 55px;
+            background-color: white;
+            position: relative;
+            top: 70px;
+            left: 25px;
+        }
+
+        .cloudball {
+            width: 80px;
+            height: 80px;
+            background-color: white;
+            border-radius: 100%;
         }
 
         body {
-            background-color: black;
+            background: #91c8ff;
+            background: linear-gradient(0deg,rgba(145, 200, 255, 1) 0%, rgba(0, 183, 255, 1) 100%);
             overflow: hidden;
-        }
-
-        @keyframes blink {
-            0% {
-                opacity: 1
-            }
-            50% {
-                opacity: 0.2
-            }
-            100% {
-                opacity: 1
-            }
+            text-align: center;
         }
 
         @keyframes fadein {
             0% {
                 opacity: 0;
             }
+
             100% {
                 opacity: 1;
             }
         }
 
-        @keyframes fadeout {
-            0% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0;
-
-            }
-        }
-
-        .star {
-            width: 2.5px;
-            height: 2.5px;
-            animation: blink 2s infinite;
-            background-color: white;
-            border-radius: 100%;
-        }
-
-        .explosion {
-            width: 700px;
-            height: 700px;
-            animation: fadeout 3s;
-            background-color: rgb(255, 153, 0);
-            border-radius: 100%;
-        }
-
-        #btn1 {
+        #title {
+            font-size: 74pt;
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             animation: fadein 3.5s;
+            position: relative;
+            top: 15vh;
+        }
+
+        #title::after {
+            transition-duration: 0.5s;
         }
         
-        #btn2 {
+        body ul, li {
+            z-index: 4;
+            position: relative;
             animation: fadein 3.5s;
+            top: 5vh;
+            font-family:monospace;
+            font-size: 25pt;
         }
     </style>
 </head>
 <body>
-    <div class="banner">
-        <p style="color: white; font-size: 32pt; font-family:monospace; animation: fadein 1.5s ease-in">QuikArit: Not so fast as you think</p>
-    </div>
-    <a id="btn1" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-    color: white; font-size: 18pt;" href="https://github.com/Lucas-doubleC/quikarit">See repo on GitHub</a></button>
-    <br>
-    <a id="btn2" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-    color: white; font-size: 18pt;" href="https://lucascampos.top/quikarit/docs">See docs</a>
+    <!-- <div class="cloudcontainer">
+        <div class="cloudrect"></div>
+        <div class="cloudball" style="position: relative; left: 175px;"></div>
+        <div class="cloudball" style="position: relative; top: -80px;"></div>
+        <div class="cloudball" style="position: relative; top: -200px; left: 45px;"></div>
+        <div class="cloudball" style="position: relative; top: -300px; left: 90px;"></div>
+        <div class="cloudball" style="position: relative; top: -360px; left: 135px;"></div>
+        <div class="cloudball" style="position: relative; top: -400px; left: 135px;"></div>
+        <div class="cloudball" style="position: relative; top: -480px; left: 95px;"></div>
+        <div class="cloudball" style="position: relative; top: -560px; left: 45px;"></div>
+    </div> -->
+    <p id="title">Lucas da Costa Campos</p>
+    <ul id="listofproj">
+        <li>
+            <a href="https://lucascampos.top/atoms-1">atoms-1: Uma coleção de páginas de simulações e outros projetos;</a>
+        </li>
+        <li>
+           <a href="https://lucascampos.top/quikarit">QuikArit: Uma library de Python que adiciona funções QoL;</a>
+        </li>
+        <li>
+            <a href="https://lucascampos.top/misc">Outros: Outros projetos não relacionados.</a>
+        </li>
+    </ul>
 </body>
 <script>
-    for (let i = 0; i <= 250; i++) {
-        let newstar = document.createElement("div");
-        newstar.classList.add("star");
-        newstar.style.position = "absolute";
-        newstar.style.left = Math.random() * 100 + "%";
-        newstar.style.top = Math.random() * 100 + "%";
-        newstar.style.animationDelay = Math.random() * 2.5 + "s"
-        document.body.appendChild(newstar)
+    // create the sun
+    let theme = 1;
+    let cloudColor = "#FFFFFF"
+    let titleLabel = document.getElementById("title")
+    let listproj = document.getElementById("listofproj")
+    let links = [...document.querySelectorAll("a")]
+    function scenery() {
+        changeTheme();
+        createThematic(theme);
+    }
+    function changeTheme() {
+        if (theme) {
+            theme = 0
+        }
+        else {
+            theme = 1
+        }
+    }
+    function createThematic(t) {
+        if (t) {
+            // create sun - day
+            let sun = document.createElement("div")
+            sun.classList.add("cloudball")
+            sun.style.scale = 1.5;
+            sun.style.position = "absolute"
+            sun.style.left = 85 + "vw";
+            sun.style.top = 20 + "vh";
+            sun.style.backgroundColor = "yellow";
+            sun.addEventListener("click", (e) => {
+                scenery();
+            })
+            document.body.appendChild(sun)
+            document.body.style.background = "linear-gradient(0deg,rgba(145, 200, 255, 1) 0%, rgba(0, 183, 255, 1) 100%)"
+            cloudColor = "#FFFFFF"
+            titleLabel.style.color = "#000000"
+            links.forEach(a => {
+                a.style.color = "#F0F000"
+            })
+        }
+        else {
+            // create moon - night
+            let mc = document.createElement("div")
+            mc.classList.add("cloudcontainer")
+            mc.style.width = 120 + "px"
+            mc.style.height = mc.style.width
+            mc.style.position = "absolute"
+            mc.style.left = 85 + "vw";
+            mc.style.top = 20 + "vh";
+            let moon = document.createElement("div")
+            moon.classList.add("cloudball")
+            moon.style.scale = 1.5;
+            moon.style.position = "relative"
+            moon.style.backgroundColor = "#878787";
+            let crater = document.createElement("div")
+            crater.classList.add("cloudball")
+            crater.style.scale = 0.35;
+            crater.style.position = "relative"
+            crater.style.backgroundColor = "#363636";;
+            crater.style.top = -55 + "px";
+            crater.style.left = -30 + "px";
+            let crater2 = document.createElement("div")
+            crater2.classList.add("cloudball")
+            crater2.style.scale = 0.35;
+            crater2.style.position = "relative"
+            crater2.style.backgroundColor = "#363636";;
+            crater2.style.top = -180 + "px";
+            crater2.style.left = -10 + "px";
+            let crater3 = document.createElement("div")
+            crater3.classList.add("cloudball")
+            crater3.style.scale = 0.35;
+            crater3.style.position = "relative"
+            crater3.style.backgroundColor = "#363636";;
+            crater3.style.top = -210 + "px";
+            crater3.style.left = 20 + "px";
+            let crater4 = document.createElement("div")
+            crater4.classList.add("cloudball")
+            crater4.style.scale = 0.35;
+            crater4.style.position = "relative"
+            crater4.style.backgroundColor = "#363636";;
+            crater4.style.top = -330 + "px";
+            crater4.style.left = 30 + "px";
+            mc.addEventListener("click", (e) => {
+                scenery();
+            })
+            document.body.appendChild(mc)
+            mc.appendChild(moon)
+            mc.appendChild(crater)
+            mc.appendChild(crater2)
+            mc.appendChild(crater3)
+            mc.appendChild(crater4)
+            document.body.style.background = "linear-gradient(0deg,rgba(0, 0, 0, 1) 0%, rgba(48, 48, 48, 1) 100%)"
+            titleLabel.style.color = "#FFFFFF"
+            cloudColor = "#402D00"
+            links.forEach(a => {
+                a.style.color = "grey"
+            })
+        }
     }
 
-    function gmousecoords(e) {
-        return [e.clientX, e.clientY]
+    createThematic(theme);
+    function makeCloudElement(x, y, p) {
+        let cc = document.createElement("div")
+        cc.classList.add("cloudcontainer")
+        cc.style.position = "absolute"
+        cc.style.top = y + "%"
+        cc.style.left = x + "%"
+        p.appendChild(cc);
+        let cb1 = document.createElement("div")
+        cb1.classList.add("cloudball");
+        cb1.style.position = "relative";
+        cb1.style.left = "175px"
+        cc.appendChild(cb1)
+        let cb2 = document.createElement("div")
+        cb2.classList.add("cloudball");
+        cb2.style.position = "relative";
+        cb2.style.top = "-80px"
+        cc.appendChild(cb2)
+        let cb3 = document.createElement("div")
+        cb3.classList.add("cloudball");
+        cb3.style.position = "relative";
+        cb3.style.left = "45px"
+        cb3.style.top = "-200px"
+        cc.appendChild(cb3)
+        let cb4 = document.createElement("div")
+        cb4.classList.add("cloudball");
+        cb4.style.position = "relative";
+        cb4.style.left = "90px"
+        cb4.style.top = "-300px"
+        cc.appendChild(cb4)
+        let cb5 = document.createElement("div")
+        cb5.classList.add("cloudball");
+        cb5.style.position = "relative";
+        cb5.style.left = "135px"
+        cb5.style.top = "-360px"
+        cc.appendChild(cb5)
+        let cb6 = document.createElement("div")
+        cb6.classList.add("cloudball");
+        cb6.style.position = "relative";
+        cb6.style.left = "135px"
+        cb6.style.top = "-400px"
+        cc.appendChild(cb6)
+        let cb7 = document.createElement("div")
+        cb7.classList.add("cloudball");
+        cb7.style.position = "relative";
+        cb7.style.left = "95px"
+        cb7.style.top = "-480px"
+        cc.appendChild(cb7)        
+        let cb8 = document.createElement("div")
+        cb8.classList.add("cloudball");
+        cb8.style.position = "relative";
+        cb8.style.left = "45px"
+        cb8.style.top = "-560px"
+        cc.appendChild(cb8)
+        cb1.style.backgroundColor = cloudColor
+        cb2.style.backgroundColor = cloudColor
+        cb3.style.backgroundColor = cloudColor
+        cb4.style.backgroundColor = cloudColor
+        cb5.style.backgroundColor = cloudColor
+        cb6.style.backgroundColor = cloudColor
+        cb7.style.backgroundColor = cloudColor
+        cb8.style.backgroundColor = cloudColor
+        return cc
+    }
+
+    clouds = []
+    for (let i = 0; i <= 50; i++) {
+        let c = makeCloudElement(Math.random() * 100, Math.random() * 100, document.body);
+        c.style.position = "absolute"
+        c.style.scale = 0.35
+        clouds.push(c);
     }
 
     let timer = 0;
 
-    document.addEventListener("mousemove", (e) => {
-        if (timer < 1) {
-            timer += 0.1;
-        }
-        else {
-            let newstar = document.createElement("div");
-            newstar.classList.add("star");
-            newstar.style.position = "absolute";
-            newstar.style.left = gmousecoords(e)[0] + "px";
-            newstar.style.top = gmousecoords(e)[1] + "px";
-            newstar.style.animationDelay = Math.random() * 2.5 + "s"
-            document.body.appendChild(newstar)
+    function cloudUpdate() {
+        clouds.forEach(cloud => {
+            cloud.style.left = (Number(cloud.style.left.replace("%", "")) + 0.01) + "%";
+            [...cloud.children].forEach(child => {
+                child.style.backgroundColor = cloudColor;
+            });
+        });
+        if (timer >= 540) {
+            for (let i = 0; i <= 4; i++) {
+                let c = makeCloudElement(Math.random() * 5, Math.random() * 100, document.body);
+                c.style.position = "absolute"
+                c.style.scale = 0.35
+                clouds.push(c);
+            }
             timer = 0;
         }
-    })
-
-    /* document.addEventListener("mousedown", (e) => {
-        let newe = document.createElement("div");
-        newe.classList.add("explosion");
-        newe.style.position = "absolute";
-        newe.style.width = Math.random() * 245 + "px";
-        newe.style.height = newe.style.width;
-        newe.style.left = gmousecoords(e)[0] - Number(newe.style.width.replace("px", ''))/2 + "px";
-        newe.style.top = gmousecoords(e)[1] - Number(newe.style.width.replace("px", ''))/2 + "px";
-        // newe.style.animationDelay = Math.random() * 2.5 + "s"
-        document.body.appendChild(newe)
-        newe.addEventListener("animationend", (e) => {
-            newe.remove();
-        })
-    }) */
+        else {
+            timer++;
+        }
+        requestAnimationFrame(cloudUpdate)
+    }
+    cloudUpdate();
 </script>
