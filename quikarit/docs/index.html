@@ -1,0 +1,1040 @@
+<head>
+    <style>
+        body {
+            margin: 0;
+            background-color: black;
+        }
+
+        body p {
+            margin: 12px;
+            font-family: Arial, Helvetica, sans-serif;
+            color: white;
+        }
+
+        body h2 {
+            margin: 12px;
+            font-family: monospace;
+            color: white;
+        }
+        
+        body h3 {
+            margin: 12px;
+            font-size: 20px;
+            font-style: italic;
+            font-family: monospace;
+            color: white;
+        }
+
+        .header {
+            width: 100%;
+            height: 100px;
+            background: #000000;
+            background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(97, 97, 97, 1) 100%);
+            display: flex;
+            justify-content: left;
+            align-items: center;
+            margin: 0px;
+        }
+
+        .header img {
+            scale: 0.2
+        }
+
+        .header h1 {
+            font-family: Arial, Helvetica, sans-serif;
+            color: black
+        }
+
+        .codeblock {
+            width: 290px;
+            height: 100px;
+            border-radius: 10px;
+            background-color: black;
+            margin: 12px;
+        }
+
+        .codeblock pre {
+            color: white;
+            position: relative;
+            left: -50px;
+        }
+
+        .codeblock1 {
+            width: 350px;
+            height: 100px;
+            border-radius: 10px;
+            background-color: black;
+            margin: 12px;
+        }
+
+        .codeblock1 pre {
+            color: white;
+            position: relative;
+            left: -50px;
+        }
+
+        .square {
+            margin: 10px;
+            background-color: rgb(255, 128, 128);
+            width: 50px;
+            height: 50px;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+        }
+
+        body h1 {
+            font-family: 'Courier New', Courier, monospace;
+            color:white;
+            margin: 12px;
+        }
+
+        #title {
+            color: green;
+            font-family: 'Courier New', Courier, monospace;
+            position: relative;
+            left: 50px;
+            background-color:transparent;
+        }
+
+        .container {
+            width: 400px;
+            height: 300px;
+            border-color: #063000;
+            border-style: solid;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        body a {
+            color: orange;
+        }
+        
+        body img {
+            margin: 15px
+        }
+        
+        body button {
+            border-style: solid;
+            border-color: white;
+            border-width: 1.5px;
+            background-color: black;
+            color: white;
+        }
+    </style>
+</head>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <div class="header">
+        <img src="assets/logo1.png">
+        <h1 id="title">Quikarit documentation</h1>
+    </div>
+    <a href="changelogs.html" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 10px; font-size:35pt">Go to the changelogs</a>
+    <p>The QuikArit library adds miscellaneous/QoL functions to Python.</p>
+    <p>Jump to</p>
+    <button onclick="jumptoElement(1)">Misc. math functions</button>
+    <button onclick="jumptoElement(7)">Statistic functions</button>
+    <button onclick="jumptoElement(2)">Logic Gates</button>
+    <button onclick="jumptoElement(3)">Complex/Imaginary math functions</button>
+    <button onclick="jumptoElement(4)">Matrix Operations</button>
+    <button onclick="jumptoElement(5)">Conversion functions</button>
+    <button onclick="jumptoElement(6)">Array sorting functions</button>
+    <button onclick="jumptoElement(8)">Calculus (module)</button>
+    <h1 id="misc">Misc. math functions</h1>
+    <div class="container">
+        <h2>GetxthRoot(x: float, y: float) -> float</h2>
+        <p>Returns the xth root of y.</p>
+        <p style="color:greenyellow">Added in v0.1.0</p>
+        <p style="color:red">Deprecated in v0.2.0</p>
+        <h3>Example usage:</h3>
+        <div class="codeblock">
+            <pre><code>
+            > print(GetxthRoot(3, 8))
+            
+            Output:
+            2.0
+            </code></pre>
+        </div>
+    </div>
+    <div class="container">
+        <h2>GetDivisors(x: int) -> list</h2>
+        <p>Returns the divisors of x.</p>
+        <p style="color:greenyellow">Added in v0.1.0</p>
+        <h3>Example usage:</h3>
+        <div class="codeblock">
+            <pre><code>
+            > print(GetDivisors(8))
+            
+            Output:
+            [1, 2, 4, 8]
+            </code></pre>
+        </div>
+    </div>
+    <div class="container">
+        <h2>Magnitude(x: float, y: float, z: None) -> int</h2>
+        <p>Returns the magnitude of the x, y, z vector. (z is optional).</p>
+        <p style="color:greenyellow">Added in v0.1.0</p>
+        <h3>Example usage:</h3>
+        <div class="codeblock">
+            <pre><code>
+            > print(Magnitude(3, -4, 12))
+            
+            Output:
+            13.0
+            </code></pre>
+        </div>
+    </div>
+    <div class="container">
+        <h2>pythsTheorem(x: float, y: float) -> int</h2>
+        <p>Returns the hypotenuse of the right triangle whose cathetuses are x and y.</p>
+        <p style="color:greenyellow">Added in v0.1.0</p>
+        <h3>Example usage:</h3>
+        <div class="codeblock">
+            <pre><code>
+            > print(pythsTheorem(1, 1))
+            
+            Output:
+            1.4142135623730951
+            </code></pre>
+        </div>
+    </div>
+    <div class="container">
+        <h2>isPrime(x: int) -> bool</h2>
+        <p>Returns True if x is prime, False if not.</p>
+        <p style="color:greenyellow">Added in v0.1.0</p>
+        <h3>Example usage:</h3>
+        <div class="codeblock">
+            <pre><code>
+            > print(isPrime(7))
+            
+            Output:
+            True
+            </code></pre>
+        </div>
+    </div>
+    <div class="container">
+        <h2>GetElementFromPeriodicTable(x: int) -> str</h2>
+        <p>Returns the xth element from the periodic table.</p>
+        <p style="color:greenyellow">Added in v0.1.0</p>
+        <h3>Example usage:</h3>
+        <div class="codeblock1">
+            <pre><code>
+            > print(GetElementFromPeriodicTable(10))
+            
+            Output:
+            "Ne"
+            </code></pre>
+        </div>
+    </div>
+    <div class="container">
+    <h2>isPerfectSquare(n: int) -> bool</h2>
+    <p>Checks if the number n is a perfect square, returns True if so, False otherwise.</p>
+    <p style="color:greenyellow">Added in v0.1.0</p>
+    <h3>Example usage:</h3>
+    <div class="codeblock">
+        <pre><code>
+        > print(isPerfectSquare(25))
+        
+        Output:
+        True
+        </code></pre>
+    </div>
+    </div>
+    <div class="container">
+    <h2>fib(reps: int) -> list</h2>
+    <p>Generates a fibonacci sequence of length reps.</p>
+    <p style="color:greenyellow">Added in v0.1.0</p>
+    <h3>Example usage:</h3>
+    <div class="codeblock">
+        <pre><code>
+        > print(fib(5))
+        
+        Output:
+        [1, 1, 2, 3, 5]
+        </code></pre>
+    </div>
+    </div>
+    <div class="container">
+    <h2>modulo(x: float) -> float</h2>
+    <p>Gets the modulo of x.</p>
+    <p style="color:greenyellow">Added in v0.1.0</p>
+    <p style="color:red">Deprecated in v0.2.0</p>
+    <h3>Example usage:</h3>
+    <div class="codeblock">
+        <pre><code>
+        > print(modulo(-4))
+        
+        Output:
+        4.0
+        </code></pre>
+    </div>
+    </div>
+    <div class="container">
+    <h2>Percent(x: float, y: float) -> float</h2>
+    <p>Returns x% of y.</p>
+    <p style="color:greenyellow">Added in v0.1.0</p>
+    <p style="color:red">Deprecated in v0.2.0</p>
+    <h3>Example usage:</h3>
+    <div class="codeblock">
+        <pre><code>
+        > print(Percent(2, 100))
+        
+        Output:
+        2.0
+        </code></pre>
+    </div>
+    </div>
+    <div class="container">
+    <h2>hexArea(x: float) -> float</h2>
+    <p>Returns the area of a regular hexagon using x as the side.</p>
+    <p style="color:greenyellow">Added in v0.1.0</p>
+    <h3>Example usage:</h3>
+    <div class="codeblock">
+        <pre><code>
+        > print(hexArea(10))
+        
+        Output:
+        259.8076211353316
+        </code></pre>
+    </div>
+    </div>
+    <div class="container">
+    <h2>hexcolorRandom(hasAlpha: bool) -> str</h2>
+    <p>Returns a pseudorandom color. hasAlpha determines if the color has the alpha channel (transparency).</p>
+    <p style="color:greenyellow">Added in v0.1.0</p>
+    <h3>Example usage:</h3>
+    <div class="codeblock">
+        <pre><code>
+        > print(hexcolorRandom(True))
+        
+        Output:
+        "#6E6F0500"
+        </code></pre>
+    </div>
+    </div>
+    <div class="container" style="height:355px;">
+    <h2>termial(x: int) -> int</h2>
+    <p>Calculates the termial of x.</p>
+    <p>$$\sum_{n=1}^{x} n$$</p>
+    <p style="color:rgb(0, 214, 161)">Added in v0.3.0</p>
+    <h3>Example usage:</h3>
+    <div class="codeblock">
+        <pre><code>
+        > print(termial(3))
+        
+        Output:
+        6
+        </code></pre>
+    </div>
+    </div>
+    <div class="container" style="height:355px;">
+    <h2>factorial(x: int) -> int</h2>
+    <p>Calculates the factorial of x.</p>
+    <p>$$\prod_{n=1}^{x} n$$</p>
+    <p style="color:rgb(0, 214, 161)">Added in v0.3.0</p>
+    <h3>Example usage:</h3>
+    <div class="codeblock">
+        <pre><code>
+        > print(factorial(4))
+        
+        Output:
+        24
+        </code></pre>
+    </div>
+    </div>
+    <h1 id="stat">Statistic functions</h1>
+    <div class="container">
+    <h2>mean(x: list) -> float</h2>
+    <p>Returns the mean of a list.</p>
+    <p style="color:greenyellow">Added in v0.1.0</p>
+    <h3>Example usage:</h3>
+    <div class="codeblock">
+        <pre><code>
+        > print(mean([8, 5, 2, 3]))
+        
+        Output:
+        6.25
+        </code></pre>
+    </div>
+    </div>
+    <div class="container">
+    <h2>median(x: list) -> float</h2>
+    <p>Returns the median of a list.</p>
+    <p style="color:greenyellow">Added in v0.1.0</p>
+    <h3>Example usage:</h3>
+    <div class="codeblock">
+        <pre><code>
+        > print(median([8, 5, 2, 3]))
+        
+        Output:
+        3.5
+        </code></pre>
+    </div>
+</div>
+    <div class="container">
+    <h2>geoMean(x: list) -> float</h2>
+    <p>Returns the geometric mean of a list.</p>
+    <p style="color:greenyellow">Added in v0.1.0</p>
+    <h3>Example usage:</h3>
+    <div class="codeblock">
+        <pre><code>
+        > print(geoMean([2, 4, 5, 6]))
+        
+        Output:
+        3.9359793425308607
+        </code></pre>
+    </div>
+    </div>
+    <div class="container" style="height:355px;">
+    <h2>standardDeviation(x: list) -> float</h2>
+    <p>Calculates the standard deviation of list x.</p>
+    <p style="color:rgb(0, 214, 161)">Added in v0.3.0</p>
+    <h3>Example usage:</h3>
+    <div class="codeblock">
+        <pre><code>
+        > print(standardDeviation([1, 2, 3]))
+        
+        Output:
+        1.0
+        </code></pre>
+    </div>
+    </div>
+    <h1 id="logic_gates">Logic Gates</h1>
+    <div class="container" style="width: 400px; height: 425px">
+    <h2>xor(x: bool, y: bool) -> bool</h2>
+    <p>Logic gate XOR.</p>
+    <p>XOR truth table:</p>
+    <img src="assets/xortable.png">
+    <p style="color:greenyellow">Added in v0.1.0</p>
+    <h3>Example usage:</h3>
+    <div class="codeblock">
+        <pre><code>
+        > print(xor(True, False))
+        
+        Output:
+        True
+        </code></pre>
+    </div>
+    </div>
+    <div class="container" style="width: 400px; height: 425px">
+    <h2>xnor(x: bool, y: bool) -> bool</h2>
+    <p>Logic gate XOR.</p>
+    <p>XNOR truth table:</p>
+    <img src="assets/xnortable.png">
+    <p style="color:greenyellow">Added in v0.1.0</p>
+    <h3>Example usage:</h3>
+    <div class="codeblock">
+        <pre><code>
+        > print(xnor(True, False))
+        
+        Output:
+        True
+        </code></pre>
+    </div>
+    </div>
+    <div class="container" style="width: 400px; height: 425px">
+    <h2>nor(x: bool, y: bool) -> bool</h2>
+    <p>Logic gate NOR.</p>
+    <p>NOR truth table:</p>
+    <img src="assets/nortable.png">
+    <p style="color:green">Added in v0.2.0</p>
+    <h3>Example usage:</h3>
+    <div class="codeblock">
+        <pre><code>
+        > print(nor(True, False))
+        
+        Output:
+        False
+        </code></pre>
+    </div>
+    </div>
+    <div class="container" style="width: 400px; height: 425px">
+    <h2>nand(x: bool, y: bool) -> bool</h2>
+    <p>Logic gate NAND.</p>
+    <p>NAND truth table:</p>
+    <img src="assets/nandtable.png">
+    <p style="color:green">Added in v0.2.0</p>
+    <h3>Example usage:</h3>
+    <div class="codeblock">
+        <pre><code>
+        > print(nand(True, False))
+        
+        Output:
+        True
+        </code></pre>
+    </div>
+    </div>
+    <h1 id="cio">Complex/Imaginary Operations</h1>
+    <div class="container">
+    <h2>ComplexAdd(x: str, y: str) -> str</h2>
+    <p>Takes two inputs x and y in the format "a+bi" and adds them.</p>
+    <p style="color:greenyellow">Added in v0.1.0</p>
+    <h3>Example usage:</h3>
+    <div class="codeblock">
+        <pre><code>
+        > print(ComplexAdd("1+2i", "1+2i"))
+        
+        Output:
+        "2+4i"
+        </code></pre>
+    </div>
+    </div>
+    <div class="container">
+    <h2>ComplexSub(x: str, y: str) -> str</h2>
+    <p>Takes two inputs x and y in the format "a+bi" and subtracts them.</p>
+    <p style="color:greenyellow">Added in v0.1.0</p>
+    <h3>Example usage:</h3>
+    <div class="codeblock">
+        <pre><code>
+        > print(ComplexSub("1+2i", "2+2i"))
+        
+        Output:
+        "-1+0i"
+        </code></pre>
+    </div>
+    </div>
+    <div class="container">
+    <h2>ComplexMult(x: str, y: str) -> str</h2>
+    <p>Takes two inputs x and y in the format "a+bi" and multiplies them.</p>
+    <p style="color:greenyellow">Added in v0.1.0</p>
+    <h3>Example usage:</h3>
+    <div class="codeblock">
+        <pre><code>
+        > print(ComplexMult("1+2i", "2+2i"))
+        
+        Output:
+        "-2+6i"
+        </code></pre>
+    </div>
+    </div>
+    <div class="container">
+        <h2>ComplexDiv(x: str, y: str) -> str</h2>
+        <p>Takes two inputs x and y in the format "a+bi" and divides them.</p>
+        <p style="color:green">Added in v0.2.0</p>
+        <h3>Example usage:</h3>
+        <div class="codeblock">
+        <pre><code>
+        > print(ComplexDiv("1+2i", "2+4i"))
+        
+        Output:
+        "0.5+0i"
+        </code></pre>
+        </div>
+    </div>
+    <div class="container">
+    <h2>imaginaryMult(x: str, y: str) -> str</h2>
+    <p>Takes two inputs x and y in the format "bi" and multiplies them.</p>
+    <p style="color:greenyellow">Added in v0.1.0</p>
+    <h3>Example usage:</h3>
+    <div class="codeblock">
+        <pre><code>
+        > print(imaginaryMult("4i", "2i"))
+        
+        Output:
+        "8i"
+        </code></pre>
+    </div>
+    </div>
+    <div class="container">
+    <h2>imaginaryDiv(x: str, y: str) -> str</h2>
+    <p>Takes two inputs x and y in the format "bi" and divides them.</p>
+    <p style="color:greenyellow">Added in v0.1.0</p>
+    <h3>Example usage:</h3>
+    <div class="codeblock">
+        <pre><code>
+        > print(imaginaryDiv("4i", "2i"))
+        
+        Output:
+        "2i"
+        </code></pre>
+    </div>
+    </div>
+    <h1 id="matrix">Matrix Operations</h1>
+    <div class="container">
+    <h2>matrixsum(x: list, y: list) -> list</h2>
+    <p>Takes two inputs x and y and adds their numbers.</p>
+    <p style="color:greenyellow">Added in v0.1.0</p>
+    <p style="color:yellow">Patched in v0.2.0</p>
+    <h3>Example usage:</h3>
+    <div class="codeblock">
+        <pre><code>
+        > print(matrixsum([1, 2], [3, 4]))
+        
+        Output:
+        [4, 6]
+        </code></pre>
+    </div>
+    </div>
+    <div class="container">
+    <h2>matrixsub(x: list, y: list) -> list</h2>
+    <p>Takes two inputs x and y and subtracts their numbers.</p>
+    <p style="color:greenyellow">Added in v0.1.0</p>
+    <p style="color:yellow">Patched in v0.2.0</p>
+    <h3>Example usage:</h3>
+    <div class="codeblock">
+        <pre><code>
+        > print(matrixsub([1, 2], [3, 4]))
+        
+        Output:
+        [-2, -2]
+        </code></pre>
+    </div>
+    </div>
+    <div class="container">
+        <h2>matrixmult(x: list, y: list) -> list</h2>
+        <p>Takes two inputs x and y and multiplies them.</p>
+        <p style="color:green">Added in v0.2.0</p>
+            <h3>Example usage:</h3>
+        <div class="codeblock">
+            <pre style="position:relative;left:-75px"><code>
+            > print(matrixmult([[1, 2], [1, 2]], [[1, 2, 3], 
+            [1, 2, 3]]))
+        
+            Output:
+            [[3, 6, 9], [3, 6, 9]]
+            </code></pre>
+        </div>
+    </div>
+    <div class="container">
+        <h2>matrixdet(x: list) -> int</h2>
+        <p>Takes a matrix x and calculates its determinant (up to 4x4).</p>
+        <p style="color:green">Added in v0.2.0</p>
+            <h3>Example usage:</h3>
+        <div class="codeblock">
+            <pre><code>
+            > print(matrixdet([[1, 2], [1, 2]]))
+        
+            Output:
+            0
+            </code></pre>
+        </div>
+    </div>
+    <div class="container">
+        <h2>flipMatrixSideways(x: list) -> list</h2>
+        <p>Flips the matrix sideways.</p>
+        <p style="color:green">Added in v0.2.0</p>
+            <h3>Example usage:</h3>
+        <div class="codeblock">
+            <pre style="position:relative;left:-75px"><code>
+            > print(flipMatrixSideways([[1, 2, 3], [1, 2, 3]]))
+        
+            Output:
+            [[1, 1], [2, 2], [3, 3]]
+            </code></pre>
+        </div>
+    </div>
+    <h1 id="cf">Conversion functions</h1>
+    <div class="container">
+    <h2>rad2deg(x: float) -> float</h2>
+    <p>Converts radians to degrees.</p>
+    <p style="color:greenyellow">Added in v0.1.0</p>
+    <h3>Example usage:</h3>
+    <div class="codeblock">
+        <pre><code>
+        > print(rad2deg(2*3.14))
+        
+        Output:
+        360.0
+        </code></pre>
+    </div>
+    </div>
+    <div class="container">
+    <h2>deg2rad(x: float) -> float</h2>
+    <p>Converts degrees to radians.</p>
+    <p style="color:greenyellow">Added in v0.1.0</p>
+    <h3>Example usage:</h3>
+    <div class="codeblock">
+        <pre><code>
+        > print(deg2rad(360))
+        
+        Output:
+        6.28318530718
+        </code></pre>
+    </div>
+    </div>
+    <div class="container">
+    <h2>bin2dec(x: str) -> int</h2>
+    <p>Converts binary to decimal.</p>
+    <p style="color:greenyellow">Added in v0.1.0</p>
+    <h3>Example usage:</h3>
+    <div class="codeblock">
+        <pre><code>
+        > print(bin2dec("1010"))
+        
+        Output:
+        10
+        </code></pre>
+    </div>
+    </div>
+    <div class="container">
+    <h2>dec2bin(x: str) -> str</h2>
+    <p>Converts decimal to binary.</p>
+    <p style="color:greenyellow">Added in v0.1.0</p>
+    <h3>Example usage:</h3>
+    <div class="codeblock">
+        <pre><code>
+        > print(dec2bin(10))
+        
+        Output:
+        "1010"
+        </code></pre>
+    </div>
+    </div>
+    <div class="container">
+    <h2>hex2dec(x: str) -> int</h2>
+    <p>Converts hexadecimal to decimal.</p>
+    <p style="color:greenyellow">Added in v0.1.0</p>
+    <h3>Example usage:</h3>
+    <div class="codeblock">
+        <pre><code>
+        > print(hex2dec("1A"))
+        
+        Output:
+        26
+        </code></pre>
+    </div>
+    </div>
+    <div class="container">
+    <h2>hex2bin(x: str) -> str</h2>
+    <p>Converts hexadecimal to binary.</p>
+    <p style="color:greenyellow">Added in v0.1.0</p>
+    <h3>Example usage:</h3>
+    <div class="codeblock">
+        <pre><code>
+        > print(hex2bin("0A"))
+        
+        Output:
+        "1010"
+        </code></pre>
+    </div>
+    </div>
+    <div class="container">
+        <h2>oct2bin(x: int) -> str</h2>
+        <p>Converts octal to binary.</p>
+        <p style="color:green">Added in v0.2.0</p>
+        <h3>Example usage:</h3>
+        <div class="codeblock">
+            <pre><code>
+            > print(oct2bin(7))
+        
+            Output:
+            '111'
+            </code></pre>
+        </div>
+    </div>
+    <div class="container">
+        <h2>oct2dec(x: int) -> int</h2>
+        <p>Converts octal to decimal.</p>
+        <p style="color:green">Added in v0.2.0</p>
+        <h3>Example usage:</h3>
+        <div class="codeblock">
+            <pre><code>
+            > print(oct2dec(7))
+        
+            Output:
+            7
+            </code></pre>
+        </div>
+    </div>
+    <div class="container" style="height:400px;">
+    <h2>hex2bin(x: str) -> str</h2>
+    <p>Converts hexadecimal to binary.</p>
+    <p style="color:rgb(0, 214, 161)">Added in v0.3.0</p>
+    <h3>Example usage:</h3>
+    <div class="codeblock">
+        <pre><code>
+        > print(hex2bin('FF'))
+        
+        Output:
+        '11111111'
+        </code></pre>
+    </div>
+    </div>
+    <div class="container" style="height:400px;">
+    <h2>dec2hex(x: int) -> str</h2>
+    <p>Converts decimal to hexadecimal</p>
+    <p style="color:rgb(0, 214, 161)">Added in v0.3.0</p>
+    <h3>Example usage:</h3>
+    <div class="codeblock">
+        <pre><code>
+        > print(dec2hex(10))
+        
+        Output:
+        'A'
+        </code></pre>
+    </div>
+    </div>
+    <div class="container" style="height:400px;">
+    <h2>bin2hex(x: str) -> float</h2>
+    <p>Converts binary to hexadecimal.</p>
+    <p style="color:rgb(0, 214, 161)">Added in v0.3.0</p>
+    <h3>Example usage:</h3>
+    <div class="codeblock">
+        <pre><code>
+        > print(bin2hex('11111111'))
+        
+        Output:
+        'FF'
+        </code></pre>
+    </div>
+    </div>
+    <h1 id="asf">Array sorting functions</h1>
+    <div class="container" style="width: 400px; height: 375px">
+    <h2>isSorted(x: list, orient: None)</h2>
+    <p>Checks if the list x is sorted. Returns True if so, False otherwise.</p>
+    <p>The orient parameter determines if the checking will occur from the smallest to the biggest (None/True), or the opposite (False)</p>
+    <p style="color:greenyellow">Added in v0.1.0</p>
+    <h3>Example usage:</h3>
+    <div class="codeblock">
+        <pre><code>
+        > print(isSorted([1, 2, 3], None))
+        
+        Output:
+        True
+        </code></pre>
+    </div>
+    </div>
+    <div class="container" style="width: 400px; height: 375px">
+    <h2>flipList(x: list)</h2>
+    <p>Flips the order of elements in a list.</p>
+    <p style="color:greenyellow">Added in v0.1.0</p>
+    <h3>Example usage:</h3>
+    <div class="codeblock">
+        <pre><code>
+        > print(flipList([0, 1, 2]))
+        
+        Output:
+        [2, 1, 0]
+        </code></pre>
+    </div>
+    </div>
+    <div class="container" style="width: 400px; height: 375px">
+    <h2>bogoSort(x: list)</h2>
+    <p>Sorts the list x by shuffling it randomly until it is sorted.</p>
+    <p style="color:greenyellow">Added in v0.1.0</p>
+    <p>Avg.</p>
+    <div class="square" style="background-color:rgb(204, 0, 0)">
+    <p>$$n \cdot n!$$</p>
+    </div>
+    <h3>Example usage:</h3>
+    <div class="codeblock">
+        <pre><code>
+        > print(bogoSort([0, 1, -1]))
+        
+        Output:
+        [-1, 0, 1]
+        </code></pre>
+    </div>
+    </div>
+    <div class="container" style="width: 400px; height: 375px">
+    <h2>selectionSort(x: list)</h2>
+    <p>Sorts the list x by getting the smallest number in the list and moving it to the first index of the list and so on.</p>
+    <p style="color:greenyellow">Added in v0.1.0</p>
+    <p>Avg.</p>
+    <div class="square">
+        <p>$$n^2$$</p>
+    </div>
+    <h3>Example usage:</h3>
+    <div class="codeblock">
+        <pre><code>
+        > print(selectionSort([1, 2, -1]))
+        
+        Output:
+        [-1, 1, 2]
+        </code></pre>
+    </div>
+    </div>
+    <div class="container">
+    <h2>stalinSort(x: list)</h2>
+    <p>"Sorts" the list by removing every number out of order.</p>
+    <p style="color:greenyellow">Added in v0.1.0</p>
+    <h3>Example usage:</h3>
+    <div class="codeblock">
+        <pre><code>
+        > print(stalinSort([1, 2, -1]))
+        
+        Output:
+        [1, 2]
+        </code></pre>
+    </div>
+    </div>
+        <div class="container">
+        <h2>bubbleSort(x: list) -> list</h2>
+        <p>Sorts the list x by switching the numbers out of order until they are sorted.</p>
+        <p style="color:green">Added in v0.2.0</p>
+            <h3>Example usage:</h3>
+        <div class="codeblock">
+            <pre><code>
+            > print(bubbleSort([3, 4, 2, 1]))
+        
+            Output:
+            [1, 2, 3, 4]
+            </code></pre>
+        </div>
+    </div>
+    <h1 id="calc">Calculus (module)</h1>
+    <div class="container" style="height:355px;">
+    <h2>solveQuadratic(x: str) -> list</h2>
+    <p>Solves quadratic equations strictly in the form of ax^2+bx+c(=0).</p>
+    <p style="color:rgb(251, 255, 0)">Don't put the '=0' part.</p>
+    <p style="color:rgb(0, 214, 161)">Added in v0.3.0</p>
+    <h3>Example usage:</h3>
+    <div class="codeblock">
+        <pre><code>
+        > print(solveQuadratic('2x^2+2x+3'))
+        
+        Output:
+        [(-0.49999999999999994+1.118033988749895j), (-0.5...
+        </code></pre>
+    </div>
+    </div>
+    <div class="container" style="height:400px;">
+    <h2>summation(upperLimit: int, variable: str, startingValue: int, expr: str) -> float</h2>
+    <p>Calculates the summation of expression expr.</p>
+    <p>$$\sum_{variable=startingValue}^{upperLimit} expr$$</p>
+    <p style="color:rgb(0, 214, 161)">Added in v0.3.0</p>
+    <h3>Example usage:</h3>
+    <div class="codeblock">
+        <pre><code>
+        > print(summation(3, 'x', 1, '2x'))
+        
+        Output:
+        12.0
+        </code></pre>
+    </div>
+    </div>
+    <div class="container" style="height:400px;">
+    <h2>product(upperLimit: int, variable: str, startingValue: int, expr: str) -> float</h2>
+    <p>Calculates the product of expression expr.</p>
+    <p>$$\prod_{variable=startingValue}^{upperLimit} expr$$</p>
+    <p style="color:rgb(0, 214, 161)">Added in v0.3.0</p>
+    <h3>Example usage:</h3>
+    <div class="codeblock">
+        <pre><code>
+        > print(product(3, 'x', 1, '2x'))
+        
+        Output:
+        48.0
+        </code></pre>
+    </div>
+    </div>
+    <div class="container" style="height:400px;">
+    <h2>sin(x: float, accuracy=None) -> float</h2>
+    <p>Calculates the sine of x (in radians) with accuracy tune.</p>
+    <p style="color:rgb(0, 214, 161)">Added in v0.3.0</p>
+    <h3>Example usage:</h3>
+    <div class="codeblock">
+        <pre><code>
+        > print(sin(3.14159, accuracy=25))
+        
+        Output:
+        2.653589793297756e-06
+        </code></pre>
+    </div>
+    </div>
+    <div class="container" style="height:400px;">
+    <h2>cos(x: float, accuracy=None) -> float</h2>
+    <p>Calculates the cosine of x (in radians) with accuracy tune.</p>
+    <p style="color:rgb(0, 214, 161)">Added in v0.3.0</p>
+    <h3>Example usage:</h3>
+    <div class="codeblock">
+        <pre><code>
+        > print(cos(3.14159, accuracy=25))
+        
+        Output:
+        -0.999999999996479
+        </code></pre>
+    </div>
+    </div>
+    <div class="container" style="height:400px;">
+    <h2>tan(x: float, acc=None) -> float</h2>
+    <p>Calculates the tangent of x (in radians) with accuracy tune.</p>
+    <p style="color:rgb(0, 214, 161)">Added in v0.3.0</p>
+    <h3>Example usage:</h3>
+    <div class="codeblock">
+        <pre><code>
+        > print(tan(3.14159, acc=25))
+        
+        Output:
+        -2.653589793307099e-06
+        </code></pre>
+    </div>
+    </div>
+    <div class="container" style="height:400px;">
+    <h2>arctan(x: float, acc=None) -> float</h2>
+    <p>Calculates the arctangent of x (in radians) with accuracy tune.</p>
+    <p style="color:rgb(0, 214, 161)">Added in v0.3.0</p>
+    <h3>Example usage:</h3>
+    <div class="codeblock">
+        <pre><code>
+        > print(arctan(1, acc=25))
+        
+        Output:
+        0.7757863282215032
+        </code></pre>
+    </div>
+    </div>
+    <div class="container" style="height:400px;">
+    <h2>slopeAngle(x: str) -> float</h2>
+    <p>Calculates the angle (in radians) of linear function x in the form of y=mx+b.</p>
+    <p style="color:rgb(0, 214, 161)">Added in v0.3.0</p>
+    <h3>Example usage:</h3>
+    <div class="codeblock">
+        <pre><code>
+        > print(slopeAngle('x'))
+        
+        Output:
+        0.7934605842976876
+        </code></pre>
+    </div>
+    </div>
+    <div class="container" style="height:400px;">
+    <h2>findSlopebyAngle(x: float) -> float</h2>
+    <p>Calculates the m in the y=mx+b formula.</p>
+    <p>! Attention -- x is in radians.</p>
+    <p style="color:rgb(0, 214, 161)">Added in v0.3.0</p>
+    <h3>Example usage:</h3>
+    <div class="codeblock">
+        <pre><code>
+        > print(findSlopebyAngle(0.7757863282215032))
+        
+        Output:
+        0.981
+        </code></pre>
+    </div>
+    </div>
+</body>
+<script>
+    function jumptoElement(x) {
+        switch (x) {
+            case 1:
+                document.getElementById("misc").scrollIntoView({behavior: 'smooth'});
+                break
+            case 2:
+                document.getElementById("logic_gates").scrollIntoView({behavior: 'smooth'});
+                break
+            case 3:
+                document.getElementById("cio").scrollIntoView({behavior: 'smooth'});
+                break
+            case 4:
+                document.getElementById("matrix").scrollIntoView({behavior: 'smooth'});
+                break
+            case 5:
+                document.getElementById("cf").scrollIntoView({behavior: 'smooth'});
+                break
+            case 6:
+                document.getElementById("asf").scrollIntoView({behavior: 'smooth'});
+                break
+            case 7:
+                document.getElementById("stat").scrollIntoView({behavior: 'smooth'});
+                break
+            case 8:
+                document.getElementById("calc").scrollIntoView({behavior: 'smooth'});
+                break
+        }
+    }
+</script>

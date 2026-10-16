@@ -1,0 +1,212 @@
+<head>
+    <style>
+        body {
+            margin: 0;
+            background-color: black;
+        }
+
+        body p {
+            margin: 12px;
+            font-family: Arial, Helvetica, sans-serif;
+            color: white
+        }
+        
+        body a {
+            color: orange;
+        }
+
+        body h2 {
+            margin: 12px;
+            font-family: monospace;
+            font-size: 50pt;
+            color: white;
+            background-color:cadetblue;
+            width: fit-content;
+        }
+        
+        body h3 {
+            margin: 12px;
+            font-size: 20px;
+            font-style: italic;
+            font-family: monospace;
+            color: white
+        }
+
+        .header {
+            width: 100%;
+            height: 100px;
+            background: #000000;
+            background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(97, 97, 97, 1) 100%);
+            display: flex;
+            justify-content: left;
+            align-items: center;
+            margin: 0px;
+        }
+
+        .header img {
+            scale: 0.2
+        }
+
+        .header h1 {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .codeblock {
+            width: 290px;
+            height: 100px;
+            border-radius: 10px;
+            background-color: black;
+            margin: 12px;
+        }
+
+        .codeblock pre {
+            color: white;
+            position: relative;
+            left: -50px;
+        }
+
+        .codeblock1 {
+            width: 350px;
+            height: 100px;
+            border-radius: 10px;
+            background-color: gray;
+            margin: 12px;
+        }
+
+        .codeblock1 pre {
+            color: white;
+            position: relative;
+            left: -50px;
+        }
+
+        .square {
+            margin: 10px;
+            background-color: rgb(255, 128, 128);
+            width: 50px;
+            height: 50px;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+        }
+
+        body h1 {
+            font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            color:darkolivegreen;
+        }
+
+        body ul {
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+       
+
+        #title {
+            color:black;
+            font-family: 'Courier New', Courier, monospace;
+            position: relative;
+            left: 50px;
+        }
+
+        .container {
+            width: 400px;
+            height: 275px;
+            border-style: dashed;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+    </style>
+</head>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" type="image/x-icon" href="assets/logoSmall1.png">
+  <title>changelogs</title>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <div class="header">
+        <img src="assets/logo1.png">
+        <h1 id="title" style="color:green">Changelogs</h1>
+    </div>
+    <a href="index.html" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 10px; font-size:35pt">Go to the docs</a>
+    <h2>QuikArit v0.3.0</h2>
+    <p>Added the following functions:</p>
+    <ul>
+        <li>
+            Conversion -- hex2bin, dec2hex, bin2hex functions
+        </li>
+        <li>
+            Misc. -- Factorial and termial functions
+        </li>
+        <li>
+            Trigonometry -- Sine, cosine, tangent and arctangent
+        </li>
+        <li>
+            Slopes -- findSlopebyAngle and slopeAngle functions
+        </li>
+        <li>
+            Calculus -- Summation and product functions.
+        </li>
+        <li>
+            Statistics -- Standard deviation function.
+        </li>
+        <li>
+            Calculus -- Quadratic solver function.
+        </li>
+        <li>
+            Other -- Added some module subdivision to make code more organized.
+        </li>
+    </ul>
+    <p style="color: red">Still in development</p>
+    <h2>QuikArit v0.2.0</h2>
+    <p style="color: yellow">Patched matrix functions.</p>
+    <p style="color: yellow">Patched hex conversion functions (support for lowercase).</p>
+    <p>Added the following functions:</p>
+    <ul>
+        <li>
+            Matrix Multiplication -- matrixmult(x: list, y: list) -> list
+        </li>
+        <li>
+            Matrix Determinant -- matrixdet(x: list) -> int
+        </li>
+        <li>
+            Complex Division -- ComplexDiv(x: str, y: str) -> str
+        </li>
+        <li>
+            NOR gate -- nor(x: bool, y: bool) -> bool
+        </li>
+        <li>
+            NAND gate -- nand(x: bool, y: bool) -> bool
+        </li>
+        <li>
+            Octal to Decimal conversion --  oct2dec(x: str) -> int
+        </li>
+        <li>
+            Octal to Binary conversion --  oct2bin(x: str) -> int
+        </li>
+        <li>
+            Other highly specific functions (used inside other functions)
+        </li>
+    </ul>
+    <p>Deprecated functions:</p>
+    <ul>
+        <li>
+            Get2Exp
+        </li>
+        <li>
+            modulo
+        </li>
+        <li>
+            Percent
+        </li>
+        <li>
+            Getxthroot
+        </li>
+    </ul>
+    <p style="color: red">Still in development</p>
+    <h2>QuikArit v0.1.0</h2>
+    <p style="color: green">First public release</p>
+    <p>Added 35 functions.</p>
+    <p style="color: red">Still in development</p>
+</body>
