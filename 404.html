@@ -1,0 +1,128 @@
+<head>
+    <style>
+        .banner {
+            width: 100%;
+            height: 15vh;
+            border: .1vw solid black;
+        }
+
+        body {
+            background-color: black;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        @keyframes blink {
+            0% {
+                opacity: 1
+            }
+            50% {
+                opacity: 0.2
+            }
+            100% {
+                opacity: 1
+            }
+        }
+
+        @keyframes fadein {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeout {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+
+            }
+        }
+
+        .star {
+            width: 2.5px;
+            height: 2.5px;
+            animation: blink 2s infinite;
+            background-color: white;
+            border-radius: 100%;
+        }
+
+        .explosion {
+            width: 700px;
+            height: 700px;
+            animation: fadeout 3s;
+            background-color: rgb(255, 153, 0);
+            border-radius: 100%;
+        }
+
+        #btn1 {
+            animation: fadein 3.5s;
+        }
+        
+        #btn2 {
+            animation: fadein 3.5s;
+        }
+
+        body a {
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <p style="color: white; font-size: 96pt; margin: 2px;">404</p>
+    <p id="message" style="color: white; font-size: 24pt; margin: 2px;">Placeholder</p>
+</body>
+<script>
+    for (let i = 0; i <= 250; i++) {
+        let newstar = document.createElement("div");
+        newstar.classList.add("star");
+        newstar.style.position = "absolute";
+        newstar.style.left = Math.random() * 100 + "%";
+        newstar.style.top = Math.random() * 100 + "%";
+        newstar.style.animationDelay = Math.random() * 2.5 + "s"
+        document.body.appendChild(newstar)
+    }
+
+    function gmousecoords(e) {
+        return [e.clientX, e.clientY]
+    }
+
+    let timer = 0;
+
+    document.addEventListener("mousemove", (e) => {
+        if (timer < 1) {
+            timer += 0.1;
+        }
+        else {
+            let newstar = document.createElement("div");
+            newstar.classList.add("star");
+            newstar.style.position = "absolute";
+            newstar.style.left = gmousecoords(e)[0] + "px";
+            newstar.style.top = gmousecoords(e)[1] + "px";
+            newstar.style.animationDelay = Math.random() * 2.5 + "s"
+            document.body.appendChild(newstar)
+            timer = 0;
+        }
+    })
+
+    let n = Math.round((Math.random() * 10)-1)
+    n = Math.sign(n) * n
+    let label = document.getElementById("message")
+    let messages = ["Tem certeza que essa é a página correta?", "Vai pra outro lugar", "Eu devo ter explodido essa página", "Não sei onde tá essa página", 
+    "Cadê a página?", "Alguém deve ter rasgado essa página", "Visite pudim.com.br", "Volta pra página de onde você veio!", "catapimbas", 
+    "vai catar coquinho"]
+    if (n == 6) {
+        label.textContent = "Visite "
+        let link = document.createElement("a")
+        link.href = "https://pudim.com.br"
+        link.textContent = "pudim.com.br"
+        label.appendChild(link)
+    }
+    else {
+        label.textContent = messages[n]
+    }
+</script>
