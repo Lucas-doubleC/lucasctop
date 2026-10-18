@@ -50,6 +50,25 @@
         #title::after {
             transition-duration: 0.5s;
         }
+
+        #projsubtitle {
+            position: relative;
+            animation: fadein 3.5s;
+            top: 10vh;
+            font-family:monospace;
+            font-size: 3vh;
+            margin: 0.2vh;
+        }
+
+        #links2social {
+            z-index: 4;
+            position: relative;
+            animation: fadein 3.5s;
+            top: 10vh;
+            font-family:monospace;
+            font-size: 3vh;
+            margin: 0.2vh;
+        }
         
         body ul, li {
             z-index: 4;
@@ -86,7 +105,7 @@
         <div class="cloudball" style="position: relative; top: -560px; left: 45px;"></div>
     </div> -->
     <p id="title">Lucas da Costa Campos</p>
-    <p style="font-size: 8.5vh; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; position: relative; top: 6.5vh;">Projetos</p>
+    <p id="projsubtitle" style="font-size: 8.5vh; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; position: relative; top: 6.5vh;">Projetos</p>
     <ul id="listofproj" style="position: relative; top: -2vh;">
         <li>
             <a href="https://lucascampos.top/atoms-1">atoms-1: Uma coleção de páginas de simulações e outros projetos;</a>
@@ -101,7 +120,7 @@
     <!-- <a href="https://github.com/Lucas-doubleC"><img id="github" src="assets/github.png"></a>
     <a href="https://youtube.com/@lucao_editao"><img id="yt" src="assets/youtube.png"></a> -->
     <br>
-    <div style="position: relative; top: 10vh; z-index: 4;">
+    <div id="links2social" style="position: relative; top: 10vh; z-index: 4;">
         <a id="github" style="color: black; font-size: 6.5vh;" href="https://github.com/Lucas-doubleC">GitHub</a>
         <br>
         <a id="yt" style="color: red; font-size: 6.5vh;" href="https://youtube.com/@lucao_editao">YouTube</a>
