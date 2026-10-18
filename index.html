@@ -1,22 +1,22 @@
 <head>
     <style>
         .cloudcontainer {
-            width: 250px;
-            height: 125px;
+            width: 27vh;
+            height: 13.5vh;
         }
 
         .cloudrect {
-            width: 200px;
-            height: 55px;
+            width: 21.5vh;
+            height: 5.93vh;
             background-color: white;
             position: relative;
-            top: 70px;
-            left: 25px;
+            top: 7.5vh;
+            left: 2.7vh;
         }
 
         .cloudball {
-            width: 80px;
-            height: 80px;
+            width: 8.6vh;
+            height: 8.6vh;
             background-color: white;
             border-radius: 100%;
         }
@@ -25,7 +25,7 @@
             background: #91c8ff;
             background: linear-gradient(0deg,rgba(145, 200, 255, 1) 0%, rgba(0, 183, 255, 1) 100%);
             background-repeat: no-repeat;
-            overflow: hidden;
+            overflow-x: hidden;
             text-align: center;
         }
 
@@ -57,30 +57,13 @@
             animation: fadein 3.5s;
             top: 10vh;
             font-family:monospace;
-            font-size: 25pt;
+            font-size: 3vh;
+            margin: 0.2vh;
         }
 
-        #github {
-            transition-duration: 0.5s;
-            scale: 0.25;
-            position: relative; 
-            left: -28vw; 
+        body a {
             z-index: 4;
-            margin: 0;
-        }
-
-        #yt {
-            transition-duration: 0.5s;
-            scale: 0.25;
-            position: relative; 
-            left: -45vw; 
-            z-index: 4;
-            margin: 0;
-        }
-
-        #github:hover, #yt:hover {
-            scale: 0.3;
-            transition-duration: 0.5s;
+            font-family:monospace;
         }
 
         body img {
@@ -115,8 +98,14 @@
             <a href="https://lucascampos.top/misc">Outros: Outros projetos não relacionados.</a>
         </li>
     </ul>
-    <a href="https://github.com/Lucas-doubleC"><img id="github" src="assets/github.png"></a>
-    <a href="https://youtube.com/@lucao_editao"><img id="yt" src="assets/youtube.png"></a>
+    <!-- <a href="https://github.com/Lucas-doubleC"><img id="github" src="assets/github.png"></a>
+    <a href="https://youtube.com/@lucao_editao"><img id="yt" src="assets/youtube.png"></a> -->
+    <br>
+    <div style="position: relative; top: 10vh; z-index: 4;">
+        <a id="github" style="color: black; font-size: 6.5vh;" href="https://github.com/Lucas-doubleC">GitHub</a>
+        <br>
+        <a id="yt" style="color: red; font-size: 6.5vh;" href="https://youtube.com/@lucao_editao">YouTube</a>
+    </div>
 </body>
 <script>
     // create the sun
@@ -125,6 +114,10 @@
     let titleLabel = document.getElementById("title")
     let listproj = document.getElementById("listofproj")
     let links = [...document.querySelectorAll("a")]
+    let githublink = document.getElementById("github")
+    let ytlink = document.getElementById("yt")
+    githublink.style.zIndex = 4;
+    ytlink.style.zIndex = 4;
     function scenery() {
         changeTheme();
         createThematic(theme);
@@ -157,6 +150,8 @@
             links.forEach(a => {
                 a.style.color = "#F0F000"
             })
+            githublink.style.color = "#4d4d4d"
+            ytlink.style.color = "#e80f00";
         }
         else {
             // create moon - night
@@ -169,7 +164,7 @@
             mc.style.top = 20 + "vh";
             let moon = document.createElement("div")
             moon.classList.add("cloudball")
-            moon.style.scale = 1.5;
+            moon.style.scale = 1.52;
             moon.style.position = "relative"
             moon.style.backgroundColor = "#878787";
             let crater = document.createElement("div")
@@ -215,6 +210,8 @@
             links.forEach(a => {
                 a.style.color = "grey"
             })
+            githublink.style.color = "#FFFFFF"
+            ytlink.style.color = "#e80f00";
         }
     }
 
@@ -229,48 +226,48 @@
         let cb1 = document.createElement("div")
         cb1.classList.add("cloudball");
         cb1.style.position = "relative";
-        cb1.style.left = "175px"
+        cb1.style.left = "18.8vh"
         cc.appendChild(cb1)
         let cb2 = document.createElement("div")
         cb2.classList.add("cloudball");
         cb2.style.position = "relative";
-        cb2.style.top = "-80px"
+        cb2.style.top = "-8.6vh"
         cc.appendChild(cb2)
         let cb3 = document.createElement("div")
         cb3.classList.add("cloudball");
         cb3.style.position = "relative";
-        cb3.style.left = "45px"
-        cb3.style.top = "-200px"
+        cb3.style.left = "4.85vh"
+        cb3.style.top = "-21.5vh"
         cc.appendChild(cb3)
         let cb4 = document.createElement("div")
         cb4.classList.add("cloudball");
         cb4.style.position = "relative";
-        cb4.style.left = "90px"
-        cb4.style.top = "-300px"
+        cb4.style.left = "9.7vh"
+        cb4.style.top = "-32.36vh"
         cc.appendChild(cb4)
         let cb5 = document.createElement("div")
         cb5.classList.add("cloudball");
         cb5.style.position = "relative";
-        cb5.style.left = "135px"
-        cb5.style.top = "-360px"
+        cb5.style.left = "14.56vh"
+        cb5.style.top = "-38.83vh"
         cc.appendChild(cb5)
         let cb6 = document.createElement("div")
         cb6.classList.add("cloudball");
         cb6.style.position = "relative";
-        cb6.style.left = "135px"
-        cb6.style.top = "-400px"
+        cb6.style.left = "14.56vh"
+        cb6.style.top = "-43.14vh"
         cc.appendChild(cb6)
         let cb7 = document.createElement("div")
         cb7.classList.add("cloudball");
         cb7.style.position = "relative";
-        cb7.style.left = "95px"
-        cb7.style.top = "-480px"
+        cb7.style.left = "10.25vh"
+        cb7.style.top = "-51.78vh"
         cc.appendChild(cb7)        
         let cb8 = document.createElement("div")
         cb8.classList.add("cloudball");
         cb8.style.position = "relative";
-        cb8.style.left = "45px"
-        cb8.style.top = "-560px"
+        cb8.style.left = "4.85vh"
+        cb8.style.top = "-60.41vh"
         cc.appendChild(cb8)
         cb1.style.backgroundColor = cloudColor
         cb2.style.backgroundColor = cloudColor
@@ -280,6 +277,7 @@
         cb6.style.backgroundColor = cloudColor
         cb7.style.backgroundColor = cloudColor
         cb8.style.backgroundColor = cloudColor
+        cc.style.zIndex = 3;
         return cc
     }
 
