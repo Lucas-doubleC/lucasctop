@@ -40,7 +40,7 @@
         }
 
         #title {
-            font-size: 74pt;
+            font-size: 10.6vh;
             font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             animation: fadein 3.5s;
             position: relative;
@@ -59,6 +59,34 @@
             font-family:monospace;
             font-size: 25pt;
         }
+
+        #github {
+            transition-duration: 0.5s;
+            scale: 0.25;
+            position: relative; 
+            left: -28vw; 
+            z-index: 4;
+            margin: 0;
+        }
+
+        #yt {
+            transition-duration: 0.5s;
+            scale: 0.25;
+            position: relative; 
+            left: -45vw; 
+            z-index: 4;
+            margin: 0;
+        }
+
+        #github:hover, #yt:hover {
+            scale: 0.3;
+            transition-duration: 0.5s;
+        }
+
+        body img {
+            display: inline-block;
+            vertical-align: middle;
+        }
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 </head>
@@ -75,7 +103,8 @@
         <div class="cloudball" style="position: relative; top: -560px; left: 45px;"></div>
     </div> -->
     <p id="title">Lucas da Costa Campos</p>
-    <ul id="listofproj">
+    <p style="font-size: 8.5vh; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; position: relative; top: 6.5vh;">Projetos</p>
+    <ul id="listofproj" style="position: relative; top: -2vh;">
         <li>
             <a href="https://lucascampos.top/atoms-1">atoms-1: Uma coleção de páginas de simulações e outros projetos;</a>
         </li>
@@ -86,6 +115,8 @@
             <a href="https://lucascampos.top/misc">Outros: Outros projetos não relacionados.</a>
         </li>
     </ul>
+    <a href="https://github.com/Lucas-doubleC"><img id="github" src="assets/github.png"></a>
+    <a href="https://youtube.com/@lucao_editao"><img id="yt" src="assets/youtube.png"></a>
 </body>
 <script>
     // create the sun
@@ -261,6 +292,9 @@
     }
 
     let timer = 0;
+    let dt = 0;
+    let ct = 0;
+    let lt = 0;
 
     function cloudUpdate() {
         clouds.forEach(cloud => {
