@@ -27,6 +27,11 @@
             background-repeat: no-repeat;
             overflow-x: hidden;
             text-align: center;
+            transition-duration: 0.5s;
+        }
+
+        body::after {
+            transition-duration: 0.5s;
         }
 
         @keyframes fadein {
@@ -89,6 +94,63 @@
             display: inline-block;
             vertical-align: middle;
         }
+
+        @keyframes blink {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.2;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes appearsun {
+            0% {
+                top: 100vh;
+            }
+            100% {
+                top: 20vh;
+            }
+        }
+
+        @keyframes appearmoon {
+            0% {
+                top: 100vh;
+            }
+            100% {
+                top: 0vh;
+            }
+        }
+
+        @keyframes turnday {
+            0% {
+                background: linear-gradient(0deg,rgba(0, 0, 0, 1) 0%, rgba(48, 48, 48, 1) 100%);
+            }
+            100% {
+                background: linear-gradient(0deg,rgba(145, 200, 255, 1) 0%, rgba(0, 183, 255, 1) 100%);
+            }
+        }
+
+        @keyframes turnnight {
+            0% {
+                background: linear-gradient(0deg,rgba(145, 200, 255, 1) 0%, rgba(0, 183, 255, 1) 100%);
+            }
+            100% {
+                background: linear-gradient(0deg,rgba(0, 0, 0, 1) 0%, rgba(48, 48, 48, 1) 100%);
+            }
+        }
+
+        .star {
+            width: 2.5px;
+            height: 2.5px;
+            background-color: white;
+            animation: 2s blink ease-in-out;
+        }
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 </head>
@@ -125,6 +187,9 @@
         <br>
         <a id="yt" style="color: red; font-size: 6.5vh;" href="https://youtube.com/@lucao_editao">YouTube</a>
     </div>
+    <div id="body2" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0;">
+        <!-- stars go here -->
+    </div>
 </body>
 <script>
     // create the sun
@@ -137,6 +202,22 @@
     let ytlink = document.getElementById("yt")
     githublink.style.zIndex = 4;
     ytlink.style.zIndex = 4;
+
+    // make the stars
+    let b2 = document.getElementById('body2')
+        for (let i = 0; i <= 250; i++) {
+            let nstar = document.createElement('div');
+            nstar.classList.add('star')
+            nstar.style.width = Math.random() * 2.5 + "px"
+            nstar.style.height = nstar.style.width;
+            nstar.style.position = "relative";
+            nstar.style.display = "none";
+            nstar.style.left = Math.random() * 100 + "%"
+            nstar.style.top = Math.random() * 100 + "%"
+            nstar.style.animationDelay = Math.random() * 3 + "s"
+            b2.appendChild(nstar)
+        }
+
     function scenery() {
         changeTheme();
         createThematic(theme);
@@ -159,6 +240,7 @@
             sun.style.left = 85 + "vw";
             sun.style.top = 20 + "vh";
             sun.style.backgroundColor = "yellow";
+            sun.style.animation = "0.5s appearsun ease-in-out"
             sun.addEventListener("click", (e) => {
                 scenery();
             })
@@ -171,8 +253,14 @@
             })
             githublink.style.color = "#4d4d4d"
             ytlink.style.color = "#e80f00";
+            [...b2.querySelectorAll('div')].forEach(star => {
+                star.style.display = "none"
+            })
         }
         else {
+            [...b2.querySelectorAll('div')].forEach(star => {
+                star.style.display = "block";
+            })
             // create moon - night
             let mc = document.createElement("div")
             mc.classList.add("cloudcontainer")
@@ -186,6 +274,7 @@
             moon.style.scale = 1.52;
             moon.style.position = "relative"
             moon.style.backgroundColor = "#878787";
+            moon.style.animation = "0.5s appearmoon ease-in-out"
             let crater = document.createElement("div")
             crater.classList.add("cloudball")
             crater.style.scale = 0.35;
@@ -193,6 +282,7 @@
             crater.style.backgroundColor = "#363636";;
             crater.style.top = -55 + "px";
             crater.style.left = -30 + "px";
+            crater.style.animation = "0.5s appearmoon ease-in-out"
             let crater2 = document.createElement("div")
             crater2.classList.add("cloudball")
             crater2.style.scale = 0.35;
@@ -200,6 +290,7 @@
             crater2.style.backgroundColor = "#363636";;
             crater2.style.top = -180 + "px";
             crater2.style.left = -10 + "px";
+            crater2.style.animation = "0.5s appearmoon ease-in-out"
             let crater3 = document.createElement("div")
             crater3.classList.add("cloudball")
             crater3.style.scale = 0.35;
@@ -207,6 +298,7 @@
             crater3.style.backgroundColor = "#363636";;
             crater3.style.top = -210 + "px";
             crater3.style.left = 20 + "px";
+            crater3.style.animation = "0.5s appearmoon ease-in-out"
             let crater4 = document.createElement("div")
             crater4.classList.add("cloudball")
             crater4.style.scale = 0.35;
@@ -214,6 +306,7 @@
             crater4.style.backgroundColor = "#363636";;
             crater4.style.top = -330 + "px";
             crater4.style.left = 30 + "px";
+            crater4.style.animation = "0.5s appearmoon ease-in-out"
             mc.addEventListener("click", (e) => {
                 scenery();
             })
@@ -223,13 +316,14 @@
             mc.appendChild(crater2)
             mc.appendChild(crater3)
             mc.appendChild(crater4)
+
             document.body.style.background = "linear-gradient(0deg,rgba(0, 0, 0, 1) 0%, rgba(48, 48, 48, 1) 100%)"
             titleLabel.style.color = "#FFFFFF"
             cloudColor = "#402D00"
             links.forEach(a => {
                 a.style.color = "grey"
             })
-            githublink.style.color = "#FFFFFF"
+            githublink.style.color = "#FFFFFF";
             ytlink.style.color = "#e80f00";
         }
     }
