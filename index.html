@@ -148,8 +148,8 @@
         }
 
         .star {
-            width: 2.5px;
-            height: 2.5px;
+            width: 0.0027vh;
+            height: 0.0027vh;
             background-color: white;
             animation: 2s blink ease-in-out;
         }
@@ -206,13 +206,14 @@
         for (let i = 0; i <= 250; i++) {
             let nstar = document.createElement('div');
             nstar.classList.add('star')
-            nstar.style.width = Math.random() * 2.5 + "px"
+            nstar.style.width = Math.random() * 0.015 + "vh"
             nstar.style.height = nstar.style.width;
             nstar.style.position = "relative";
             nstar.style.display = "none";
             nstar.style.left = Math.random() * 100 + "%"
             nstar.style.top = Math.random() * 100 + "%"
             nstar.style.animationDelay = Math.random() * 3 + "s"
+            nstar.style.borderRadius = 100 + "%"
             b2.appendChild(nstar)
         }
 
@@ -247,6 +248,7 @@
             document.body.style.background = "linear-gradient(0deg,rgba(145, 200, 255, 1) 0%, rgba(0, 183, 255, 1) 100%)"
             cloudColor = "#FFFFFF"
             titleLabel.style.color = "#000000"
+            document.getElementById("projsubtitle").style.color = "#000000"
             links.forEach(a => {
                 a.style.color = "#F0F000"
             })
@@ -280,46 +282,19 @@
             crater.style.scale = 0.35;
             crater.style.position = "relative"
             crater.style.backgroundColor = "#363636";;
-            crater.style.top = -55 + "px";
-            crater.style.left = -30 + "px";
+            crater.style.top = -55/927 + "vh";
+            crater.style.left = -30/927 + "vh";
             crater.style.animation = "0.5s appearmoon ease-in-out"
-            let crater2 = document.createElement("div")
-            crater2.classList.add("cloudball")
-            crater2.style.scale = 0.35;
-            crater2.style.position = "relative"
-            crater2.style.backgroundColor = "#363636";;
-            crater2.style.top = -180 + "px";
-            crater2.style.left = -10 + "px";
-            crater2.style.animation = "0.5s appearmoon ease-in-out"
-            let crater3 = document.createElement("div")
-            crater3.classList.add("cloudball")
-            crater3.style.scale = 0.35;
-            crater3.style.position = "relative"
-            crater3.style.backgroundColor = "#363636";;
-            crater3.style.top = -210 + "px";
-            crater3.style.left = 20 + "px";
-            crater3.style.animation = "0.5s appearmoon ease-in-out"
-            let crater4 = document.createElement("div")
-            crater4.classList.add("cloudball")
-            crater4.style.scale = 0.35;
-            crater4.style.position = "relative"
-            crater4.style.backgroundColor = "#363636";;
-            crater4.style.top = -330 + "px";
-            crater4.style.left = 30 + "px";
-            crater4.style.animation = "0.5s appearmoon ease-in-out"
             document.body.appendChild(mc)
             mc.appendChild(moon)
-            mc.appendChild(crater)
-            mc.appendChild(crater2)
-            mc.appendChild(crater3)
-            mc.appendChild(crater4)
-            mc.addEventListener("click", (e) => {
+            moon.addEventListener("click", (e) => {
                 scenery();
             })
 
-            document.body.style.background = "linear-gradient(0deg,rgba(0, 0, 0, 1) 0%, rgba(48, 48, 48, 1) 100%)"
+            document.body.style.background = "linear-gradient(0deg,rgba(0, 0, 0, 1) 0%, rgba(18, 18, 18, 1) 100%)"
             titleLabel.style.color = "#FFFFFF"
-            cloudColor = "#402D00"
+            document.getElementById("projsubtitle").style.color = "#FFFFFF"
+            cloudColor = "#261b00"
             links.forEach(a => {
                 a.style.color = "grey"
             })
