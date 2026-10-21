@@ -239,7 +239,7 @@
             sun.style.top = 20 + "vh";
             sun.style.backgroundColor = "yellow";
             sun.style.animation = "0.5s appearsun ease-in-out"
-            sun.zIndex = 3;
+            sun.style.zIndex = 3;
             sun.addEventListener("click", (e) => {
                 scenery();
             })
@@ -268,7 +268,7 @@
             mc.style.position = "absolute"
             mc.style.left = 85 + "vw";
             mc.style.top = 20 + "vh";
-            mc.zIndex = 3;
+            mc.style.zIndex = 3;
             let moon = document.createElement("div")
             moon.classList.add("cloudball")
             moon.style.scale = 1.52;
@@ -307,15 +307,15 @@
             crater4.style.top = -330 + "px";
             crater4.style.left = 30 + "px";
             crater4.style.animation = "0.5s appearmoon ease-in-out"
-            mc.addEventListener("click", (e) => {
-                scenery();
-            })
             document.body.appendChild(mc)
             mc.appendChild(moon)
             mc.appendChild(crater)
             mc.appendChild(crater2)
             mc.appendChild(crater3)
             mc.appendChild(crater4)
+            mc.addEventListener("click", (e) => {
+                scenery();
+            })
 
             document.body.style.background = "linear-gradient(0deg,rgba(0, 0, 0, 1) 0%, rgba(48, 48, 48, 1) 100%)"
             titleLabel.style.color = "#FFFFFF"
@@ -463,7 +463,7 @@
         else {timer2++}
         if (timer >= 250) {
             for (let i = 0; i <= 4; i++) {
-                let c = makeCloudElement(Math.random() * 5, Math.random() * 100, document.body);
+                let c = makeCloudElement(Math.random() * -20, Math.random() * 100, document.body);
                 c.style.position = "absolute"
                 c.style.scale = 0.35
                 clouds.push(c);
