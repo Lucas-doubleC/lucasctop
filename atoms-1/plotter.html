@@ -115,16 +115,21 @@
 		</ul>
 	</div>
 	<div style="display: inline-block; vertical-align: middle; width: 555px; height: 150px; position: relative; top: -14vh">
-			<label for="expression">\(f(x)= \)</label>
+			<label for="expression" style="color: red">\(f(x)= \)</label>
 			<input id="expression" type="text" placeholder="Escreva uma função. (ex. 2*x = 2x, 2**x = 2^x)" style="width:500px; position: relative; left: 50px;">
-			<label for="expression">\(g(x)= \)</label>
+
+			<label for="expression2" style="color: rgb(0, 0, 160)">\(g(x)= \)</label>
 			<input id="expression2" type="text" placeholder="Escreva uma função. (ex. 2*x = 2x, 2**x = 2^x)" style="width:500px; position: relative; left: 50px;">
-			<label for="expression">\(h(x)= \)</label>
+
+			<label for="expression3" style="color: rgb(14, 121, 0)">\(h(x)= \)</label>
 			<input id="expression3" type="text" placeholder="Escreva uma função. (ex. 2*x = 2x, 2**x = 2^x)" style="width:500px; position: relative; left: 50px;">
-			<label for="expression">\(k(x)= \)</label>
+
+			<label for="expression4" style="color: rgb(113, 0, 189)">\(k(x)= \)</label>
 			<input id="expression4" type="text" placeholder="Escreva uma função. (ex. 2*x = 2x, 2**x = 2^x)" style="width:500px; position: relative; left: 50px;">
-			<label for="expression">\(l(x)= \)</label>
+
+			<label for="expression5" style="color: rgb(0, 0, 0)">\(l(x)= \)</label>
 			<input id="expression5" type="text" placeholder="Escreva uma função. (ex. 2*x = 2x, 2**x = 2^x)" style="width:500px; position: relative; left: 50px;">
+
 			<button onclick="graphFunc(document.getElementById('expression').value, 
 			document.getElementById('expression2').value, document.getElementById('expression3').value, 
 			document.getElementById('expression4').value, document.getElementById('expression5').value, true)" 
@@ -291,10 +296,10 @@
 			g.fillRect(0, 0, cw, ch)
 			makeGrid()
 			graph(f, "#FF0000")
-			graph(f2, "#009900")
-			graph(f3, "#000099")
-			graph(f4, "#000000")
-			graph(f5, "#7800d4")
+			graph(f2, "#000099")
+			graph(f3, "#009900")
+			graph(f4, "#7800d4")
+			graph(f5, "#000000")
 		}
 	}
 </script>
