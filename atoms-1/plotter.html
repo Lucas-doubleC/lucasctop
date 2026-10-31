@@ -1,0 +1,300 @@
+<head>
+    <style>
+    .rectangle {
+		width: 100%;
+		height: 100px;
+		background: #00add9;
+		background: linear-gradient(180deg,rgba(0, 173, 217, 1) 0%, rgba(255, 255, 255, 1) 100%);
+		font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+		margin: 0px;
+		}
+    .rectangle h1 {
+		position: absolute;
+		left: 15px;
+		top: 20px;
+		}
+	.rectangle p {
+		position: absolute;
+		top: -10px;
+		}
+    .triangle {
+        width: 0px;
+        height: 0px;
+        border-right: 200px solid transparent;
+        border-bottom: 200px solid coral;
+    }
+    .anglerect {
+        width: 10px;
+        height: 10px;
+        position: relative;
+        background-color: black;
+        bottom: 26px;
+    }
+    .anglerect p {
+        position: relative;
+        bottom: 10px;
+    }
+
+	head {
+		padding: 0px;
+		margin: 0px;
+		box-sizing: border-box;
+		}
+	body {
+		margin: 5px;
+		margin-bottom: 2px;
+		margin-top: 2px;
+		background-image: url('assets/bg.png');
+		overflow-x: hidden;
+		}
+	body p {
+		position: relative;
+		left: 18px;
+		}
+	body img {
+		border-radius: 20px;
+		position: relative;
+		left: 18px;
+		}
+	body button {
+		border-radius: 20px;
+		position: relative;
+		left: 18px;
+		}
+	body h2 {
+		position: relative;
+		left: 18px;
+		}
+	body h3 {
+		position: relative;
+		left: 18px;
+		}
+	body h4 {
+		position: relative;
+		left: 18px;
+	}
+	.graph {
+		width: 100%;
+		height: 600px;
+		display: inline-block;
+		align-items: flex-start;
+	}
+	body input {
+		position: relative;
+		font-size: 16pt;
+		font-family: 'Cambria Math', 'Cambria', serif;
+	}
+    </style>
+</head>
+<body>
+    <div class="rectangle">
+        <p>Lucas Costa, 2026</p>
+        <h1>Gráfico de funções reais</h1>
+    </div>
+	<div class="graph" style="width: 100%">
+		<canvas id="grapher" width="1920" height="1080" style="border: solid black 5px; width:800px; height:400px; background-color: white"></canvas>
+		<!-- <button onclick="graphFunc('x', true)">$$f(x) = x$$</button>
+		<button onclick="graphFunc('2*x', true)">$$f(x) = 2x$$</button>
+		<button onclick="graphFunc('x*x', true)">$$f(x) = x^2$$</button>
+		<button onclick="graphFunc('x*x*x', true)">$$f(x) = x^3$$</button>
+		<button onclick="graphFunc('2.71**-(x**2)', true)">$$f(x) = e^{-x^2}$$</button> pretty shit approximation of euler's number, but hey it works. -->
+		<!-- <button onclick="drawIntegral(lastfunc, -10)" style="position: relative; left: 80px">←</button>
+		<button onclick="drawIntegral(lastfunc, 10)"style="position: relative; left: 80px">→</button> -->
+		<ul id="list" style="display: none">
+		<li><p>Lista de funções disponíveis:</p></li>
+		<li><p>Math.cos(x), Math.sin(x), Math.tan(x), ...variações de arco (Math.atan(x) etc.)</p></li>
+		<li><p>Math.round(x) - Arredonda para o próximo inteiro</p></li>
+		<li><p>Math.sign(x) - Retorna 1 se o número for positivo, 0 se nulo, -1 se negativo.</p></li>
+		<li><p>Math.log(x) - Logarítmo (base 10)</p></li>
+		<li><p>Math.sqrt(x) - Raiz quadrada</p></li>
+		<li><p>Math.cbrt(x) - Raiz cúbica</p></li>
+		<li><p>** - operador de potência (ex. x**2)</p></li>
+		<li><p>Sempre use * para indicar multiplicações</p></li>
+		<li><p>Math.abs(x) - Módulo de x</p></li>
+		<li><p>Outros - veja em <a style="font-style: italic" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math">Documentação do JavaScript</a></p></li>
+		</ul>
+	</div>
+	<div style="display: inline-block; vertical-align: middle; width: 555px; height: 150px; position: relative; top: -14vh">
+			<label for="expression">\(f(x)= \)</label>
+			<input id="expression" type="text" placeholder="Escreva uma função. (ex. 2*x = 2x, 2**x = 2^x)" style="width:500px; position: relative; left: 50px;">
+			<label for="expression">\(g(x)= \)</label>
+			<input id="expression2" type="text" placeholder="Escreva uma função. (ex. 2*x = 2x, 2**x = 2^x)" style="width:500px; position: relative; left: 50px;">
+			<label for="expression">\(h(x)= \)</label>
+			<input id="expression3" type="text" placeholder="Escreva uma função. (ex. 2*x = 2x, 2**x = 2^x)" style="width:500px; position: relative; left: 50px;">
+			<label for="expression">\(k(x)= \)</label>
+			<input id="expression4" type="text" placeholder="Escreva uma função. (ex. 2*x = 2x, 2**x = 2^x)" style="width:500px; position: relative; left: 50px;">
+			<label for="expression">\(l(x)= \)</label>
+			<input id="expression5" type="text" placeholder="Escreva uma função. (ex. 2*x = 2x, 2**x = 2^x)" style="width:500px; position: relative; left: 50px;">
+			<button onclick="graphFunc(document.getElementById('expression').value, 
+			document.getElementById('expression2').value, document.getElementById('expression3').value, 
+			document.getElementById('expression4').value, document.getElementById('expression5').value, true)" 
+			style="position: relative; left: 5vh; background-color: green; color: white; font-size: 32pt;">Plotar</button>
+		</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script>
+	// fucking mess
+	// 0 is 540px
+	// 1 is 440px
+	let ctx = document.getElementById("grapher");
+	let cpx = 0;
+	let g = ctx.getContext("2d");
+	let lastfunc = 'x';
+	let lT = 5;
+	let cw = ctx.width
+	let ch = ctx.height
+	const {PI, E, log, cos, tan, sin, asin, acos, atan, asinh, acosh, atanh, sqrt, cbrt, exp, log10, log2, abs, log1p, max, min, pow, round, sign, ceil, floor, trunc} = Math
+	function createCircle(x, y, r, color, mode) {
+        g.fillStyle = color
+        g.beginPath()
+        g.arc(x, y, r, 0, 2*Math.PI)
+        if (mode == 'fill' || mode == null) {
+            g.fill()
+        }
+        else if (mode == 'outline') {
+            g.stroke()
+        }
+    }
+	function makeGrid() {
+		cpx = 0
+		g.fillStyle = "#d4d4d4"
+		thickness = 3
+		while (cpx < 1920) {
+			cpx++
+			if (cpx % 30 == 0 && cpx > 0) {
+				g.fillRect(cpx, 0, thickness, 1080)
+				if (cpx == 960) {
+					g.fillStyle = 'black'
+					g.fillRect(cpx, 0, thickness, 1080)
+				}
+				g.fillStyle = "#d4d4d4"
+			}
+		}
+		
+		cpx = 0
+		while (cpx < 1080) {
+			cpx++
+			if (cpx % 30 == 0 && cpx > 0) {
+				g.fillStyle = "#d4d4d4"
+				g.fillRect(0, cpx, 1920, thickness)
+				if (cpx == 540) {
+					g.fillStyle = 'black'
+					g.fillRect(0, cpx, 1920, thickness)
+				}
+				g.fillStyle = "#d4d4d4"
+			}
+		}
+				
+		cpx = 40
+		while (cpx < 1920) {
+			g.fillStyle = 'black'
+			g.font = "35pt serif"
+			if (cpx != 940) {
+				g.fillText(String((cpx-940)/100), cpx+20, ch/2+40)
+			}
+			else {
+				cpx = cpx
+			}
+			cpx += 100;
+		}
+
+		cpx = 40
+		while (cpx < 1080) {
+			g.fillStyle = 'black'
+			g.font = "35pt serif"
+			if (cpx != 540) {
+				g.fillText(String(-((((cpx/10)-4)/10)-5)), cw/2+10, cpx+20)
+			}
+			else {
+				g.fillText(String(-((((cpx/10)-4)/10)-5)), cw/2+10, cpx+45)
+			}
+			cpx += 100;
+		}
+	}
+	makeGrid()
+	/* function drawIntegral(f, inc) { // still not used
+		if (inc) {
+			currentx += inc
+			g.fillStyle = "white"
+			g.fillRect(0, 0, cw, ch)
+			makeGrid()
+			cValue = cw-600 // displacement
+			cValue2 = 0
+			graphFunc(lastfunc)
+		}
+		thisissparta = Function("x", "return " + f) 
+		createCircle(currentx+cw/2, ch/2-thisissparta(currentx), 10, "red", "fill")
+		g.fillStyle = "blue"
+		g.fillRect(currentx+cw/2, ch/2-thisissparta(currentx), thickness, thisissparta(currentx))
+	} */
+
+	function factorial(x) {
+		result = x
+		for (let i = x-1; i > 1; i--) {
+			result = result * i;
+		}
+		return result;
+	}
+
+	function graph(f, c) {
+			cValue = -cw*xPace
+			cValue2 = 0
+			g.lineWidth = lT
+			g.strokeStyle = c
+			// only execute if sample size < 600.
+				//console.log(f)
+				// failsafe: if f is null/false, then f = 'x' by default.
+				//if (!f) {
+					//f = "x"
+				//}
+				while (cValue <= (cw*2)*xPace) {
+					//console.log(cValue)
+					cValue += xPace;
+					cValue = Math.round(cValue*(1/xPace))*xPace
+					cValue2 = (cValue)
+					cValue2 = Math.round(cValue2*(1/xPace))*xPace
+					f_1 = f.replace('x', cValue2).replace('e', (2.71));
+					let calc = Function("x", "return " + f)
+					result = calc(cValue2)
+					// set stroke color
+					// begin the points' calculations
+					g.beginPath()
+					// console.log(cValue2)
+					// console.log((cValue2)+(cw/2), (ch/2)-(result))
+					// console.log((ch/2)-(result*(1/xPace)))
+					g.moveTo((cValue2*(1/xPace))+(cw/2), (ch/2)-(result*(1/xPace)));
+					// calculate the 2nd point
+					cValue2 += xPace;
+					cValue2 = Math.round(cValue2*(1/xPace))*xPace
+					f_2 = f.replace('x', cValue2).replace('e', (2.71));
+					result_2 = calc(cValue2)
+					// draw the line
+					g.lineTo((cValue2*(1/xPace))+(cw/2), (ch/2)-(result_2*(1/xPace)))
+					g.stroke()
+					/* 
+					console.log(cValue) // debug
+					console.log(cValue2) // debug
+					console.log(f_1 + " " + f_2)
+					console.log("f_1: " + result + "\n" + "f_2: " + result_2)
+					console.log("coordinates_1: " + f_1 + ", " + result)
+					console.log("coordinates_2: " + f_2 + ", " + result_2)
+					*/
+				}
+	}
+
+	// console.log(factorial(5))
+
+	function graphFunc(f, f2, f3, f4, f5, isNew) {
+		if (isNew) {
+			xPace = 0.01
+			g.fillStyle = "white"
+			g.fillRect(0, 0, cw, ch)
+			makeGrid()
+			graph(f, "#FF0000")
+			graph(f2, "#009900")
+			graph(f3, "#000099")
+			graph(f4, "#000000")
+			graph(f5, "#7800d4")
+		}
+	}
+</script>
