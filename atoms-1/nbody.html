@@ -80,8 +80,10 @@
 <label for="proptomass">Proporcional à massa?</label>
 <div>
 <label style="border: 10px" for="fpscap" id="fcl">FPS: </label>
-<input id="fpscap" type="range" min="1" max="60" value="20">
+<input id="fpscap" type="range" min="1" max="60" value="60">
 <button id="stopbtn" onclick="stopped = !stopped; if (stopped) {document.getElementById('stopbtn').textContent = 'Começar'} else {document.getElementById('stopbtn').textContent = 'Parar'}">Parar</button>
+<label for="bcolor">Cor do objeto:</label>
+<input id="bcolor" type="color">
 </div>
 <div class="container">
 <canvas id="c" width="1200" height="800" style="border: 2px solid black; position: relative; margin: 15px;"></canvas>
@@ -184,13 +186,14 @@
     }
 
     class Planet {
-        constructor(pos, mass, radius, initialmomentum, id) {
+        constructor(pos, mass, radius, initialmomentum, c, id) {
             this.pos = pos
             this.mass = mass;
             this.radius = radius;
             this.a = 0;
             this.dirvec = initialmomentum;
             this.exists = true;
+            this.color = c
             this.id = id
         }
 
@@ -249,7 +252,7 @@
         }
 
         drawGraphics() {
-            drawCircle(this.pos.x, this.pos.y, this.radius, "black")
+            drawCircle(this.pos.x, this.pos.y, this.radius, this.color)
             ctx.fillText(Math.round(this.mass*10)/10 + "kg", this.pos.x-10, this.pos.y-this.radius-5)
         }
     }
@@ -280,14 +283,17 @@
             bodies.push(new Planet(new Vector2D(mouseCoords[0], mouseCoords[1]), 
             coef**power,
             5, 
-            new Vector2D(Number(document.getElementById("mx").value), Number(document.getElementById("my").value)), 
-            id))
+            new Vector2D(Number(document.getElementById("mx").value), Number(document.getElementById("my").value)),
+            document.getElementById("bcolor").value
+            , id))
         }
         else {
             bodies.push(new Planet(new Vector2D(mouseCoords[0], mouseCoords[1]), 
             coef**power, 5, 
             new Vector2D(Number(document.getElementById("mx").value)*coef**power, 
-            Number(document.getElementById("my").value)*coef**power), id))
+            Number(document.getElementById("my").value)*coef**power), 
+            document.getElementById("bcolor").value
+            ,id))
         }
         // console.log(document.getElementById("objmass").value)
     })
