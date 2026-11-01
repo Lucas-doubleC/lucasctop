@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .banner {
+            width: 100%;
+            height: 100px;
+            background: #78ff78;
+            background: linear-gradient(180deg,rgba(120, 255, 120, 1) 0%, rgba(200, 156, 255, 1) 100%);
+            margin: 0px;
+            border: 0px;
+            padding: 0;
+            border-bottom: solid rgb(145, 56, 255) 5px;
+        }
+
+        .descBox {
+            width: 98%;
+            height: 850px;
+            display: block;
+            background-color: white;
+            border: 0px solid black;
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            font-size: 14pt;
+            overflow-wrap: break-all;
+        }
+        .descBox p {
+            margin: 10px;
+        }
+
+        .container {
+            width: 100%;
+            height: 820px;
+            display: inline-block;
+            vertical-align: bottom;
+        }
+
+        .container p {
+            font-size: 14pt;
+        }
+
+        .container li {
+            font-size: 14pt;
+        }
+
+        body {
+            padding: 0;
+            border: 0;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        body #title {
+            margin: 0;
+            font-size: 36pt;
+        }
+
+        canvas {
+            width: 1200px;
+            height: 800px;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="banner">
+<p id="title">Simulação de atração gravitacional N-body</p>
+<p style="font-style: italic; font-size: 14pt; margin: 12px;">Lucas da Costa Campos, 2026</p>
+</div>
+<br>
+<label id="massLabel" style="border: 9px;" for="objmass">m = </label>
+<br>
+<input id="objmass" type="range" min="11" max="99">
+<input id="objmassexp" type="range" min="1" max="28">
+<!-- <p id="massLabel"></p> -->
+<label for="mx">Momento inicial</label>
+<input id="mx" type="number" placeholder="x"><input id="my" type="number" placeholder="y">
+<input id="proptomass" type="checkbox">
+<label for="proptomass">Proporcional à massa?</label>
+<div>
+<label style="border: 10px" for="fpscap" id="fcl">FPS: </label>
+<input id="fpscap" type="range" min="1" max="60" value="20">
+<button id="stopbtn" onclick="stopped = !stopped; if (stopped) {document.getElementById('stopbtn').textContent = 'Começar'} else {document.getElementById('stopbtn').textContent = 'Parar'}">Parar</button>
+</div>
+<div class="container">
+<canvas id="c" width="1200" height="800" style="border: 2px solid black; position: relative; margin: 15px;"></canvas>
+</div>
+<button id="showDesc" onclick="showDescBox()" style="width: 100%; height: 60px; font-size: 30pt; background-color: white; font-family: 'Times New Roman', Times, serif; display: flex; justify-content: center;">Ocultar descrição ↑</button>
+<div id="dB" class="descBox">
+</div>
+<script src="libs/complex.js"></script>
+<script>
+    cjs = document.getElementById("c")
+    ctx = cjs.getContext("2d")
+    var g = 6.7*(10**(-11))
+    // mostrar a caixa de descrição do fractal
+    function showDescBox() {
+        dbox = document.getElementById("dB")
+        sdb = document.getElementById("showDesc")
+        if (dbox.style.display == 'block') {
+            dbox.style.display = 'none'
+            sdb.textContent = "Mostrar descrição ↓"
+        }
+        else {
+            dbox.style.display = 'block'
+            sdb.textContent = "Ocultar descrição ↑"
+        }
+    }
+    
+    function drawCircle(x, y, r, c) {
+        ctx.fillStyle = c
+        ctx.beginPath()
+        ctx.moveTo(x, y)
+        ctx.arc(x, y, r, 0, Math.PI*2)
+        ctx.fill();
+    }
+
+    function clearCanvas() {
+        ctx.fillStyle = "white"
+        ctx.fillRect(0, 0, cjs.width, cjs.height)
+    }
+
+    function angleOf(x, y) {
+        return Math.atan(x/y);
+    }
+
+    bodies = []
+    id = -1;
+
+    class Vector2D {
+        constructor(x, y) {
+            this.x = x;
+            this.y = y;
+        }
+
+        sub(n) {
+           var res = new Vector2D(0, 0)
+            if (n instanceof Vector2D) {
+                res.x = this.x - n.x;
+                res.y = this.y - n.y;
+            }
+            return res
+        }
+
+        add(n) {
+           var res = new Vector2D(0, 0)
+            if (n instanceof Vector2D) {
+                res.x = this.x + n.x;
+                res.y = this.y + n.y;
+            }
+            return res
+        }
+
+        mult(n) {
+           var res = new Vector2D(0, 0)
+            if (n instanceof Vector2D) {
+                res.x = this.x * n.x;
+                res.y = this.y * n.y;
+            }
+            else {
+                res.x = this.x * n;
+                res.y = this.y * n;
+            }
+            return res
+        }
+
+        div(n) {
+           var res = new Vector2D(0, 0)
+            if (n instanceof Vector2D) {
+                res.x = this.x / n.x;
+                res.y = this.y / n.y;
+            }
+            else {
+                res.x = this.x / n;
+                res.y = this.y / n;
+            }
+            return res
+        }
+
+        mag() {
+            return Math.sqrt(this.x**2 + this.y**2)
+        }
+    }
+
+    class Planet {
+        constructor(pos, mass, radius, initialmomentum, id) {
+            this.pos = pos
+            this.mass = mass;
+            this.radius = radius;
+            this.a = 0;
+            this.dirvec = initialmomentum;
+            this.exists = true;
+            this.id = id
+        }
+
+        /* addVector(vec) {
+            this.x += vec.x;
+            this.y += vec.y;
+        } */
+
+        /* applyForce(N, dirvec) {
+            this.a = N / this.mass
+            this.dirvec = dirvec
+        } */
+
+        calcVecDist2Unit(body) {
+            if (this.exists) {
+                if (Math.abs(new Vector2D(this.pos.x-body.pos.x, this.pos.y-body.pos.y).x) <= this.radius && Math.abs(new Vector2D(this.pos.x-body.pos.x, this.pos.y-body.pos.y).y) <= this.radius) {
+                    if (this.mass < body.mass) {
+                        this.exists = false;
+                        return body.dirvec;
+                    }
+                    else if (this.mass > body.mass) {
+                        body.exists = false;
+                        this.exists = true;
+                    }
+                    else if (this.mass == body.mass) {
+                        body.exists = false;
+                        this.exists = false;
+                    }
+                }
+                return new Vector2D(this.pos.x-body.pos.x, this.pos.y-body.pos.y)
+            }
+            else {
+                return new Vector2D(0, 0)
+            }
+        }
+
+        simIndependentLogic() {
+            if (this.exists) {
+                this.pos = this.pos.add(this.dirvec.div(this.mass))
+                //console.log(this.dirvec)
+            }
+        }
+
+        simLogicwithBody(b) {
+            if (this.exists && b.exists) {
+                //console.log(-(g*b.mass*this.mass)/((this.calcVecDist2Unit(b).mag())**3))
+                //console.log(this.calcVecDist2Unit(b).mult(-(g*b.mass*this.mass)/((this.calcVecDist2Unit(b).mag())**3)))
+                this.pos = this.pos.add(this.dirvec.div(this.mass))
+                this.dirvec = this.dirvec.add(this.calcVecDist2Unit(b).mult(-(g*b.mass*this.mass)/((this.calcVecDist2Unit(b).mag())**3)))
+                // console.log(this.dirvec)
+                // console.log(this.dirvec)
+                //console.log(-(g*b.mass*this.mass)/((this.calcVecDist2Unit(b).mag())**3))
+                //console.log(this.calcVecDist2Unit(b))
+                //console.log(b)
+            }
+        }
+
+        drawGraphics() {
+            drawCircle(this.pos.x, this.pos.y, this.radius, "black")
+            ctx.fillText(Math.round(this.mass*10)/10 + "kg", this.pos.x-10, this.pos.y-this.radius-5)
+        }
+    }
+
+    // console.log(new Vector2D(4, 3).mult(2))
+
+    // bodies = [new Planet(new Vector2D(400, 300), 60, 40), 
+    // new Planet(new Vector2D(400, 600), 120000000000000, 60)]
+    let fps = 15;
+    let start;
+    let pindex = 0;
+    let stopped = false;
+
+    function getMouseCoords(c, ev) {
+        let rectangle = c.getBoundingClientRect();
+        let x = event.clientX - rectangle.left;
+        let y = event.clientY - rectangle.top;
+        return [x, y];
+    }
+    var mouseCoords;
+    cjs.addEventListener("mousedown", function (e) {
+        mouseCoords = getMouseCoords(cjs, e);
+        id++;
+        coef = Number(document.getElementById("objmass").value/10)
+        power = Number(document.getElementById("objmassexp").value)
+        console.log(coef, power)
+        if (!document.getElementById("proptomass").checked) {
+            bodies.push(new Planet(new Vector2D(mouseCoords[0], mouseCoords[1]), 
+            coef**power,
+            5, 
+            new Vector2D(Number(document.getElementById("mx").value), Number(document.getElementById("my").value)), 
+            id))
+        }
+        else {
+            bodies.push(new Planet(new Vector2D(mouseCoords[0], mouseCoords[1]), 
+            coef**power, 5, 
+            new Vector2D(Number(document.getElementById("mx").value)*coef**power, 
+            Number(document.getElementById("my").value)*coef**power), id))
+        }
+        // console.log(document.getElementById("objmass").value)
+    })
+
+    function draw(ts) {
+        fps = Number(document.getElementById("fpscap").value)
+        document.getElementById("fcl").textContent = "FPS:" + fps
+        document.getElementById("fpscap")
+        if (start === undefined) {
+            start = ts
+        }
+        if (ts-start >= 1000 / fps) {
+            if (!stopped) {
+                pindex = -1;
+                clearCanvas()
+                document.getElementById("massLabel").textContent = "m = " + document.getElementById("objmass").value/10
+                + "^" + document.getElementById("objmassexp").value + "kg"
+                document.getElementById("massLabel").style.margin = 9 + 'px'
+                bodies.forEach(p => {
+                    // console.log(p.dirvec)
+                    pindex++
+                    if (!p.exists) {p = null; bodies[pindex] = null; bodies.splice(pindex, 1)}
+                    else if (p.exists) {
+                        p.drawGraphics()
+                        p.simIndependentLogic()
+                        bodies.forEach(p2 => {
+                            if (p.id != p2.id) {
+                                p.simLogicwithBody(p2)
+                            }
+                        })
+                    }
+                });
+            }
+            else {
+                clearCanvas()
+                bodies.forEach(p => {
+                    p.drawGraphics()
+                })
+            }
+            start = ts
+        }
+        document.getElementById("massLabel").textContent = "m = " + document.getElementById("objmass").value/10
+        + "^" + document.getElementById("objmassexp").value + "kg"
+        document.getElementById("massLabel").style.margin = 9 + 'px'
+        requestAnimationFrame(draw)
+    }
+    requestAnimationFrame(draw)
+
+</script>
